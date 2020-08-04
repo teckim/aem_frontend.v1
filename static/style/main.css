@@ -1,0 +1,18 @@
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: unset !important;
+  -moz-osx-font-smoothing: unset !important;
+}
+body {
+  min-height: 100vh;
+}
+.plain:hover:before {
+  background-color: transparent;
+}
+.plain:before {
+  display: none;
+}
+.v-card__text,
+.v-card__title {
+  word-break: normal !important;
+}
