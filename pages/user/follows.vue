@@ -88,6 +88,11 @@ export default {
           this.getFollows()
           this.$auth.fetchUser()
         })
+    },
+    head() {
+      return {
+        title: 'Follows'
+      }
     }
   }
 }

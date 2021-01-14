@@ -370,15 +370,13 @@ export default {
     }
   },
   head() {
-    const desc = `Algeria English Meeting - ${
-      this.event
-        ? this.event.about || this.event.project.description
-        : process.env.npm_package_description
-    } - starts on
-          ${new Date(this.event.startsOn).toUTCString()}`
-    const title = `Algeria English Meeting -  ${
-      this.event ? this.event.subject : 'Algeria English Meeting'
-    }`
+    if (!this.event)
+      return {
+        title: this.event ? this.event.subject : 'Event'
+      }
+    const desc = `on ${new Date(this.event.startsOn).toUTCString()} - 
+    ${this.event.about || this.event.project.description}`
+    const title = `${this.event.subject || 'Event'} - Algeria English Meeting`
     const image = `${this.$axios.defaults.baseURL}/images/${this.event.image.name}?w=500`
     return {
       title: this.event ? this.event.subject : 'Event',
@@ -406,6 +404,11 @@ export default {
           content: image
         },
         // Facebook
+        {
+          hid: 'url',
+          property: 'og:url',
+          content: `https://aemeeting.org/events/${this.event._id}`
+        },
         {
           hid: 'fb-title',
           property: 'og:title',

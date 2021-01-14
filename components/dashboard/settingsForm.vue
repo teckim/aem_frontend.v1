@@ -70,7 +70,7 @@ export default {
   watch: {
     data(v) {
       if (v) {
-        this.office.tasks = v.tasks
+        this.office.tasks = v.tasks || []
         this.office.vacant = v.vacant
       }
     }

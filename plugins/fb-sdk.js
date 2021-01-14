@@ -13,13 +13,11 @@ vueFB.install = function install(Vue, options) {
     js.id = id
     js.src = 'https://connect.facebook.net/en_US/sdk.js'
     fjs.parentNode.insertBefore(js, fjs)
-    // eslint-disable-next-line no-console
-    console.log('setting fb sdk')
   })(document, 'script', 'facebook-jssdk')
 
   window.fbAsyncInit = function onSDKInit() {
     FB.init(options)
-    FB.AppEvents.logPageView()
+    // FB.AppEvents.logPageView()
     Vue.FB = FB
     window.dispatchEvent(new Event('fb-sdk-ready'))
     vueFB.sdk = FB // do not forget this line

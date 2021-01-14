@@ -195,25 +195,21 @@ export default {
     title: 'Vuetify.js',
     items: [
       {
-        icon: 'mdi-apps',
         title: 'HOME',
         to: '/'
       },
       {
-        icon: 'mdi-chart-bubble',
         title: 'EVENTS',
         to: '/events'
       },
       {
-        icon: 'mdi-chart-bubble',
         title: 'JOIN US',
         to: '/join'
+      },
+      {
+        title: 'ABOUT US',
+        to: '/about-us'
       }
-      // {
-      //   icon: 'mdi-chart-bubble',
-      //   title: 'ABOUT',
-      //   to: '/about'
-      // },
       // {
       //   icon: 'mdi-chart-bubble',
       //   title: 'CONTACT US',

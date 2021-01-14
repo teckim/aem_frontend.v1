@@ -98,8 +98,6 @@
 </template>
 
 <script>
-// import { QrcodeStream } from 'vue-qrcode-reader'
-
 const Qr = process.client ? require('vue-qrcode-reader') : null
 export default {
   components: {

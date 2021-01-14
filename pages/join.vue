@@ -141,6 +141,11 @@ export default {
           this.$router.push('/')
         })
         .finally(() => (this.saving = false))
+    },
+    head() {
+      return {
+        title: 'Join a team'
+      }
     }
   }
 }

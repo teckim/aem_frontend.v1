@@ -1,11 +1,11 @@
 <template>
-  <v-row>
+  <v-row class="py-4">
     <v-col
       v-for="(item, i) in items"
       :key="i"
       sm="4"
       cols="12"
-      class=" d-flex flex-column align-center"
+      class="d-flex flex-column align-center"
     >
       <div class="mx-auto my-2">
         <img width="70" :src="item.img" :alt="item.title" />

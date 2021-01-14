@@ -1,5 +1,13 @@
 <template>
   <div>
+    <v-row>
+      <v-col>
+        <v-alert dense text border="left" type="warning" :value="true">
+          Please note that more then 3 unchecked in tickets, your account will
+          be banned for a while.
+        </v-alert>
+      </v-col>
+    </v-row>
     <v-row justify="space-between" align="center" no-gutters>
       <span class="headline py-2">My tickets</span>
       <v-btn to="/events" rounded dark color="main">
@@ -55,7 +63,7 @@ export default {
   },
   head() {
     return {
-      title: 'User tikets'
+      title: 'Tikets'
     }
   }
 }

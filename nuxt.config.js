@@ -1,10 +1,14 @@
 // import colors from 'vuetify/es5/util/colors'
-
+const meta = {
+  description:
+    'A non-profit organization that brings English learners together through fun activities.',
+  image: 'https://i.ibb.co/tcRBdXj/aem-logo-fb.png'
+}
 export default {
-  server: {
-    port: 5000, // default: 3000
-    host: '0.0.0.0' // default: localhost
-  },
+  // server: {
+  //   port: 5000, // default: 3000
+  //   host: '0.0.0.0' // default: localhost
+  // },
   mode: 'universal',
   /*
    ** Headers of the page
@@ -21,7 +25,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description
+        content: meta.description
       },
       // GOOGLE / Search engin
       {
@@ -32,15 +36,15 @@ export default {
       {
         hid: 'google-description',
         itemprop: 'description',
-        content: process.env.npm_package_description
+        content: meta.description
       },
       {
         hid: 'google-image',
         itemprop: 'image',
-        content: 'https://i.ibb.co/2yPh9sW/aem.png'
+        content: meta.image
       },
       // Facebook
-      { property: 'og:url', content: 'https://www.aemeeting.org' },
+      { hid: 'url', property: 'og:url', content: 'https://aemeeting.org' },
       { property: 'og:type', content: 'website' },
       {
         hid: 'fb-title',
@@ -50,12 +54,12 @@ export default {
       {
         hid: 'fb-description',
         property: 'og:description',
-        content: process.env.npm_package_description
+        content: meta.description
       },
       {
         hid: 'fb-image',
         property: 'og:image',
-        content: 'https://i.ibb.co/2yPh9sW/aem.png'
+        content: meta.image
       },
       // Twitter
       { name: 'twitter:card', content: 'summary_large_image' },
@@ -67,12 +71,12 @@ export default {
       {
         hid: 'tw-description',
         name: 'twitter:decription',
-        content: process.env.npm_package_description
+        content: meta.description
       },
       {
         hid: 'tw-image',
         name: 'twitter:image',
-        content: 'https://i.ibb.co/2yPh9sW/aem.png'
+        content: meta.image
       }
     ],
     link: [
@@ -83,15 +87,21 @@ export default {
         href:
           'https://fonts.googleapis.com/css?family=Quicksand:300,400,500,600,700&display=swap&subset=latin-ext,vietnamese'
       }
+    ],
+    script: [
+      { src: '/script/fb-pixel.js' }
+      // {
+      //   async: true,
+      //   defer: true,
+      //   src: 'https://connect.facebook.net/en_US/sdk.js'
+      // }
+    ],
+    noscript: [
+      {
+        innerHTML:
+          'img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1002337300222187&ev=PageView&noscript=1"/>'
+      }
     ]
-    // script: [
-    //   // { src: '/js/fb-sdk.js' }
-    //   // {
-    //   //   async: true,
-    //   //   defer: true,
-    //   //   src: 'https://connect.facebook.net/en_US/sdk.js'
-    //   // }
-    // ]
   },
   /*
    ** Customize the progress-bar color
@@ -132,8 +142,8 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'https://api.aemeeting.org/api'
-    // baseURL: 'http://localhost:8081/api'
+    // baseURL: 'https://api.aemeeting.org/api'
+    baseURL: 'http://localhost:8081/api'
     // baseURL: 'https://6e8d504ba33f.ngrok.io/api'
   },
   /*
@@ -162,14 +172,14 @@ export default {
         // tokenRequired: true,
         tokenType: '',
         autoFetchUser: true
-      },
-      facebook: {
-        client_id: '2087388874632817',
-        authorization_endpoint: 'https://www.facebook.com/v6.0/dialog/oauth',
-        userinfo_endpoint:
-          'https://graph.facebook.com/v6.0/me?fields=id%2Clast_name%2Cfirst_name%2Cemail%2Cbirthday',
-        scope: ['public_profile', 'email', 'user_gender', 'user_birthday']
       }
+      // facebook: {
+      //   client_id: '2087388874632817',
+      //   authorization_endpoint: 'https://www.facebook.com/v6.0/dialog/oauth',
+      //   userinfo_endpoint:
+      //     'https://graph.facebook.com/v6.0/me?fields=id%2Clast_name%2Cfirst_name%2Cemail%2Cbirthday',
+      //   scope: ['public_profile', 'email', 'user_gender', 'user_birthday']
+      // }
     }
   },
   vuetify: {

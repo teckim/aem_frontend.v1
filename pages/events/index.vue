@@ -173,6 +173,11 @@ export default {
         })
         .finally(() => (this.loading = false))
     }
+  },
+  head() {
+    return {
+      title: 'Events'
+    }
   }
 }
 </script>
