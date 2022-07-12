@@ -263,7 +263,7 @@ export default {
         }
         if (data.startsOn.getTime() < new Date().getTime()) {
           this.showError('Start Date cannot be before current Date')
-        } else if (data.startsOn.getTime() >= data.endsOn.getTime()) {
+        } else if (data.startsOn.getTime() > data.endsOn.getTime()) {
           this.showError('Start Date cannot be after End Date')
         } else if (data.endsOn.getTime() - data.startsOn.getTime() < 1800000) {
           this.showError('The Event must be at least 30 min')

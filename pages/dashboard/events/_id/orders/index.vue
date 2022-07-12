@@ -317,6 +317,7 @@ export default {
     createCSV(orders) {
       const csvData = orders
         .map((order) => {
+          if (!order.user) return
           return [
             order.user.first,
             order.user.last,

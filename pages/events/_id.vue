@@ -276,7 +276,6 @@ export default {
     sponsors
   },
   asyncData({ params, app, error }) {
-    // We can use async/await ES6 feature
     return app.$axios
       .get(`/events/${params.id}`)
       .then(({ data }) => {
