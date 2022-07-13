@@ -135,7 +135,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth-next'
   ],
   /*
    ** Axios module configuration
@@ -143,7 +143,8 @@ export default {
    */
   axios: {
     // baseURL: 'https://api.aemeeting.org/api'
-    baseURL: 'http://localhost:8081/api'
+    // baseURL: 'http://localhost:8081/api'
+    baseURL: 'http://api.aem.test/api'
     // baseURL: 'https://6e8d504ba33f.ngrok.io/api'
   },
   /*
@@ -151,62 +152,38 @@ export default {
    ** https://github.com/nuxt-community/vuetify-module
    */
   auth: {
-    // Options
     redirect: {
       login: '/login',
       logout: '/login',
-      callback: '/login',
+      callback: false,
       home: false
     },
     strategies: {
-      local: {
+      laravelJWT: {
+        provider: 'laravel/jwt',
+        url: 'auth',
         endpoints: {
-          login: {
-            url: 'users/login',
-            method: 'post',
-            propertyName: 'token'
-          },
-          user: { url: '/users/user', method: 'get', propertyName: 'user' },
-          logout: false
+          login: { url: '/login', method: 'post' },
+          logout: { url: '/logout', method: 'post' },
+          refresh: { url: '/refresh', method: 'post' },
+          user: { url: '/me', method: 'get', propertyName: 'user' }
         },
-        // tokenRequired: true,
-        tokenType: '',
-        autoFetchUser: true
-      }
-      // facebook: {
-      //   client_id: '2087388874632817',
-      //   authorization_endpoint: 'https://www.facebook.com/v6.0/dialog/oauth',
-      //   userinfo_endpoint:
-      //     'https://graph.facebook.com/v6.0/me?fields=id%2Clast_name%2Cfirst_name%2Cemail%2Cbirthday',
-      //   scope: ['public_profile', 'email', 'user_gender', 'user_birthday']
-      // }
-    }
-  },
-  vuetify: {
-    customVariables: ['~/assets/variables.scss'],
-    defaultAssets: {
-      font: false
-    },
-    treeShake: true,
-    theme: {
-      dark: false,
-      options: {
-        customProperties: true
-      },
-      themes: {
-        light: {
-          primary: '#2196f3',
-          secondary: '#9c27b0',
-          accent: '#e91e63',
-          error: '#ff5722',
-          warning: '#ff9800',
-          info: '#00bcd4',
-          success: '#8bc34a',
-          main: '#ee8b5d',
-          minor: '#161a45'
+        token: {
+          property: 'access_token',
+          maxAge: 60 * 60
+        },
+        refreshToken: {
+          property: 'access_token',
+          maxAge: 20160 * 60,
+          tokenRequired: true
         }
       }
     }
+  },
+  vuetify: {
+    optionsPath: '~/vuetify.options.js',
+    customVariables: ['~/assets/variables.scss'],
+    treeShake: true
   },
   /*
    ** Build configuration
@@ -215,6 +192,6 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend (config, ctx) {}
   }
 }
