@@ -3,7 +3,9 @@
     <v-slide-x-transition hide-on-leave>
       <div v-if="!success" key="1">
         <v-card :loading="loading">
-          <v-card-title primary-title>Forget password</v-card-title>
+          <v-card-title primary-title>
+            Forget password
+          </v-card-title>
           <v-card-subtitle>send reset password email</v-card-subtitle>
           <v-card-text>
             <v-form ref="forgetPassForm">
@@ -16,7 +18,7 @@
                   name="email"
                   label="Email"
                   :rules="vLogEmail"
-                ></v-text-field>
+                />
               </v-col>
             </v-form>
           </v-card-text>
@@ -40,12 +42,12 @@
         <v-card :loading="loading">
           <div class="text-center py-5 px-1">
             <check />
-            <h3 class="success--text pb-2">Email sent!</h3>
-            <span class="body-2 grey--text"
-              >We've sent you a reset password email that is valid for 1H,
-              <br />
-              please check your email inbox/spam to reset your password.</span
-            ><br />
+            <h3 class="success--text pb-2">
+              Email sent!
+            </h3>
+            <span class="body-2 grey--text">We've sent you a reset password email that is valid for 1H,
+              <br>
+              please check your email inbox/spam to reset your password.</span><br>
             <v-btn
               v-show="email"
               text
@@ -53,7 +55,7 @@
               :disabled="!!count"
               @click="sendResetPassEmail"
             >
-              resend again... <span v-show="!!count" v-text="count"></span>
+              resend again... <span v-show="!!count" v-text="count" />
             </v-btn>
           </div>
         </v-card>
@@ -78,7 +80,7 @@ export default {
     ...validators
   }),
   methods: {
-    sendResetPassEmail() {
+    sendResetPassEmail () {
       if (this.$refs.forgetPassForm.validate()) {
         this.loading = true
         this.$axios
@@ -92,10 +94,10 @@ export default {
           })
       }
     },
-    countDown() {
+    countDown () {
       this.count = 1
       const vm = this
-      const interval = setInterval(function() {
+      const interval = setInterval(function () {
         if (vm.count < 60) {
           vm.count++
         } else {

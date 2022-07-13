@@ -1,13 +1,19 @@
 <template>
   <v-card>
-    <v-card-title primary-title> Share {{ type }} </v-card-title>
+    <v-card-title primary-title>
+      Share {{ type }}
+    </v-card-title>
     <v-card-text class="text-center">
       <v-row justify="space-around" class="py-8 mx-12">
         <v-btn icon width="48" height="48" @click="copyToClipBoard">
-          <v-icon size="36">mdi-content-copy</v-icon>
+          <v-icon size="36">
+            mdi-content-copy
+          </v-icon>
         </v-btn>
         <v-btn icon width="48" height="48" color="primary" @click="shareToFB">
-          <v-icon size="36">mdi-facebook</v-icon>
+          <v-icon size="36">
+            mdi-facebook
+          </v-icon>
         </v-btn>
         <v-btn
           icon
@@ -16,7 +22,9 @@
           color="primary lighten-1"
           @click="shareToMessenger"
         >
-          <v-icon size="36">mdi-facebook-messenger</v-icon>
+          <v-icon size="36">
+            mdi-facebook-messenger
+          </v-icon>
         </v-btn>
       </v-row>
     </v-card-text>
@@ -41,25 +49,25 @@ export default {
     }
   },
   methods: {
-    shareToFB() {
+    shareToFB () {
       this.$fb.sdk.ui(
         {
           method: 'share',
           href: `https://aemeeting.org/events/${this.id}`
         },
-        function(response) {}
+        function (response) {}
       )
     },
-    shareToMessenger() {
+    shareToMessenger () {
       this.$fb.sdk.ui(
         {
           method: 'send',
           link: `https://aemeeting.org/events/${this.id}`
         },
-        function(response) {}
+        function (response) {}
       )
     },
-    copyToClipBoard() {
+    copyToClipBoard () {
       const textArea = document.createElement('input')
       textArea.value = `https://aemeeting.org/events/${this.id}`
       document.body.appendChild(textArea)

@@ -7,9 +7,11 @@
       app
       elevate-on-scroll
     >
-      <a href="/"
-        ><img height="64" :src="require('@/static/logos/aem.png')" alt
-      /></a>
+      <a href="/"><img
+        height="64"
+        :src="require('@/static/logos/aem.png')"
+        alt
+      ></a>
       <div class="d-flex align-center nav">
         <nav class="mx-auto d-none d-md-flex">
           <v-tabs
@@ -19,7 +21,7 @@
             active-class="font-weight-bold text--primary"
             height="64"
           >
-            <v-tabs-slider color="main"></v-tabs-slider>
+            <v-tabs-slider color="main" />
             <v-tab
               v-for="(item, i) in items"
               :key="i"
@@ -28,14 +30,14 @@
               :ripple="false"
               :to="item.to"
             >
-              <div v-text="item.title"></div>
+              <div v-text="item.title" />
             </v-tab>
           </v-tabs>
           <!-- <ul class="list d-inline-flex">
             <li v-for="(item, i) in items" :key="i" class="list_item px-5 py-1">
               <nuxt-link
                 class="navLink body-2 font-weight-medium"
-                
+
                 active-class="navLink--active"
                 :to="item.to"
               >
@@ -56,7 +58,7 @@
               </nuxt-link>
             </li>
             <div class="py-1">
-              <v-divider vertical></v-divider>
+              <v-divider vertical />
             </div>
             <li class="list_item px-2 py-1">
               <nuxt-link
@@ -70,7 +72,7 @@
           </ul>
           <div v-else-if="$auth.user" class="d-inline-flex">
             <v-menu open-on-hover bottom>
-              <template v-slot:activator="{ on }">
+              <template #activator="{ on }">
                 <v-btn small text color="primary" v-on="on">
                   <v-icon left>mdi-account</v-icon>
                   <div class="text-truncate" style="max-width: 100px">
@@ -87,15 +89,13 @@
                 >
                   <v-list-item-title>{{ item.title }}</v-list-item-title>
                 </v-list-item>
-                <v-divider class="mx-4"></v-divider>
+                <v-divider class="mx-4" />
                 <v-list-item v-if="$auth.user.role !== 'user'" to="/dashboard">
                   <v-list-item-title>Dashboard</v-list-item-title>
                 </v-list-item>
-                <v-divider class="mx-4"></v-divider>
+                <v-divider class="mx-4" />
                 <v-list-item link @click="logout">
-                  <v-list-item-title class="main--text"
-                    >LOGOUT</v-list-item-title
-                  >
+                  <v-list-item-title class="main--text">LOGOUT</v-list-item-title>
                 </v-list-item>
               </v-list>
             </v-menu>
@@ -135,7 +135,7 @@
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
-          <v-divider class="mx-8 my-5"></v-divider>
+          <v-divider class="mx-8 my-5" />
           <template v-if="$auth.loggedIn">
             <v-list-item
               v-for="(item, index) in menuItems"
@@ -153,9 +153,10 @@
             </v-list-item>
             <v-list-item link>
               <v-list-item-content class="text-center">
-                <v-list-item-title class="primary--text" @click="logout"
-                  >Logout</v-list-item-title
-                >
+                <v-list-item-title
+                  class="primary--text"
+                  @click="logout"
+                >Logout</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </template>
@@ -232,7 +233,7 @@ export default {
     ]
   }),
   methods: {
-    logout() {
+    logout () {
       this.$auth.logout('local')
     }
   }

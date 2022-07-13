@@ -2,9 +2,16 @@
   <v-row class="login-container" justify="center" no-gutters>
     <v-col md="5" cols="12" order-md="1" order="2">
       <div class="login-homeLink">
-        <v-btn tile text to="/" class="main--text"
-          ><v-icon left>mdi-chevron-left</v-icon> home</v-btn
+        <v-btn
+          tile
+          text
+          to="/"
+          class="main--text"
         >
+          <v-icon left>
+            mdi-chevron-left
+          </v-icon> home
+        </v-btn>
       </div>
       <v-card flat height="100%" class="d-flex flex-column justify-center">
         <div>
@@ -43,9 +50,9 @@
                 <p class="body-2 grey--text text--lighten-4">
                   Welcome to the family where we live English, Enjoy your time
                   while
-                  <br />
+                  <br>
                   your English gets better and better every day.
-                  <br /><br />
+                  <br><br>
                   Already have an account?
                 </p>
                 <div class="d-flex flex-sm-row align-center">
@@ -57,8 +64,11 @@
                     width="150"
                     color="white"
                     class="main--text mr-2"
-                    >Log in <v-icon small right>mdi-arrow-right</v-icon></v-btn
                   >
+                    Log in <v-icon small right>
+                      mdi-arrow-right
+                    </v-icon>
+                  </v-btn>
                   <social-media :items="socialItems" />
                 </div>
               </div>
@@ -67,14 +77,20 @@
         </v-img>
       </div>
       <div class="logo">
-        <v-btn tile text to="/" class="white--text px-6" height="auto"
-          ><v-img
+        <v-btn
+          tile
+          text
+          to="/"
+          class="white--text px-6"
+          height="auto"
+        >
+          <v-img
             class="mx-auto"
             width="7rem"
             :src="require('@/static/logos/aem-logo-white.png')"
             alt
-          ></v-img
-        ></v-btn>
+          />
+        </v-btn>
       </div>
     </v-col>
   </v-row>
@@ -85,11 +101,11 @@ import registerForm from '@/components/global/registerForm'
 import socialMedia from '~/components/global/socialMedia'
 
 export default {
-  layout: 'blank',
   components: {
     registerForm,
     socialMedia
   },
+  layout: 'blank',
   data: () => ({
     socialItems: [
       { icon: 'mdi-facebook', link: 'https://fb.com/aemeeting' },
@@ -101,24 +117,22 @@ export default {
       }
     ]
   }),
+  head () {
+    return {
+      title: 'Register'
+    }
+  },
   computed: {
-    to() {
+    to () {
       return this.$route.query.to || ''
     }
   },
   methods: {
-    async registerUser(user) {
+    async registerUser (user) {
       await this.$auth.loginWith('local', {
         data: user
       })
-      if (this.to) this.$router.push(this.to)
-      else if (this.$auth.user.role === 'user') this.$router.push('/user')
-      else this.$router.push('/dashboard')
-    }
-  },
-  head() {
-    return {
-      title: 'Register'
+      if (this.to) { this.$router.push(this.to) } else if (this.$auth.user.role === 'user') { this.$router.push('/user') } else { this.$router.push('/dashboard') }
     }
   }
 }

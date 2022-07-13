@@ -130,21 +130,21 @@ export default {
   data: () => ({
     sponsors: null
   }),
-  mounted() {
+  head () {
+    return {
+      title: 'Home'
+    }
+  },
+  mounted () {
     this.getSponsors()
   },
   methods: {
-    getSponsors() {
+    getSponsors () {
       this.$axios
         .get('/sponsors', { params: { type: 'official' } })
         .then(({ data }) => {
           this.sponsors = data.sponsors
         })
-    }
-  },
-  head() {
-    return {
-      title: 'Home'
     }
   }
 }

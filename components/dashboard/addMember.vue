@@ -16,7 +16,7 @@
             name="email"
             label="Email"
             :rules="vRegEmail"
-          ></v-text-field>
+          />
           <v-select
             v-model="role"
             validate-on-blur
@@ -26,7 +26,7 @@
             label="Role"
             :items="roles"
             :rules="[(v) => !!v || 'Role is required']"
-          ></v-select>
+          />
         </v-col>
       </v-form>
     </v-card-text>
@@ -65,17 +65,17 @@ export default {
     vRegEmail: validators.vRegEmail
   }),
   watch: {
-    email(v) {
+    email (v) {
       if (v) {
         this.emailInput = v
       }
     }
   },
-  mounted() {
-    if (this.email) this.emailInput = this.email
+  mounted () {
+    if (this.email) { this.emailInput = this.email }
   },
   methods: {
-    save() {
+    save () {
       if (this.$refs.form.validate()) {
         this.loading = true
         const data = {

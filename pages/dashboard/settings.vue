@@ -4,7 +4,9 @@
       <span class="headline py-2">Settings</span>
       <v-btn rounded dark color="main" :loading="saving" @click="save">
         <span class="pr-4">save</span>
-        <v-icon right>mdi-arrow-right</v-icon>
+        <v-icon right>
+          mdi-arrow-right
+        </v-icon>
       </v-btn>
     </v-row>
     <v-card :loading="loading" flat class="mt-12">
@@ -25,21 +27,21 @@ export default {
     settings: null
   }),
   computed: {
-    office() {
+    office () {
       return this.$auth.user.office
     }
   },
-  mounted() {
+  mounted () {
     this.getOffice()
   },
   methods: {
-    getOffice() {
+    getOffice () {
       this.$axios
         .get(`/offices/${this.office._id}`)
         .then(({ data }) => (this.settings = data.office))
         .finally(() => (this.loading = false))
     },
-    save() {
+    save () {
       this.saving = true
       const data = this.$refs.settings.office
       this.$axios

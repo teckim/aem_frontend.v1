@@ -4,15 +4,20 @@
       <span class="headline py-2">Security</span>
       <v-btn rounded color="success" :disabled="!password || !valid || loading">
         <span class="pr-4" @click="updatePassword()">save</span>
-        <v-icon right>mdi-arrow-right</v-icon>
+        <v-icon right>
+          mdi-arrow-right
+        </v-icon>
       </v-btn>
     </v-row>
     <v-card elevation="3" class="mt-6" :loading="loading" :disabled="loading">
       <v-card-text>
         <v-responsive width="360">
-          <v-row no-gutters class="title black--text mt-4"
-            >Change password</v-row
+          <v-row
+            no-gutters
+            class="title black--text mt-4"
           >
+            Change password
+          </v-row>
           <v-form ref="updatePasswordForm" v-model="valid">
             <div class="pl-3">
               <v-text-field
@@ -23,10 +28,12 @@
                 :type="showPass ? 'text' : 'password'"
                 :rules="vLogPassword"
               >
-                <template v-slot:append>
-                  <v-icon small @click="showPass = !showPass">{{
-                    showPass ? 'mdi-eye' : 'mdi-eye-off'
-                  }}</v-icon>
+                <template #append>
+                  <v-icon small @click="showPass = !showPass">
+                    {{
+                      showPass ? 'mdi-eye' : 'mdi-eye-off'
+                    }}
+                  </v-icon>
                 </template>
               </v-text-field>
               <v-text-field
@@ -37,10 +44,12 @@
                 :type="showPass ? 'text' : 'password'"
                 :rules="vRegPassword"
               >
-                <template v-slot:append>
-                  <v-icon small @click="showPass = !showPass">{{
-                    showPass ? 'mdi-eye' : 'mdi-eye-off'
-                  }}</v-icon>
+                <template #append>
+                  <v-icon small @click="showPass = !showPass">
+                    {{
+                      showPass ? 'mdi-eye' : 'mdi-eye-off'
+                    }}
+                  </v-icon>
                 </template>
               </v-text-field>
               <v-text-field
@@ -51,10 +60,12 @@
                 :type="showPass ? 'text' : 'password'"
                 :rules="vRegConfPassword"
               >
-                <template v-slot:append>
-                  <v-icon small @click="showPass = !showPass">{{
-                    showPass ? 'mdi-eye' : 'mdi-eye-off'
-                  }}</v-icon>
+                <template #append>
+                  <v-icon small @click="showPass = !showPass">
+                    {{
+                      showPass ? 'mdi-eye' : 'mdi-eye-off'
+                    }}
+                  </v-icon>
                 </template>
               </v-text-field>
             </div>
@@ -77,14 +88,19 @@ export default {
     valid: false,
     ...validators
   }),
-  mounted() {
+  head () {
+    return {
+      title: 'Security'
+    }
+  },
+  mounted () {
     this.vRegConfPassword.push(
-      (v) => v === this.newPassword || "passwords doesn't match"
+      v => v === this.newPassword || "passwords doesn't match"
     )
-    this.vRegPassword.push((v) => v !== this.password || 'same old password')
+    this.vRegPassword.push(v => v !== this.password || 'same old password')
   },
   methods: {
-    updatePassword() {
+    updatePassword () {
       if (this.$refs.updatePasswordForm.validate()) {
         this.loading = true
         this.$axios
@@ -102,11 +118,6 @@ export default {
           })
           .finally(() => (this.loading = false))
       }
-    }
-  },
-  head() {
-    return {
-      title: 'Security'
     }
   }
 }

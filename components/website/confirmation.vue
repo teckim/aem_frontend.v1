@@ -4,9 +4,13 @@
       <div>
         Please check your email inbox/spam to verify your account.
       </div>
-      <div class="my-2 grey--text">Or</div>
+      <div class="my-2 grey--text">
+        Or
+      </div>
       <v-btn outlined rounded color="main" to="/user/profile/edit#email">
-        <v-icon left>mdi-pencil-outline</v-icon> change email
+        <v-icon left>
+          mdi-pencil-outline
+        </v-icon> change email
       </v-btn>
       <v-btn
         depressed
@@ -17,8 +21,10 @@
         class="white--text"
         @click="resendVerification()"
       >
-        <v-icon left color="white">mdi-repeat</v-icon> resned
-        <span v-show="!!count" v-text="count"></span>
+        <v-icon left color="white">
+          mdi-repeat
+        </v-icon> resned
+        <span v-show="!!count" v-text="count" />
       </v-btn>
     </div>
   </v-card>
@@ -31,7 +37,7 @@ export default {
     resending: false
   }),
   methods: {
-    resendVerification() {
+    resendVerification () {
       this.resending = true
       this.$axios
         .get('/users/send-verification')
@@ -53,10 +59,10 @@ export default {
         })
         .finally(() => (this.resending = false))
     },
-    countDown() {
+    countDown () {
       this.count = 60
       const vm = this
-      const interval = setInterval(function() {
+      const interval = setInterval(function () {
         if (vm.count > 0) {
           vm.count--
         } else {

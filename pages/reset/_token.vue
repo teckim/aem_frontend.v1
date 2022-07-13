@@ -3,9 +3,16 @@
     <v-row class="verify-container" justify="center" no-gutters>
       <v-col md="5" cols="12">
         <div class="verify-homeLink">
-          <v-btn tile text to="/" class="main--text"
-            ><v-icon left>mdi-chevron-left</v-icon> home</v-btn
+          <v-btn
+            tile
+            text
+            to="/"
+            class="main--text"
           >
+            <v-icon left>
+              mdi-chevron-left
+            </v-icon> home
+          </v-btn>
         </div>
         <v-card
           flat
@@ -22,11 +29,15 @@
               </v-stepper-content>
               <v-stepper-content step="2">
                 <div class="text-center">
-                  <v-icon size="100" class="my-5" color="grey lighten-1"
-                    >mdi-emoticon-sad-outline</v-icon
-                  ><br />
+                  <v-icon
+                    size="100"
+                    class="my-5"
+                    color="grey lighten-1"
+                  >
+                    mdi-emoticon-sad-outline
+                  </v-icon><br>
                   Seems like your token is
-                  <span class="error--text">EXPIRED!,</span><br />
+                  <span class="error--text">EXPIRED!,</span><br>
                   but don't worry we can resend you another one.
                   <div class="mt-5">
                     <v-btn
@@ -36,14 +47,18 @@
                       color="main"
                       @click="forgetPassDialog = true"
                     >
-                      <v-icon left>mdi-repeat</v-icon> resned
+                      <v-icon left>
+                        mdi-repeat
+                      </v-icon> resned
                     </v-btn>
                   </div>
                 </div>
               </v-stepper-content>
               <v-stepper-content step="3" class="text-center">
                 <v-responsive max-width="360" class="mx-auto">
-                  <h3 class="pb-2">Enter new password</h3>
+                  <h3 class="pb-2">
+                    Enter new password
+                  </h3>
                   <v-form ref="resetPasswordForm">
                     <v-text-field
                       v-model="newPassword"
@@ -54,10 +69,12 @@
                       :type="showPass ? 'text' : 'password'"
                       :rules="vRegPassword"
                     >
-                      <template v-slot:append>
-                        <v-icon small @click="showPass = !showPass">{{
-                          showPass ? 'mdi-eye' : 'mdi-eye-off'
-                        }}</v-icon>
+                      <template #append>
+                        <v-icon small @click="showPass = !showPass">
+                          {{
+                            showPass ? 'mdi-eye' : 'mdi-eye-off'
+                          }}
+                        </v-icon>
                       </template>
                     </v-text-field>
                     <v-text-field
@@ -69,10 +86,12 @@
                       :type="showPass ? 'text' : 'password'"
                       :rules="vRegConfPassword"
                     >
-                      <template v-slot:append>
-                        <v-icon small @click="showPass = !showPass">{{
-                          showPass ? 'mdi-eye' : 'mdi-eye-off'
-                        }}</v-icon>
+                      <template #append>
+                        <v-icon small @click="showPass = !showPass">
+                          {{
+                            showPass ? 'mdi-eye' : 'mdi-eye-off'
+                          }}
+                        </v-icon>
                       </template>
                     </v-text-field>
                   </v-form>
@@ -86,13 +105,17 @@
                     :loading="reseting"
                     @click="resetPassword"
                   >
-                    <v-icon left>mdi-check</v-icon> reset
+                    <v-icon left>
+                      mdi-check
+                    </v-icon> reset
                   </v-btn>
                 </v-responsive>
               </v-stepper-content>
               <v-stepper-content step="4" class="text-center">
                 <check />
-                <div class="success--text pb-2">GREAT! Password updated</div>
+                <div class="success--text pb-2">
+                  GREAT! Password updated
+                </div>
                 <span class="body-2 grey--text">Loging you in...</span>
               </v-stepper-content>
             </v-stepper-items>
@@ -112,9 +135,9 @@
                   <h1>WELCOME BACK!</h1>
                   <p class="body-2 grey--text text--lighten-4">
                     We will help you reset your password,
-                    <br />
+                    <br>
                     so you can continue enjoying being part of AEM Family.
-                    <br /><br />
+                    <br><br>
                     Do you want to check what we have?
                   </p>
                   <div class="d-flex align-center">
@@ -125,21 +148,30 @@
                       :to="'/events'"
                       color="white"
                       class="main--text mr-2"
-                      >get started!
-                      <v-icon small right>mdi-arrow-right</v-icon></v-btn
                     >
+                      get started!
+                      <v-icon small right>
+                        mdi-arrow-right
+                      </v-icon>
+                    </v-btn>
                     <social-media :items="socialItems" />
                   </div>
                 </div>
                 <div class="logo">
-                  <v-btn tile text to="/" class="white--text px-6" height="auto"
-                    ><v-img
+                  <v-btn
+                    tile
+                    text
+                    to="/"
+                    class="white--text px-6"
+                    height="auto"
+                  >
+                    <v-img
                       class="mx-auto"
                       width="7rem"
                       :src="require('@/static/logos/aem-logo-white.png')"
                       alt
-                    ></v-img
-                  ></v-btn>
+                    />
+                  </v-btn>
                 </div>
               </v-col>
             </v-row>
@@ -165,12 +197,12 @@ import check from '~/components/global/check'
 import forgetPass from '~/components/website/forgetPass'
 
 export default {
-  layout: 'blank',
   components: {
     socialMedia,
     check,
     forgetPass
   },
+  layout: 'blank',
   data: () => ({
     confNewPassword: '',
     newPassword: '',
@@ -190,15 +222,19 @@ export default {
       }
     ]
   }),
-  mounted() {
-    if (!this.$route.params.token || this.$auth.loggedIn) this.$router.push('/')
-    else this.verifyToken(this.$route.params.token)
+  head () {
+    return {
+      title: 'Reset password'
+    }
+  },
+  mounted () {
+    if (!this.$route.params.token || this.$auth.loggedIn) { this.$router.push('/') } else { this.verifyToken(this.$route.params.token) }
     this.vRegConfPassword.push(
-      (v) => v === this.newPassword || "passwords doesn't match"
+      v => v === this.newPassword || "passwords doesn't match"
     )
   },
   methods: {
-    verifyToken(token) {
+    verifyToken (token) {
       this.loading = true
       const data = {
         token,
@@ -210,11 +246,11 @@ export default {
           this.step = 3
         })
         .catch((err) => {
-          if (err.response.status === 400) this.step = 2
+          if (err.response.status === 400) { this.step = 2 }
         })
         .finally(() => (this.loading = false))
     },
-    resetPassword() {
+    resetPassword () {
       if (this.$refs.resetPasswordForm.validate()) {
         this.reseting = true
         const data = {
@@ -242,11 +278,6 @@ export default {
           })
           .finally(() => (this.reseting = false))
       }
-    }
-  },
-  head() {
-    return {
-      title: 'Reset password'
     }
   }
 }

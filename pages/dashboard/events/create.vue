@@ -13,11 +13,12 @@
           :color="step > 1 ? 'success' : 'main'"
           :complete="step > 1"
           step="1"
-          ><span :class="step === 1 ? 'body-1' : 'body-2'">General</span
-          ><small v-show="step === 1" class="main--text"
-            >required</small
-          ></v-stepper-step
         >
+          <span :class="step === 1 ? 'body-1' : 'body-2'">General</span><small
+            v-show="step === 1"
+            class="main--text"
+          >required</small>
+        </v-stepper-step>
         <v-stepper-content step="1">
           <general-form
             :data="event"
@@ -30,11 +31,12 @@
           :color="step > 2 ? 'success' : 'main'"
           :complete="step > 2"
           step="2"
-          ><span :class="step === 2 ? 'body-1' : 'body-2'">Timing</span
-          ><small v-show="step === 2" class="main--text"
-            >required</small
-          ></v-stepper-step
         >
+          <span :class="step === 2 ? 'body-1' : 'body-2'">Timing</span><small
+            v-show="step === 2"
+            class="main--text"
+          >required</small>
+        </v-stepper-step>
         <v-stepper-content step="2">
           <timing-form
             :data="event"
@@ -47,10 +49,9 @@
           :color="step > 3 ? 'success' : 'main'"
           :complete="step > 3"
           step="3"
-          ><span :class="step === 3 ? 'body-1' : 'body-2'"
-            >Media</span
-          ></v-stepper-step
         >
+          <span :class="step === 3 ? 'body-1' : 'body-2'">Media</span>
+        </v-stepper-step>
         <v-stepper-content step="3">
           <media-form
             :data="event"
@@ -63,10 +64,9 @@
           :color="step > 4 ? 'success' : 'main'"
           :complete="step > 4"
           step="4"
-          ><span :class="step === 4 ? 'body-1' : 'body-2'"
-            >Tickets</span
-          ></v-stepper-step
         >
+          <span :class="step === 4 ? 'body-1' : 'body-2'">Tickets</span>
+        </v-stepper-step>
         <v-stepper-content step="4">
           <tickets-form :data="event" :edit="editMode" @submit="next" />
         </v-stepper-content>
@@ -74,10 +74,9 @@
           :color="step === 5 ? 'success' : 'main'"
           :complete="step === 5"
           step="5"
-          ><span :class="step === 5 ? 'body-1' : 'body-2'"
-            >Preview & save</span
-          ></v-stepper-step
         >
+          <span :class="step === 5 ? 'body-1' : 'body-2'">Preview & save</span>
+        </v-stepper-step>
         <v-stepper-content step="5">
           <div v-if="!!event" class="pa-4">
             <v-card tile class="mb-4">
@@ -108,7 +107,9 @@
                       class="event--data_edit"
                       @click="step = 3"
                     >
-                      <v-icon left>mdi-pencil</v-icon> change
+                      <v-icon left>
+                        mdi-pencil
+                      </v-icon> change
                     </v-btn>
                   </v-img>
                 </v-col>
@@ -121,7 +122,9 @@
                     >
                       <tr class="event--data">
                         <td class="pr-4">
-                          <v-icon color="main">mdi-clock-outline</v-icon>
+                          <v-icon color="main">
+                            mdi-clock-outline
+                          </v-icon>
                         </td>
                         <td>
                           <div>
@@ -141,13 +144,17 @@
                             class="ml-auto"
                             @click="step = 2"
                           >
-                            <v-icon small>mdi-pencil</v-icon>
+                            <v-icon small>
+                              mdi-pencil
+                            </v-icon>
                           </v-btn>
                         </td>
                       </tr>
                       <tr class="event--data">
                         <td class="pr-4">
-                          <v-icon color="main">mdi-information-variant</v-icon>
+                          <v-icon color="main">
+                            mdi-information-variant
+                          </v-icon>
                         </td>
                         <td>
                           <div>
@@ -165,20 +172,24 @@
                             class="ml-auto"
                             @click="step = 1"
                           >
-                            <v-icon small>mdi-pencil</v-icon>
+                            <v-icon small>
+                              mdi-pencil
+                            </v-icon>
                           </v-btn>
                         </td>
                       </tr>
                       <tr class="event--data">
                         <td class="pr-4">
-                          <v-icon color="main">mdi-currency-usd</v-icon>
+                          <v-icon color="main">
+                            mdi-currency-usd
+                          </v-icon>
                         </td>
                         <td>
-                          <div v-text="eventPrice"></div>
+                          <div v-text="eventPrice" />
                           <span
                             class="text--secondary body-2"
                             v-text="event.ticketsNumber + ' tickets'"
-                          ></span>
+                          />
                         </td>
                         <td class="pl-4 event--data_edit">
                           <v-btn
@@ -188,7 +199,9 @@
                             class="ml-auto"
                             @click="step = 4"
                           >
-                            <v-icon small>mdi-pencil</v-icon>
+                            <v-icon small>
+                              mdi-pencil
+                            </v-icon>
                           </v-btn>
                         </td>
                       </tr>
@@ -216,14 +229,16 @@
                 @click="save"
               >
                 <span>save event</span>
-                <v-icon right>mdi-arrow-right</v-icon>
+                <v-icon right>
+                  mdi-arrow-right
+                </v-icon>
               </v-btn>
               <v-checkbox
                 v-model="notify"
                 label="notify followers by email"
                 color="main"
                 class="pl-4"
-              ></v-checkbox>
+              />
             </v-row>
           </div>
           <div v-else class="text-center">
@@ -321,13 +336,17 @@ export default {
     notify: true,
     step: 1
   }),
-  computed: {
-    eventPrice() {
-      if (!this.event.price) return 'FREE'
-      else return this.event.price + ' ' + this.$auth.user.office.currency
+  head () {
+    return {
+      title: 'Create event'
     }
   },
-  async mounted() {
+  computed: {
+    eventPrice () {
+      if (!this.event.price) { return 'FREE' } else { return this.event.price + ' ' + this.$auth.user.office.currency }
+    }
+  },
+  async mounted () {
     if (this.$route.query.cid) {
       const id = this.$route.query.cid
       const { data } = await this.$axios.get(`/events/${id}`)
@@ -338,7 +357,7 @@ export default {
     }
   },
   methods: {
-    save() {
+    save () {
       this.isSaving = true
       const data = JSON.parse(JSON.stringify(this.event))
       data.project = data.project._id
@@ -358,31 +377,33 @@ export default {
         })
         .finally(() => (this.isSaving = false))
     },
-    next(v) {
-      if (!v || ![2, 3, 4, 5].includes(this.step + 1))
+    next (v) {
+      if (!v || ![2, 3, 4, 5].includes(this.step + 1)) {
         return this.$store.dispatch('snackbar', {
           text: 'Somthing went wrong, please try again',
           color: 'error',
           timeout: 3000
         })
-      if (!this.event) this.event = {}
+      }
+      if (!this.event) { this.event = {} }
       Object.assign(this.event, v)
       this.step++
-      if (this.step === 5) this.editMode = true
+      if (this.step === 5) { this.editMode = true }
     },
-    preview(v) {
-      if (!v)
+    preview (v) {
+      if (!v) {
         return this.$store.dispatch('snackbar', {
           text: 'Somthing went wrong, please try again',
           color: 'error',
           timeout: 3000
         })
+      }
       Object.assign(this.event, v)
       this.step = 5
       this.editMode = true
     },
-    formatRange(date1, date2) {
-      if (!date1 || !date2) return ''
+    formatRange (date1, date2) {
+      if (!date1 || !date2) { return '' }
       const t = moment(date1).twix(date2)
       // const t = moment('1982-01-25T09:30').twix('1982-01-25T13:30')
 
@@ -390,11 +411,6 @@ export default {
         date: t.format({ showDayOfWeek: true, hourFormat: 'H' }),
         length: t.humanizeLength()
       }
-    }
-  },
-  head() {
-    return {
-      title: 'Create event'
     }
   }
 }

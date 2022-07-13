@@ -2,11 +2,13 @@
   <div>
     <v-row justify="space-between" align="center" no-gutters>
       <div class="py-2">
-        <div class="headline">Manage users</div>
+        <div class="headline">
+          Manage users
+        </div>
         <div
           class="subtitle text--secondary"
           v-text="totalDocs + ' users'"
-        ></div>
+        />
       </div>
       <!-- <v-btn rounded color="main white--text">
         <span class="pr-4">scan</span>
@@ -20,7 +22,7 @@
             v-model="search"
             name="query"
             label="Query"
-          ></v-text-field>
+          />
         </div>
         <users-list
           :items="users"
@@ -93,7 +95,7 @@ export default {
     }
   }),
   computed: {
-    query() {
+    query () {
       const q = {}
       if (this.search) {
         q.filter = this.search
@@ -105,22 +107,22 @@ export default {
     }
   },
   watch: {
-    query(v) {
+    query (v) {
       clearTimeout(this.timer)
       this.timer = setTimeout(() => {
         this.init()
         this.getUsers(v)
       }, 1000)
     },
-    'page.number'() {
+    'page.number' () {
       this.getUsers(this.query)
     }
   },
-  mounted() {
+  mounted () {
     this.getUsers(this.query)
   },
   methods: {
-    init() {
+    init () {
       this.page.limit = 12
       this.page.number = 1
       this.users = []
@@ -130,7 +132,7 @@ export default {
     //   else this.office = null
     //   this.project = query.project
     // },
-    getUsers(query) {
+    getUsers (query) {
       this.loadingUsers = true
       this.$axios
         .get('/users', {
@@ -142,7 +144,7 @@ export default {
         })
         .finally(() => (this.loadingUsers = false))
     },
-    deleteUser(id) {
+    deleteUser (id) {
       if (confirm('Are you sure you want to delete this user?')) {
         this.$axios.delete(`/users/${id}`).then(() => {
           this.$store.dispatch('snackbar', {
@@ -154,8 +156,8 @@ export default {
         })
       }
     },
-    save() {
-      if (!this.$refs.userForm.validate()) return
+    save () {
+      if (!this.$refs.userForm.validate()) { return }
       this.saving = true
       const user = JSON.parse(JSON.stringify(this.$refs.userForm.user))
       delete user.admins
@@ -175,7 +177,7 @@ export default {
           this.saving = false
         })
     },
-    editUser(i) {
+    editUser (i) {
       this.user = this.users[i]
       this.edit = true
     }

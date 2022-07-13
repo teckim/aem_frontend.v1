@@ -89,11 +89,11 @@ export default {
     }
   },
   computed: {
-    currency() {
+    currency () {
       return this.$auth.user.office.currency || ''
     },
-    insights() {
-      if (!this.data.orders || !this.data.event) return null
+    insights () {
+      if (!this.data.orders || !this.data.event) { return null }
       const insight = {
         paidEvent: !!this.data.event.price,
         price: this.data.event.price,
@@ -108,11 +108,10 @@ export default {
       }
       this.data.orders.forEach((order) => {
         if (!this.data.event.price) {
-          if (order.checkedIn) insight.checkedInParticipants++
+          if (order.checkedIn) { insight.checkedInParticipants++ }
         } else {
           insight.income += order.paid
-          if (order.paid >= this.data.event.price) insight.paidParticipants++
-          else if (order.paid) insight.partlyPaidParts++
+          if (order.paid >= this.data.event.price) { insight.paidParticipants++ } else if (order.paid) { insight.partlyPaidParts++ }
         }
       })
       insight.income = new Intl.NumberFormat('en-US').format(insight.income)

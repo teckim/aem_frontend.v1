@@ -1,10 +1,10 @@
 <template>
   <div class="success-checkmark">
     <div v-show="playing" class="check-icon">
-      <span class="icon-line line-tip"></span>
-      <span class="icon-line line-long"></span>
-      <div class="icon-circle"></div>
-      <div class="icon-fix"></div>
+      <span class="icon-line line-tip" />
+      <span class="icon-line line-long" />
+      <div class="icon-circle" />
+      <div class="icon-fix" />
     </div>
   </div>
 </template>
@@ -22,18 +22,18 @@ export default {
     }
   },
   watch: {
-    playing(v) {
+    playing (v) {
       if (v) {
         // this.play()
       }
     }
   },
-  mounted() {
-    if (!this.autoPlay) this.checkIcon.hide()
+  mounted () {
+    if (!this.autoPlay) { this.checkIcon.hide() }
   },
   methods: {
-    play() {
-      setTimeout(function() {
+    play () {
+      setTimeout(function () {
         this.checkIcon.show()
         this.$emit('done')
       }, 10)

@@ -13,7 +13,7 @@
             required
             @keyup.enter.native.stop="pushTask(task)"
           >
-            <template v-slot:append>
+            <template #append>
               <v-icon v-show="!!task" color="success" @click="pushTask(task)">
                 mdi-plus-circle
               </v-icon>
@@ -45,7 +45,7 @@
       </v-row>
       <v-row>
         <v-col cols="12">
-          <v-switch v-model="office.vacant" label="vacant"></v-switch>
+          <v-switch v-model="office.vacant" label="vacant" />
         </v-col>
       </v-row>
     </div>
@@ -68,7 +68,7 @@ export default {
     task: null
   }),
   watch: {
-    data(v) {
+    data (v) {
       if (v) {
         this.office.tasks = v.tasks || []
         this.office.vacant = v.vacant
@@ -76,7 +76,7 @@ export default {
     }
   },
   methods: {
-    pushTask(task) {
+    pushTask (task) {
       if (this.task) {
         this.office.tasks.push(task)
         this.task = null

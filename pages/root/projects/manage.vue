@@ -2,12 +2,14 @@
   <div>
     <v-row justify="space-between" align="center" no-gutters>
       <div class="py-2">
-        <div class="headline">Manage projects</div>
+        <div class="headline">
+          Manage projects
+        </div>
         <div
           v-if="projects && projects.length"
           class="subtitle text--secondary"
           v-text="projects.length + ' projects'"
-        ></div>
+        />
       </div>
       <!-- <v-btn rounded color="main white--text">
         <span class="pr-4">scan</span>
@@ -87,11 +89,11 @@ export default {
     saving: false,
     loadingProject: true
   }),
-  mounted() {
+  mounted () {
     this.getProject()
   },
   methods: {
-    getProject() {
+    getProject () {
       this.loadingProject = true
       this.$axios
         .get('/projects')
@@ -100,7 +102,7 @@ export default {
         })
         .finally(() => (this.loadingProject = false))
     },
-    deleteProject(id) {
+    deleteProject (id) {
       if (confirm('Are you sure you want to delete this project?')) {
         this.$axios.delete(`/projects/${id}`).then(() => {
           this.$store.dispatch('snackbar', {
@@ -112,8 +114,8 @@ export default {
         })
       }
     },
-    save() {
-      if (!this.$refs.projectForm.validate()) return
+    save () {
+      if (!this.$refs.projectForm.validate()) { return }
       this.saving = true
       const project = JSON.parse(JSON.stringify(this.$refs.projectForm.project))
       this.$axios
@@ -132,7 +134,7 @@ export default {
           this.saving = false
         })
     },
-    editProject(i) {
+    editProject (i) {
       this.project = this.projects[i]
       this.edit = true
     }

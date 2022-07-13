@@ -2,10 +2,14 @@
   <v-card flat class="mx-2">
     <div v-show="!!image" class="text-center">
       <v-btn depressed dark width="150" color="main" @click="showMediaGallery">
-        <v-icon left>mdi-image-multiple-outline</v-icon> change
+        <v-icon left>
+          mdi-image-multiple-outline
+        </v-icon> change
       </v-btn>
       <v-btn text dark width="150" color="primary" @click="showMediaUpload">
-        <v-icon left>mdi-cloud-upload-outline</v-icon> upload
+        <v-icon left>
+          mdi-cloud-upload-outline
+        </v-icon> upload
       </v-btn>
     </div>
     <v-row>
@@ -15,7 +19,7 @@
           max-width="500"
           class="mx-auto"
           :src="$axios.defaults.baseURL + '/images/' + image"
-        ></v-img>
+        />
       </v-col>
       <v-col v-else>
         <v-responsive min-height="200" class="align-center text-center">
@@ -28,7 +32,9 @@
             class="my-4"
             @click="showMediaGallery"
           >
-            <v-icon left>mdi-image-multiple-outline</v-icon> gallery
+            <v-icon left>
+              mdi-image-multiple-outline
+            </v-icon> gallery
           </v-btn>
           <v-btn
             text
@@ -38,7 +44,9 @@
             class="my-4"
             @click="showMediaUpload"
           >
-            <v-icon left>mdi-cloud-upload-outline</v-icon> upload
+            <v-icon left>
+              mdi-cloud-upload-outline
+            </v-icon> upload
           </v-btn>
         </v-responsive>
       </v-col>
@@ -59,7 +67,9 @@
         @click="submit"
       >
         <span>next</span>
-        <v-icon right>mdi-arrow-right</v-icon>
+        <v-icon right>
+          mdi-arrow-right
+        </v-icon>
       </v-btn>
     </div>
     <v-dialog
@@ -103,31 +113,31 @@ export default {
     image: null
   }),
   watch: {
-    data(v) {
+    data (v) {
       if (v.image) {
         this.image = v.image.name
       }
     }
   },
-  mounted() {
+  mounted () {
     if (this.data) {
       this.image = this.data.image.name
     }
   },
   methods: {
-    onSelected(image) {
+    onSelected (image) {
       this.image = image
       this.mediaGallery = false
     },
-    showMediaUpload() {
+    showMediaUpload () {
       this.mediaGallery = true
       this.uploadMode = true
     },
-    showMediaGallery() {
+    showMediaGallery () {
       this.mediaGallery = true
       this.uploadMode = false
     },
-    submit() {
+    submit () {
       if (this.validate()) {
         const data = {
           image: { name: this.image }
@@ -135,7 +145,7 @@ export default {
         this.$emit('submit', data)
       }
     },
-    update() {
+    update () {
       if (this.validate()) {
         const data = {
           image: { name: this.image }
@@ -143,7 +153,7 @@ export default {
         this.$emit('update', data)
       }
     },
-    validate() {
+    validate () {
       return !!this.image
     }
   }

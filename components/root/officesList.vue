@@ -35,7 +35,7 @@
             v-show="actionBtns === i"
             class="office-action-buttons fill-height"
           >
-            <v-spacer @click="details = i"></v-spacer>
+            <v-spacer @click="details = i" />
             <v-btn
               tile
               depressed
@@ -60,7 +60,7 @@
         </v-row>
         <v-slide-x-reverse-transition hide-on-leave>
           <div v-show="details === i">
-            <v-divider></v-divider>
+            <v-divider />
             <v-card
               v-if="office.members.length"
               flat
@@ -103,7 +103,7 @@
             ref="skeleton"
             type="list-item-two-line"
             class="mx-auto"
-          ></v-skeleton-loader>
+          />
         </v-responsive>
       </v-card>
     </div>
@@ -128,7 +128,7 @@ export default {
     details: null
   }),
   methods: {
-    onClickOutside(event) {
+    onClickOutside (event) {
       this.actionBtns = null
       this.details = null
     }

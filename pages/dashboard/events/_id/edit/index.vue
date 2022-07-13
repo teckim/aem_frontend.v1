@@ -10,14 +10,16 @@
         @click="save"
       >
         <span class="pr-4">save</span>
-        <v-icon right>mdi-arrow-right</v-icon>
+        <v-icon right>
+          mdi-arrow-right
+        </v-icon>
       </v-btn>
     </v-row>
     <v-row v-if="loading" no-gutters>
       <v-card class="mt-8 mb-4" width="100%">
         <v-row no-gutters>
           <v-col cols="12" md="7">
-            <v-skeleton-loader tile type="image"></v-skeleton-loader>
+            <v-skeleton-loader tile type="image" />
           </v-col>
           <v-col cols="12" md="5" class="pa-4">
             <v-responsive class="fill-height">
@@ -30,17 +32,17 @@
                   type="list-item-two-line"
                   max-height="50"
                   max-width="270"
-                ></v-skeleton-loader>
+                />
                 <v-skeleton-loader
                   type="list-item-two-line"
                   max-height="50"
                   max-width="140"
-                ></v-skeleton-loader>
+                />
                 <v-skeleton-loader
                   type="list-item-two-line"
                   max-height="50"
                   max-width="120"
-                ></v-skeleton-loader>
+                />
               </v-row>
             </v-responsive>
           </v-col>
@@ -73,7 +75,7 @@
                 ? 'Users can get tickets'
                 : 'Users cannot get tickets'
             "
-          ></v-switch>
+          />
         </div>
         <v-card class="mt-8 mb-4" width="100%">
           <v-row no-gutters>
@@ -93,7 +95,9 @@
                   class="event--data_edit"
                   @click="form = 'media'"
                 >
-                  <v-icon left>mdi-pencil</v-icon> change
+                  <v-icon left>
+                    mdi-pencil
+                  </v-icon> change
                 </v-btn>
               </v-img>
             </v-col>
@@ -106,7 +110,9 @@
                 >
                   <tr class="event--data">
                     <td class="pr-4">
-                      <v-icon color="main">mdi-clock-outline</v-icon>
+                      <v-icon color="main">
+                        mdi-clock-outline
+                      </v-icon>
                     </td>
                     <td>
                       <div>
@@ -124,20 +130,24 @@
                         class="ml-auto"
                         @click="form = 'timing'"
                       >
-                        <v-icon small>mdi-pencil</v-icon>
+                        <v-icon small>
+                          mdi-pencil
+                        </v-icon>
                       </v-btn>
                     </td>
                   </tr>
                   <tr class="event--data">
                     <td class="pr-4">
-                      <v-icon color="main">mdi-information-variant</v-icon>
+                      <v-icon color="main">
+                        mdi-information-variant
+                      </v-icon>
                     </td>
                     <td>
                       <div>
                         {{ event.project && event.project.title }}
                       </div>
                       <div class="text--secondary body-2">
-                        {{ event.subject }} <br />
+                        {{ event.subject }} <br>
                         {{
                           event.location.name + ' - ' + event.location.address
                         }}
@@ -151,20 +161,24 @@
                         class="ml-auto"
                         @click="form = 'general'"
                       >
-                        <v-icon small>mdi-pencil</v-icon>
+                        <v-icon small>
+                          mdi-pencil
+                        </v-icon>
                       </v-btn>
                     </td>
                   </tr>
                   <tr class="event--data">
                     <td class="pr-4">
-                      <v-icon color="main">mdi-currency-usd</v-icon>
+                      <v-icon color="main">
+                        mdi-currency-usd
+                      </v-icon>
                     </td>
                     <td>
-                      <div v-text="eventPrice"></div>
+                      <div v-text="eventPrice" />
                       <span
                         class="text--secondary body-2"
                         v-text="event.ticketsNumber + ' tickets'"
-                      ></span>
+                      />
                     </td>
                     <td class="pl-4 event--data_edit">
                       <v-btn
@@ -174,7 +188,9 @@
                         class="ml-auto"
                         @click="form = 'tickets'"
                       >
-                        <v-icon small>mdi-pencil</v-icon>
+                        <v-icon small>
+                          mdi-pencil
+                        </v-icon>
                       </v-btn>
                     </td>
                   </tr>
@@ -296,23 +312,26 @@ export default {
     form: null,
     showEditDialog: false
   }),
+  head () {
+    return {
+      title: 'Edit event'
+    }
+  },
   computed: {
-    eventPrice() {
-      if (!this.event.price) return 'FREE'
-      else return this.event.price + ' ' + this.$auth.user.office.currency
+    eventPrice () {
+      if (!this.event.price) { return 'FREE' } else { return this.event.price + ' ' + this.$auth.user.office.currency }
     }
   },
   watch: {
-    form(v) {
-      if (!v) this.showEditDialog = false
-      else this.showEditDialog = true
+    form (v) {
+      if (!v) { this.showEditDialog = false } else { this.showEditDialog = true }
     }
   },
-  mounted() {
+  mounted () {
     this.getEvent(this.$route.params.id)
   },
   methods: {
-    getEvent(id) {
+    getEvent (id) {
       this.loading = true
       this.$axios
         .get(`/events/${id}`)
@@ -321,7 +340,7 @@ export default {
         })
         .finally(() => (this.loading = false))
     },
-    save() {
+    save () {
       this.isSaving = true
       const data = JSON.parse(JSON.stringify(this.event))
       data.project = data.project._id
@@ -340,28 +359,24 @@ export default {
         })
         .finally(() => (this.isSaving = false))
     },
-    formatRange(date1, date2) {
-      if (!date1 || !date2) return ''
+    formatRange (date1, date2) {
+      if (!date1 || !date2) { return '' }
       const t = moment(date1).twix(date2)
       return {
         date: t.format({ showDayOfWeek: true, hourFormat: 'H' }),
         length: t.humanizeLength()
       }
     },
-    preview(v) {
-      if (!v)
+    preview (v) {
+      if (!v) {
         return this.$store.dispatch('snackbar', {
           text: 'Somthing went wrong, please try again',
           color: 'error',
           timeout: 3000
         })
+      }
       Object.assign(this.event, v)
       this.form = null
-    }
-  },
-  head() {
-    return {
-      title: 'Edit event'
     }
   }
 }

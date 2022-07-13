@@ -11,12 +11,11 @@
                     <span
                       class="display-2 font-weight-bold text-uppercase"
                       v-text="text"
-                    >
-                    </span>
+                    />
                   </h1>
                 </div>
                 <p class="grey--text text--lighten-3 mb-12">
-                  Put the language behind, and dive with us. <br />
+                  Put the language behind, and dive with us. <br>
                   You will find your self improving your English magically.
                 </p>
                 <div>
@@ -28,7 +27,9 @@
                     color="main"
                     to="/events"
                   >
-                    <v-icon left>mdi-chevron-right</v-icon>
+                    <v-icon left>
+                      mdi-chevron-right
+                    </v-icon>
                     get started!
                   </v-btn>
                   <social-media

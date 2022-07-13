@@ -2,7 +2,7 @@
   <div>
     <div class="mb-2 mx-auto actions">
       <v-tooltip top>
-        <template v-slot:activator="{ on, attrs }">
+        <template #activator="{ on, attrs }">
           <v-btn
             x-small
             fab
@@ -33,7 +33,7 @@
         <span>Add to google calendar</span>
       </v-tooltip> -->
       <v-tooltip top>
-        <template v-slot:activator="{ on, attrs }">
+        <template #activator="{ on, attrs }">
           <v-btn
             x-small
             fab
@@ -55,7 +55,9 @@
         :loading="canceling"
         @click="cancelTicket(item._id, item.event._id)"
       >
-        <v-icon left>mdi-cancel</v-icon>
+        <v-icon left>
+          mdi-cancel
+        </v-icon>
         not going
       </v-btn>
     </div>
@@ -67,14 +69,17 @@
             class="qr--checked white"
             size="60"
             color="success"
-            >mdi-check-circle</v-icon
           >
-          <canvas ref="qrcanvas" class="d-block mx-auto"></canvas>
+            mdi-check-circle
+          </v-icon>
+          <canvas ref="qrcanvas" class="d-block mx-auto" />
         </div>
       </v-row>
       <v-card-title class="mt-4">
         <div>
-          <div class="headline">{{ `${user.first} ${user.last}` }}</div>
+          <div class="headline">
+            {{ `${user.first} ${user.last}` }}
+          </div>
           <div class="body-2 text--secondary text-truncate">
             {{ user.email }}
           </div>
@@ -106,17 +111,21 @@
           </div>
           <div class="body-1 black--text">
             {{ price }}
-            <span class="overline" v-text="currency"></span>
+            <span class="overline" v-text="currency" />
           </div>
         </div>
-        <div></div>
+        <div />
         <div class="mb-3">
           <div>Event</div>
-          <div class="body-1 black--text">{{ item.event.subject }}</div>
+          <div class="body-1 black--text">
+            {{ item.event.subject }}
+          </div>
         </div>
         <div class="mb-3">
           <div>Timing</div>
-          <div class="body-1 black--text">{{ timing }}</div>
+          <div class="body-1 black--text">
+            {{ timing }}
+          </div>
         </div>
         <div class="mb-3">
           <div>Location</div>
@@ -165,43 +174,43 @@ export default {
     shareDialog: false
   }),
   computed: {
-    timing() {
-      if (!this.item.event.startsOn || !this.item.event.endsOn) return ''
+    timing () {
+      if (!this.item.event.startsOn || !this.item.event.endsOn) { return '' }
       const t = moment(this.item.event.startsOn).twix(this.item.event.endsOn)
       return t.format({ showDayOfWeek: true, hourFormat: 'H' })
     },
-    price() {
-      if (!this.item) return null
+    price () {
+      if (!this.item) { return null }
       return this.item.event.price ?? null
     },
-    currency() {
-      if (!this.item) return ''
+    currency () {
+      if (!this.item) { return '' }
       return this.item.event.office.currency
     }
   },
-  mounted() {
+  mounted () {
     this.getQR_code(this.item._id)
   },
   methods: {
-    getQR_code(s) {
+    getQR_code (s) {
       QR.toCanvas(this.$refs.qrcanvas, s, { scale: 8 })
     },
-    formatRange(date1, date2) {
-      if (!date1 || !date2) return ''
+    formatRange (date1, date2) {
+      if (!date1 || !date2) { return '' }
       const t = moment(date1).twix(date2)
       return {
         date: t.format({ showDayOfWeek: true, hourFormat: 'H' }),
         length: t.humanizeLength()
       }
     },
-    cancelTicket(ticketId, eventId) {
+    cancelTicket (ticketId, eventId) {
       this.canceling = true
       this.$axios
         .delete(`/orders/${ticketId}`, {
           params: { event: eventId }
         })
         .then(() => {
-          if (this.index !== null) this.$emit('cancel', this.index)
+          if (this.index !== null) { this.$emit('cancel', this.index) }
           this.$store.dispatch('snackbar', {
             text: 'Ticket canceled successfully',
             color: 'success',
@@ -210,7 +219,7 @@ export default {
         })
         .finally(() => (this.canceling = false))
     },
-    downloadTicket(id) {
+    downloadTicket (id) {
       window.open(
         this.$axios.defaults.baseURL + '/orders/' + id + '/pdf',
         '_blank'

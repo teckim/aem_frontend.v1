@@ -5,7 +5,7 @@
 </template>
 <script>
 export default {
-  middleware: 'auth-redirect',
-  layout: 'user'
+  layout: 'user',
+  middleware: 'auth-redirect'
 }
 </script>

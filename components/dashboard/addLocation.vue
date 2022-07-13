@@ -1,6 +1,8 @@
 <template>
   <v-card>
-    <v-card-title primary-title>Add location</v-card-title>
+    <v-card-title primary-title>
+      Add location
+    </v-card-title>
     <v-card-text>
       <v-form ref="addLocationForm">
         <v-col class="pa-0 pt-2">
@@ -12,8 +14,7 @@
             name="name"
             label="Name"
             :rules="[(v) => !!v || 'location required']"
-          >
-          </v-text-field>
+          />
         </v-col>
         <v-col class="pa-0">
           <v-text-field
@@ -24,7 +25,7 @@
             name="address"
             label="Address"
             :rules="[(v) => !!v || 'address required']"
-          ></v-text-field>
+          />
         </v-col>
       </v-form>
     </v-card-text>
@@ -48,7 +49,7 @@ export default {
     }
   }),
   methods: {
-    saveLocation() {
+    saveLocation () {
       if (this.$refs.addLocationForm.validate()) {
         this.$emit('save', this.location)
         this.$emit('close')

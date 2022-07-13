@@ -19,19 +19,19 @@
         :loading="isLoading"
         :search-input.sync="search"
       >
-        <template v-slot:prepend>
+        <template #prepend>
           <span class="font-weight-medium">In</span>
         </template>
-        <template v-slot:append>
-          <span></span>
+        <template #append>
+          <span />
         </template>
-        <template v-slot:no-data>
+        <template #no-data>
           <v-list-item class="text-center">
             <v-list-item-title v-show="isLoading">
               Just a second...
             </v-list-item-title>
             <v-list-item-title v-show="!!search && !isLoading">
-              Sorry we found nothing <br />
+              Sorry we found nothing <br>
               that matches
               <strong>{{ search }}</strong>
             </v-list-item-title>
@@ -40,14 +40,14 @@
             </v-list-item-title>
           </v-list-item>
         </template>
-        <template v-slot:item="{ item }">
+        <template #item="{ item }">
           <v-list-item-content>
             <v-list-item-title
               v-text="item && item.province + ' - ' + item.country"
-            ></v-list-item-title>
+            />
             <v-list-item-subtitle
               v-text="item && item.name"
-            ></v-list-item-subtitle>
+            />
           </v-list-item-content>
         </template>
       </v-autocomplete>
@@ -129,55 +129,54 @@ export default {
     timer: null
   }),
   computed: {
-    query() {
+    query () {
       const q = {
         office: this.office,
         project: this.projectId
       }
       return q
     },
-    urlQuery() {
+    urlQuery () {
       const q = {
         o: this.office ? this.office._id : null,
         p: this.projectId
       }
-      if (!q.o) delete q.o
-      if (!q.p) delete q.p
+      if (!q.o) { delete q.o }
+      if (!q.p) { delete q.p }
       return q
     }
   },
   watch: {
-    query(v) {
+    query (v) {
       this.$emit('search', v)
     },
-    urlQuery(v) {
-      if (!v) return
+    urlQuery (v) {
+      if (!v) { return }
       this.$router.push({ query: v })
     },
-    '$route.query'() {
+    '$route.query' () {
       this.init()
     },
-    office(v) {
-      if (!v) localStorage.removeItem('office')
-      else
+    office (v) {
+      if (!v) { localStorage.removeItem('office') } else {
         localStorage.office = JSON.stringify({
           _id: v._id,
           name: v.name,
           location: v.location,
           province: v.province
         })
+      }
     },
-    projectId(v) {
-      if (!v) localStorage.removeItem('project')
-      else localStorage.project = v
+    projectId (v) {
+      if (!v) { localStorage.removeItem('project') } else { localStorage.project = v }
     },
-    search(v) {
+    search (v) {
       if (!v) {
         this.items = []
         this.office = null
         return
       }
-      if (this.office) return null
+      if (this.office) { return null }
       this.isLoading = true
       clearTimeout(this.timer)
       this.timer = setTimeout(() => {
@@ -190,7 +189,7 @@ export default {
       }, 500)
     }
   },
-  mounted() {
+  mounted () {
     this.getProjects()
     // if (this.$route.query) {
     //   this.getUrlQr(this.$route.query)
@@ -201,7 +200,7 @@ export default {
     // }
   },
   methods: {
-    init() {
+    init () {
       if (this.$route.query) {
         this.getUrlQr(this.$route.query)
       }
@@ -217,13 +216,13 @@ export default {
         this.$emit('search', this.query)
       }
     },
-    getProjects() {
+    getProjects () {
       this.$axios.get('/projects').then(({ data }) => {
         this.projects = data.projects
         this.init()
       })
     },
-    getOffice(id) {
+    getOffice (id) {
       this.$axios
         .get(`/offices/${id}`)
         .then(({ data }) => {
@@ -234,15 +233,15 @@ export default {
         })
         .finally(() => (this.isLoading = false))
     },
-    resetFilters() {
+    resetFilters () {
       this.office = null
       this.projectId = 0
     },
-    getUrlQr(q) {
+    getUrlQr (q) {
       if (q.o) {
         this.getOffice(q.o)
       }
-      if (q.p && this.projects.some((p) => p._id === q.p)) {
+      if (q.p && this.projects.some(p => p._id === q.p)) {
         this.projectId = q.p
       }
     }

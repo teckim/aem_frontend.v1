@@ -15,11 +15,13 @@
             <v-col cols="12" md="5">
               <div>
                 <v-card-title primary-title class="flex-column align-start">
-                  <div class="display-1">{{ item.title }}</div>
+                  <div class="display-1">
+                    {{ item.title }}
+                  </div>
                 </v-card-title>
                 <v-card-text>
                   <!-- eslint-disable-next-line vue/no-v-html -->
-                  <div class="body-1" v-html="item.description"></div>
+                  <div class="body-1" v-html="item.description" />
                 </v-card-text>
               </div>
             </v-col>
@@ -31,8 +33,7 @@
                     $axios.defaults.baseURL + '/images/' + item.image.name
                 "
                 class="text-center align-center event--data"
-              >
-              </v-img>
+              />
             </v-col>
           </v-row>
         </v-card>
@@ -87,11 +88,11 @@ export default {
       }
     ]
   }),
-  mounted() {
+  mounted () {
     this.getProjects()
   },
   methods: {
-    getProjects() {
+    getProjects () {
       this.$axios.get('/projects').then(({ data }) => {
         this.items = data.projects
       })

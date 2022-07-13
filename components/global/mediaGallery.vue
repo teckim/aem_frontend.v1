@@ -10,10 +10,9 @@
               </v-card-title>
               <v-card-subtitle
                 v-text="!images ? 'No image' : `${images.length} Images`"
-              >
-              </v-card-subtitle>
+              />
             </div>
-            <v-spacer></v-spacer>
+            <v-spacer />
             <v-btn
               depressed
               rounded
@@ -23,9 +22,12 @@
               :icon="!$vuetify.breakpoint.smAndUp"
               @click="showGallery = false"
             >
-              <v-icon :left="$vuetify.breakpoint.smAndUp" small
-                >mdi-plus</v-icon
+              <v-icon
+                :left="$vuetify.breakpoint.smAndUp"
+                small
               >
+                mdi-plus
+              </v-icon>
               <span v-show="$vuetify.breakpoint.smAndUp" class="text-none">
                 Add Media
               </span>
@@ -98,7 +100,7 @@
                         cols="auto"
                         class="py-0 pb-2"
                       >
-                        <v-card max-width="80" min-width="80" flat></v-card>
+                        <v-card max-width="80" min-width="80" flat />
                       </v-col>
                     </v-row>
                   </v-responsive>
@@ -135,39 +137,45 @@
                         <tbody>
                           <tr>
                             <td>Name</td>
-                            <td v-text="selectedImage || '...'"></td>
+                            <td v-text="selectedImage || '...'" />
                           </tr>
                           <tr>
                             <td>Type</td>
-                            <td v-text="selectedImageInfo.ext || '...'"></td>
+                            <td v-text="selectedImageInfo.ext || '...'" />
                           </tr>
                           <tr>
                             <td>Size</td>
-                            <td v-text="selectedImageInfo.size || '...'"></td>
+                            <td v-text="selectedImageInfo.size || '...'" />
                           </tr>
                           <tr>
-                            <td class="pr-8">Dimention</td>
+                            <td class="pr-8">
+                              Dimention
+                            </td>
                             <td
                               v-text="selectedImageInfo.dimensions || '...'"
-                            ></td>
+                            />
                           </tr>
                           <tr>
-                            <td class="pr-8">Link</td>
+                            <td class="pr-8">
+                              Link
+                            </td>
                             <td
                               v-show="!selectedImageInfo.url"
                               v-text="'...'"
-                            ></td>
+                            />
                             <td v-show="selectedImageInfo.url">
                               <a
                                 :href="selectedImageInfo.url"
                                 target="_blank"
                                 v-text="selectedImageInfo.url"
-                              ></a>
+                              />
                             </td>
                           </tr>
                           <tr>
-                            <td class="pr-8">Created on</td>
-                            <td v-text="selectedImageInfo.createdOn"></td>
+                            <td class="pr-8">
+                              Created on
+                            </td>
+                            <td v-text="selectedImageInfo.createdOn" />
                           </tr>
                         </tbody>
                       </table>
@@ -184,7 +192,7 @@
             </v-responsive>
           </v-card-text>
           <v-card-actions>
-            <v-spacer></v-spacer>
+            <v-spacer />
             <v-btn text rounded @click="$emit('cancel')">
               cancel
             </v-btn>
@@ -197,7 +205,9 @@
               :disabled="!selectedImage"
               @click="$emit('selected', selectedImage)"
             >
-              <v-icon left>mdi-check</v-icon> done
+              <v-icon left>
+                mdi-check
+              </v-icon> done
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -236,19 +246,19 @@ export default {
     selectedImageInfo: {}
   }),
   watch: {
-    selectedImage(v) {
+    selectedImage (v) {
       if (v) {
         this.selectedImage = v
         this.getImageInfo(v)
       }
     }
   },
-  mounted() {
+  mounted () {
     this.getImages()
     this.showGallery = !this.uploadMode
   },
   methods: {
-    uploaded(name) {
+    uploaded (name) {
       // this.showGallery = true
       this.$emit('selected', name)
       // this.selectedImage = name
@@ -260,13 +270,13 @@ export default {
     //   this.selectedImage = name
     //   this.getImageInfo(name)
     // },
-    getImages() {
+    getImages () {
       this.$axios.get('/images').then(({ data }) => {
         this.images = data
-        if (data) this.selectedImage = data[0]
+        if (data) { this.selectedImage = data[0] }
       })
     },
-    async getImageInfo(name) {
+    async getImageInfo (name) {
       const vm = this
       const url = this.$axios.defaults.baseURL + '/images/' + name
       const res = await this.$axios.get(`/images/info/${name}`)
@@ -279,14 +289,14 @@ export default {
         )
       }
       const img = new Image()
-      img.onload = function() {
+      img.onload = function () {
         info.dimensions = this.width + 'x' + this.height
         vm.selectedImageInfo = info
       }
       img.src = url
     },
-    formatBytes(bytes, decimals = 2) {
-      if (bytes === 0) return '0 Bytes'
+    formatBytes (bytes, decimals = 2) {
+      if (bytes === 0) { return '0 Bytes' }
 
       const k = 1024
       const dm = decimals < 0 ? 0 : decimals

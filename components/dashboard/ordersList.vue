@@ -21,7 +21,7 @@
           <span>
             No tickets yet to show, Please
             <a @click="$emit('retry')">retry</a>
-            <br />Or
+            <br>Or
             <a @click="$router.push('/dashboard/events/manage')">
               go back
             </a>
@@ -41,7 +41,7 @@
       >
         <div
           :class="`${order.checkedIn ? 'success' : 'grey'} order-card--checked`"
-        ></div>
+        />
         <div v-if="!!order.user">
           <v-row no-gutters>
             <v-col class="py-4 pl-4">
@@ -119,9 +119,9 @@
                   class="v-btn--plain"
                   :ripple="false"
                   @click="showDetails(order._id)"
-                ></v-btn>
+                />
               </v-spacer>
-              <v-divider vertical></v-divider>
+              <v-divider vertical />
               <v-btn
                 color="white"
                 height="100%"
@@ -130,13 +130,15 @@
                 depressed
                 @click="$emit('edit', i)"
               >
-                <v-icon color="primary">mdi-circle-edit-outline</v-icon>
+                <v-icon color="primary">
+                  mdi-circle-edit-outline
+                </v-icon>
               </v-btn>
             </div>
           </v-row>
           <v-slide-x-reverse-transition hide-on-leave>
             <div v-show="details === order._id">
-              <v-divider></v-divider>
+              <v-divider />
               <v-card
                 v-if="!!order.user && ['root', 'officeAdmin'].includes(role)"
                 flat
@@ -170,7 +172,7 @@
                         table
                       </td>
                       <td>
-                        <div class="main--text" v-text="order.table"></div>
+                        <div class="main--text" v-text="order.table" />
                       </td>
                     </tr>
                     <tr>
@@ -222,7 +224,9 @@
                     color="success"
                     :href="`mailto:${order.user.email}`"
                   >
-                    <v-icon small>mdi-email</v-icon>
+                    <v-icon small>
+                      mdi-email
+                    </v-icon>
                   </v-btn>
                   <v-btn
                     fab
@@ -230,7 +234,9 @@
                     color="primary"
                     :href="`tel:${phoneNum(order.user.phone)}`"
                   >
-                    <v-icon small>mdi-phone</v-icon>
+                    <v-icon small>
+                      mdi-phone
+                    </v-icon>
                   </v-btn>
                 </div>
               </v-card>
@@ -238,12 +244,16 @@
           </v-slide-x-reverse-transition>
         </div>
         <div v-else class="pl-4 py-4">
-          <div class="title">User deleted</div>
+          <div class="title">
+            User deleted
+          </div>
         </div>
       </v-card>
       <div v-if="!loading && !!items.length" class="text-center py-5">
         <v-btn rounded text color="primary" @click="$emit('loadMore')">
-          <v-icon left>mdi-chevron-down</v-icon>
+          <v-icon left>
+            mdi-chevron-down
+          </v-icon>
           load more
         </v-btn>
       </div>
@@ -261,7 +271,7 @@
             ref="skeleton"
             type="list-item-two-line"
             class="mx-auto"
-          ></v-skeleton-loader>
+          />
         </v-responsive>
       </v-card>
     </div>
@@ -306,29 +316,28 @@ export default {
     details: ''
   }),
   computed: {
-    price() {
-      if (!this.event) return 0
+    price () {
+      if (!this.event) { return 0 }
       return this.event.price
     }
   },
   methods: {
-    phoneNum(num) {
+    phoneNum (num) {
       num = num.replace('(', '+')
       num = num.replace(')', ' ')
       return num
     },
-    formatPhoneNb(n) {
-      if (!n) return ''
+    formatPhoneNb (n) {
+      if (!n) { return '' }
       let result = n
       result = result.replace('(', '+')
       result = result.replace(')', ' ')
       return result
     },
-    showDetails(id) {
-      if (this.details === id) this.details = ''
-      else this.details = id
+    showDetails (id) {
+      if (this.details === id) { this.details = '' } else { this.details = id }
     },
-    onClickOutside(event) {
+    onClickOutside (event) {
       this.actionBtns = null
     }
   }

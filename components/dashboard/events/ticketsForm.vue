@@ -10,7 +10,7 @@
             color="main"
             :disabled="updateMode"
             :label="paid ? 'Paid' : 'Free'"
-          ></v-switch>
+          />
         </v-col>
       </v-row>
       <v-row>
@@ -25,7 +25,7 @@
             :disabled="!paid || updateMode"
             :suffix="$auth.user.office.currency"
             :rules="[(v) => !!v || !paid || 'price required']"
-          ></v-text-field>
+          />
         </v-col>
         <v-col cols="4" sm="2">
           <v-text-field
@@ -36,7 +36,7 @@
             color="main ligthen-2"
             validate-on-blur
             :rules="vTickets"
-          ></v-text-field>
+          />
         </v-col>
       </v-row>
     </v-form>
@@ -48,7 +48,9 @@
     </v-btn>
     <v-btn v-show="!updateMode" depressed dark color="main" @click="submit">
       <span>next</span>
-      <v-icon right>mdi-arrow-right</v-icon>
+      <v-icon right>
+        mdi-arrow-right
+      </v-icon>
     </v-btn>
   </v-card>
 </template>
@@ -79,37 +81,37 @@ export default {
     ...tickets
   }),
   watch: {
-    data(v) {
+    data (v) {
       if (v) {
         this.event.price = v.price
         this.event.ticketsNumber = v.ticketsNumber
       }
     }
   },
-  mounted() {
+  mounted () {
     if (this.data) {
       this.event.price = this.data.price
       this.event.ticketsNumber = this.data.ticketsNumber
     }
   },
   methods: {
-    saveLocation(v) {
+    saveLocation (v) {
       this.locations.push(v)
       this.event.location = v
     },
-    submit() {
-      if (!this.paid) this.event.price = 0
+    submit () {
+      if (!this.paid) { this.event.price = 0 }
       if (this.$refs.ticketsForm.validate()) {
         this.$emit('submit', this.event)
       }
     },
-    update() {
-      if (!this.paid) this.event.price = 0
+    update () {
+      if (!this.paid) { this.event.price = 0 }
       if (this.$refs.ticketsForm.validate()) {
         this.$emit('update', this.event)
       }
     },
-    validate() {
+    validate () {
       return this.$refs.generalForm.validate()
     }
   }

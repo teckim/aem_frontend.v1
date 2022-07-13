@@ -47,8 +47,13 @@ export default {
   data: () => ({
     count: 0
   }),
+  head () {
+    return {
+      title: 'User panel'
+    }
+  },
   methods: {
-    resendVerification() {
+    resendVerification () {
       this.$axios.get('/users/send-verification').then((res) => {
         if (res.status === 208) {
           this.$store.dispatch('snackbar', {
@@ -66,10 +71,10 @@ export default {
         }
       })
     },
-    countDown() {
+    countDown () {
       this.count = 60
       const vm = this
-      const interval = setInterval(function() {
+      const interval = setInterval(function () {
         if (vm.count > 0) {
           vm.count--
         } else {
@@ -77,11 +82,6 @@ export default {
           vm.count = 0
         }
       }, 1000)
-    }
-  },
-  head() {
-    return {
-      title: 'User panel'
     }
   }
 }

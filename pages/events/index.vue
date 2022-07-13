@@ -27,17 +27,17 @@
             flat
             max-width="280"
           >
-            <v-skeleton-loader type="image"></v-skeleton-loader>
+            <v-skeleton-loader type="image" />
             <v-skeleton-loader
               type="list-item"
               max-height="34"
               max-width="140"
-            ></v-skeleton-loader>
+            />
             <v-skeleton-loader
               type="list-item-two-line"
               max-height="75"
               max-width="200"
-            ></v-skeleton-loader>
+            />
           </v-card>
         </v-row>
         <v-card
@@ -50,10 +50,12 @@
         >
           <v-row class="fill-height text-center flex-column" justify="center">
             <div class="mb-4">
-              <v-icon size="80">mdi-emoticon-sad-outline</v-icon>
+              <v-icon size="80">
+                mdi-emoticon-sad-outline
+              </v-icon>
             </div>
             <div>
-              Sorry, It seems that there is no events <br />
+              Sorry, It seems that there is no events <br>
               Please try somthing else, or
               <a @click="$refs.search.resetFilters">Reset filters</a>
             </div>
@@ -82,7 +84,9 @@
               :disabled="noMore"
               @click="page.number++"
             >
-              <v-icon left>mdi-chevron-down</v-icon>
+              <v-icon left>
+                mdi-chevron-down
+              </v-icon>
               load more
             </v-btn>
           </div>
@@ -114,8 +118,13 @@ export default {
       limit: 12
     }
   }),
+  head () {
+    return {
+      title: 'Events'
+    }
+  },
   computed: {
-    query() {
+    query () {
       const q = {}
       if (this.office) {
         q.office = this.office
@@ -127,27 +136,26 @@ export default {
     }
   },
   watch: {
-    query(v) {
+    query (v) {
       this.init()
       this.loadEvents(v)
     },
-    'page.number'() {
+    'page.number' () {
       this.loadEvents(this.query)
     }
   },
   methods: {
-    init() {
+    init () {
       this.page.limit = 12
       this.page.number = 1
       this.events = []
       this.noMore = false
     },
-    search(query) {
-      if (query.office) this.office = query.office._id
-      else this.office = null
+    search (query) {
+      if (query.office) { this.office = query.office._id } else { this.office = null }
       this.project = query.project
     },
-    getEvents(query) {
+    getEvents (query) {
       this.noMore = false
       this.loading = true
       this.$axios
@@ -156,11 +164,11 @@ export default {
         })
         .then(({ data }) => {
           this.events = data.docs
-          if (data.page === data.totalPages) this.noMore = true
+          if (data.page === data.totalPages) { this.noMore = true }
         })
         .finally(() => (this.loading = false))
     },
-    loadEvents(query) {
+    loadEvents (query) {
       this.loading = true
       // this.page.number++
       this.$axios
@@ -168,15 +176,10 @@ export default {
           params: { ...query, page: this.page }
         })
         .then(({ data }) => {
-          if (data.page === data.totalPages) this.noMore = true
+          if (data.page === data.totalPages) { this.noMore = true }
           this.events.push(...data.docs)
         })
         .finally(() => (this.loading = false))
-    }
-  },
-  head() {
-    return {
-      title: 'Events'
     }
   }
 }

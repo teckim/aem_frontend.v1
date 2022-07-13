@@ -1,6 +1,8 @@
 <template>
   <v-card>
-    <v-card-title primary-title> Delete event </v-card-title>
+    <v-card-title primary-title>
+      Delete event
+    </v-card-title>
     <v-card-text>
       <v-alert
         v-show="!!alert"
@@ -9,16 +11,17 @@
         type="warning"
         :value="true"
         v-text="alert"
-      >
-      </v-alert>
-      <div v-text="message"></div>
+      />
+      <div v-text="message" />
     </v-card-text>
     <v-card-actions>
-      <v-spacer></v-spacer>
+      <v-spacer />
       <v-btn depressed dark color="main" @click="$emit('confirm')">
         confirm
       </v-btn>
-      <v-btn text @click="$emit('cancel')">cancel</v-btn>
+      <v-btn text @click="$emit('cancel')">
+        cancel
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>

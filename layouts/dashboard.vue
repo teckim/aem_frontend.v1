@@ -37,11 +37,16 @@ export default {
     navBar,
     snackbar
   },
-  data() {
+  data () {
     return {}
   },
+  head () {
+    return {
+      title: 'Dashboard'
+    }
+  },
   methods: {
-    resendVerification() {
+    resendVerification () {
       this.$axios.get('/users/send-verification').then((res) => {
         if (res.status === 208) {
           this.$store.dispatch('snackbar', {
@@ -57,11 +62,6 @@ export default {
           })
         }
       })
-    }
-  },
-  head() {
-    return {
-      title: 'Dashboard'
     }
   }
 }

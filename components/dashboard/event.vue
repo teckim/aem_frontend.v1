@@ -16,15 +16,13 @@
           :width="4"
           style="min-width: 60px"
         >
-          <span class="text--secondary text--darken-1 body-2"
-            >{{
-              ticketsPercentage(event.ticketsCount, event.ticketsNumber)
-            }}%</span
-          >
+          <span class="text--secondary text--darken-1 body-2">{{
+            ticketsPercentage(event.ticketsCount, event.ticketsNumber)
+          }}%</span>
         </v-progress-circular>
         <span class="align-self-center d-flex flex-column pl-5">
           <div class="title">
-            <span v-text="event.subject"></span>
+            <span v-text="event.subject" />
           </div>
           <div>
             <span
@@ -34,7 +32,7 @@
                   ' at ' +
                   moment(event.startsOn).format('LT')
               "
-            ></span>
+            />
             <v-chip
               v-if="event.suspended"
               x-small
@@ -87,12 +85,12 @@
             class="v-btn--plain"
             :ripple="false"
             @click="$emit('details', event._id)"
-          ></v-btn>
+          />
         </v-spacer>
         <template v-if="live">
-          <v-divider vertical></v-divider>
+          <v-divider vertical />
           <v-menu offset-y bottom left>
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-btn
                 color="white"
                 height="100%"
@@ -103,13 +101,17 @@
                 v-bind="attrs"
                 v-on="on"
               >
-                <v-icon color="primary">mdi-dots-vertical</v-icon>
+                <v-icon color="primary">
+                  mdi-dots-vertical
+                </v-icon>
               </v-btn>
             </template>
             <v-list dense>
               <v-list-item @click="$emit('share', event._id)">
                 <v-list-item-icon class="mr-4">
-                  <v-icon small color="success">mdi-share-variant</v-icon>
+                  <v-icon small color="success">
+                    mdi-share-variant
+                  </v-icon>
                 </v-list-item-icon>
                 <v-list-item-content>
                   share
@@ -174,13 +176,15 @@
     </v-row>
     <v-slide-x-transition hide-on-leave>
       <div v-show="actions">
-        <v-divider></v-divider>
+        <v-divider />
         <v-card flat tile class="pa-2">
           <table align-start>
             <tbody>
               <tr>
                 <td class="pr-4 td-icon">
-                  <v-icon color="main">mdi-clock-outline</v-icon>
+                  <v-icon color="main">
+                    mdi-clock-outline
+                  </v-icon>
                 </td>
                 <td>
                   <div>
@@ -193,7 +197,9 @@
               </tr>
               <tr>
                 <td class="pr-4 td-icon">
-                  <v-icon color="main">mdi-information-variant</v-icon>
+                  <v-icon color="main">
+                    mdi-information-variant
+                  </v-icon>
                 </td>
                 <td>
                   <div>
@@ -209,14 +215,16 @@
               </tr>
               <tr>
                 <td class="pr-4 td-icon">
-                  <v-icon color="main">mdi-currency-usd</v-icon>
+                  <v-icon color="main">
+                    mdi-currency-usd
+                  </v-icon>
                 </td>
                 <td>
-                  <div v-text="eventPrice(event.price)"></div>
+                  <div v-text="eventPrice(event.price)" />
                   <span
                     class="text--secondary body-2"
                     v-text="event.ticketsNumber + ' tickets'"
-                  ></span>
+                  />
                 </td>
               </tr>
             </tbody>
@@ -229,7 +237,9 @@
             small
             color="success"
           >
-            <v-icon left>mdi-plus-circle-multiple-outline</v-icon>
+            <v-icon left>
+              mdi-plus-circle-multiple-outline
+            </v-icon>
             clone
           </v-btn>
         </v-card>
@@ -262,24 +272,23 @@ export default {
     moment
   }),
   computed: {
-    role() {
+    role () {
       return this.$auth.user.role
     }
   },
   methods: {
-    formatRange(date1, date2) {
-      if (!date1 || !date2) return ''
+    formatRange (date1, date2) {
+      if (!date1 || !date2) { return '' }
       const t = moment(date1).twix(date2)
       return {
         date: t.format({ showDayOfWeek: true, hourFormat: 'H' }),
         length: t.humanizeLength()
       }
     },
-    eventPrice(price) {
-      if (!price) return 'FREE'
-      else return price + ' ' + this.$auth.user.office.currency
+    eventPrice (price) {
+      if (!price) { return 'FREE' } else { return price + ' ' + this.$auth.user.office.currency }
     },
-    ticketsPercentage(ticketsCount, ticketsNumber) {
+    ticketsPercentage (ticketsCount, ticketsNumber) {
       return Math.floor((ticketsCount * 100) / ticketsNumber)
     }
   }

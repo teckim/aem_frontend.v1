@@ -8,7 +8,7 @@
           hide-details
           class="my-0"
           :label="!continuously ? 'Scan continuously' : 'Freez when not in use'"
-        ></v-checkbox>
+        />
         <v-btn depressed small icon @click="$emit('close')">
           <v-icon>mdi-close</v-icon>
         </v-btn>
@@ -37,7 +37,7 @@
                 <span
                   class="main--text"
                   v-text="order.table ? 'Table ' + order.table : ''"
-                ></span>
+                />
               </div>
               <div v-show="paidEvent" class="subtitle">
                 paid {{ order.paid || 0 }}
@@ -85,10 +85,10 @@
       </qrcode-stream>
       <!-- <div class="qrcode"></div> -->
       <div>
-        <div v-show="!loading && open && !freezed" class="qr-frame red"></div>
+        <div v-show="!loading && open && !freezed" class="qr-frame red" />
       </div>
       <v-overlay :absolute="true" :value="loading">
-        <v-progress-circular indeterminate size="64"></v-progress-circular>
+        <v-progress-circular indeterminate size="64" />
       </v-overlay>
       <div v-show="freezed && !loading" class="qr-overlay" @click="freez">
         <span>Please tap to continue scaning</span>
@@ -128,31 +128,30 @@ export default {
     camera: 'auto'
   }),
   computed: {
-    currency() {
+    currency () {
       return this.$auth.user.office.currency || ''
     }
   },
   watch: {
-    open(v) {
+    open (v) {
       this.freez()
     },
-    continuously(v) {
-      if (v) this.freezed = false
-      else this.freezed = true
+    continuously (v) {
+      if (v) { this.freezed = false } else { this.freezed = true }
     }
   },
-  mounted() {
+  mounted () {
     this.freez()
   },
   methods: {
-    freez() {
+    freez () {
       if (!this.continuously) {
-        if (this.freezTimeout) clearTimeout(this.freezTimeout)
+        if (this.freezTimeout) { clearTimeout(this.freezTimeout) }
         this.freezed = false
         this.freezTimeout = setTimeout(() => (this.freezed = true), 10000)
       }
     },
-    onDecode(string) {
+    onDecode (string) {
       this.freez()
       this.showUser = true
       this.$emit('decoded', string)
@@ -164,7 +163,7 @@ export default {
       // }
       // this.freez = false
     },
-    checkOut(id) {
+    checkOut (id) {
       this.$emit('checkout', id)
     }
   }

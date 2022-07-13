@@ -36,8 +36,7 @@
               (v) => v >= 0 || 'Positive only',
               (v) => v <= price || 'Pyament must be less or equal to ' + price
             ]"
-          >
-          </v-text-field>
+          />
           <v-text-field
             v-model.trim="note"
             validate-on-blur
@@ -45,8 +44,7 @@
             name="note"
             label="note"
             :rules="[(v) => (v || '').length <= 30 || '30 characters max']"
-          >
-          </v-text-field>
+          />
         </v-col>
       </v-form>
       <div v-if="!!price">
@@ -88,19 +86,19 @@ export default {
     note: null
   }),
   watch: {
-    order(v) {
+    order (v) {
       if (v) {
         this.payment = v.paid ?? 0
         this.note = v.note
       }
     }
   },
-  mounted() {
+  mounted () {
     this.payment = this.order.paid || 0
     this.note = this.order.note
   },
   methods: {
-    save() {
+    save () {
       if (this.$refs.form.validate()) {
         this.$emit('save', { payment: this.payment, note: this.note })
         this.$emit('cancel')

@@ -34,11 +34,11 @@
             color="main"
             :group="item.group"
           >
-            <template v-slot:activator>
+            <template #activator>
               <v-list-item-action>
                 <v-icon size="20">{{ item.icon }}</v-icon>
               </v-list-item-action>
-              <v-list-item-title v-text="item.title"></v-list-item-title>
+              <v-list-item-title v-text="item.title" />
             </template>
             <v-list-item
               v-for="(child, n) in item.child"
@@ -71,13 +71,13 @@
       <v-btn icon @click.stop="drawer = !drawer">
         <v-icon>mdi-menu</v-icon>
       </v-btn>
-      <v-spacer></v-spacer>
+      <v-spacer />
       <v-btn rounded small text color="main" to="/">
         <v-icon size="18" left>mdi-web</v-icon>
         home
       </v-btn>
       <v-menu open-on-hover bottom offset-y>
-        <template v-slot:activator="{ on }">
+        <template #activator="{ on }">
           <v-btn icon color="primary" v-on="on">
             <v-icon>mdi-dots-vertical</v-icon>
           </v-btn>
@@ -95,7 +95,7 @@
             </v-list-item-icon>
             <v-list-item-title>Tickets</v-list-item-title>
           </v-list-item>
-          <v-divider></v-divider>
+          <v-divider />
           <v-list-item link @click="logout">
             <v-list-item-icon>
               <v-icon small>mdi-logout</v-icon>
@@ -125,7 +125,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       drawer: true,
       items: [
@@ -165,14 +165,14 @@ export default {
     }
   },
   computed: {
-    role() {
+    role () {
       const role = this.$auth.user.role
-      if (!role) return ''
+      if (!role) { return '' }
       return role.slice(0, 6) + ' ' + role.slice(6)
     }
   },
   methods: {
-    logout() {
+    logout () {
       this.$auth.logout('local')
     }
   }

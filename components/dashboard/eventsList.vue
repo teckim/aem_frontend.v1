@@ -6,7 +6,7 @@
           <span>
             No live event to show, Please
             <a>retry</a>
-            <br />Or you can
+            <br>Or you can
             <a @click="$router.push('/dashboard/events/create')">
               create
             </a>
@@ -58,7 +58,9 @@
       </div>
       <div v-if="!loading && !!items.length" class="text-center py-5">
         <v-btn rounded text color="primary" @click="$emit('loadMore')">
-          <v-icon left>mdi-chevron-down</v-icon>
+          <v-icon left>
+            mdi-chevron-down
+          </v-icon>
           load more
         </v-btn>
       </div>
@@ -76,14 +78,14 @@
             ref="skeleton"
             type="list-item-avatar-three-line"
             class="mx-auto"
-          ></v-skeleton-loader>
+          />
         </v-responsive>
         <v-responsive max-width="200" class="d-md-flex d-none">
           <v-skeleton-loader
             ref="skeleton"
             type="list-item-two-line"
             class="mx-auto"
-          ></v-skeleton-loader>
+          />
         </v-responsive>
       </v-card>
     </div>
@@ -150,14 +152,14 @@ export default {
     details: ''
   }),
   methods: {
-    shareEvent(id) {
+    shareEvent (id) {
       this.id = id
       this.shareDialog = true
     },
-    update(id) {
+    update (id) {
       this.$router.push(`/dashboard/events/${id}/edit/`)
     },
-    suspend(event) {
+    suspend (event) {
       event.suspended = true
       const data = {
         suspended: true,
@@ -174,7 +176,7 @@ export default {
         })
         .catch(() => (event.suspended = false))
     },
-    unsuspend(event) {
+    unsuspend (event) {
       event.suspended = false
       const data = {
         suspended: false,
@@ -191,11 +193,11 @@ export default {
         })
         .catch(() => (event.suspended = true))
     },
-    remove(id) {
+    remove (id) {
       this.id = id
       this.removeDialog = true
     },
-    confirmedRemove() {
+    confirmedRemove () {
       this.removeDialog = false
       this.$axios.delete(`/events/${this.id}`).then(() => {
         this.$store.dispatch('snackbar', {
@@ -206,12 +208,12 @@ export default {
         this.$emit('refresh')
       })
     },
-    select(id) {
+    select (id) {
       if (!this.ids.includes(id)) {
         this.ids.push(id)
       }
     },
-    notify() {
+    notify () {
       this.notifying = true
       this.$axios
         .post('/notifications/events', { ids: this.ids })
@@ -224,11 +226,10 @@ export default {
         })
         .finally(() => (this.notifying = false))
     },
-    showDetails(id) {
-      if (this.details === id) this.details = ''
-      else this.details = id
+    showDetails (id) {
+      if (this.details === id) { this.details = '' } else { this.details = id }
     },
-    onClickOutside(event) {
+    onClickOutside (event) {
       this.actionBtns = null
     }
   }

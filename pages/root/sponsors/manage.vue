@@ -2,12 +2,14 @@
   <div>
     <v-row justify="space-between" align="center" no-gutters>
       <div class="py-2">
-        <div class="headline">Manage sponsors</div>
+        <div class="headline">
+          Manage sponsors
+        </div>
         <div
           v-if="sponsors && sponsors.length"
           class="subtitle text--secondary"
           v-text="sponsors.length + ' sponsors'"
-        ></div>
+        />
       </div>
       <!-- <v-btn rounded color="main white--text">
         <span class="pr-4">scan</span>
@@ -87,11 +89,11 @@ export default {
     saving: false,
     loadingSponsor: true
   }),
-  mounted() {
+  mounted () {
     this.getSponsors()
   },
   methods: {
-    getSponsors() {
+    getSponsors () {
       this.loadingSponsor = true
       this.$axios
         .get('/sponsors')
@@ -100,7 +102,7 @@ export default {
         })
         .finally(() => (this.loadingSponsor = false))
     },
-    deleteSponsor(id) {
+    deleteSponsor (id) {
       if (confirm('Are you sure you want to delete this sponsor?')) {
         this.$axios.delete(`/sponsors/${id}`).then(() => {
           this.$store.dispatch('snackbar', {
@@ -112,8 +114,8 @@ export default {
         })
       }
     },
-    save() {
-      if (!this.$refs.sponsorForm.validate()) return
+    save () {
+      if (!this.$refs.sponsorForm.validate()) { return }
       this.saving = true
       const sponsor = JSON.parse(JSON.stringify(this.$refs.sponsorForm.sponsor))
       this.$axios
@@ -132,7 +134,7 @@ export default {
           this.saving = false
         })
     },
-    editSponsor(i) {
+    editSponsor (i) {
       this.sponsor = this.sponsors[i]
       this.edit = true
     }

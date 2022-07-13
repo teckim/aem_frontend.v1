@@ -2,14 +2,16 @@
   <div>
     <v-row justify="space-between" align="center" no-gutters>
       <div v-if="user" class="py-2">
-        <div class="headline" v-text="user.first + ' ' + user.last"></div>
+        <div class="headline" v-text="user.first + ' ' + user.last" />
         <div class="subtitle text--secondary">
           {{ user.email }}
-          <v-icon :color="user.confirmed ? 'success' : 'warning'" small>{{
-            user.confirmed
-              ? 'mdi-check-circle-outline'
-              : 'mdi-alert-circle-outline'
-          }}</v-icon>
+          <v-icon :color="user.confirmed ? 'success' : 'warning'" small>
+            {{
+              user.confirmed
+                ? 'mdi-check-circle-outline'
+                : 'mdi-alert-circle-outline'
+            }}
+          </v-icon>
         </div>
       </div>
       <!-- <v-btn rounded color="main white--text">
@@ -19,7 +21,9 @@
     </v-row>
     <div v-if="user">
       <v-card flat tile class="body-2 py-3">
-        <div class="title">General</div>
+        <div class="title">
+          General
+        </div>
         <table class="ml-4">
           <tr>
             <td class="pr-4 text--secondary">
@@ -87,10 +91,12 @@
               blocked
             </td>
             <td>
-              <div v-if="!user.blocked">Never</div>
+              <div v-if="!user.blocked">
+                Never
+              </div>
               <div v-else>
-                <div v-text="moment(user.blocked).format('LLL')"></div>
-                <div v-text="moment(user.blocked).fromNow()"></div>
+                <div v-text="moment(user.blocked).format('LLL')" />
+                <div v-text="moment(user.blocked).fromNow()" />
               </div>
             </td>
           </tr>
@@ -104,9 +110,11 @@
           </tr>
         </table>
       </v-card>
-      <v-divider></v-divider>
+      <v-divider />
       <v-card flat tile class="body-2 py-3">
-        <div class="title">contact</div>
+        <div class="title">
+          contact
+        </div>
         <table class="ml-4">
           <tr>
             <td class="pr-4 text--secondary">
@@ -125,7 +133,9 @@
                 :href="`mailto:${user.email}`"
               >
                 send
-                <v-icon small right>mdi-send-circle-outline</v-icon>
+                <v-icon small right>
+                  mdi-send-circle-outline
+                </v-icon>
               </v-btn>
             </td>
           </tr>
@@ -143,15 +153,19 @@
                 :href="`tel:${phoneNum(user.phone)}`"
               >
                 call
-                <v-icon small right>mdi-phone-outline</v-icon>
+                <v-icon small right>
+                  mdi-phone-outline
+                </v-icon>
               </v-btn>
             </td>
           </tr>
         </table>
       </v-card>
-      <v-divider></v-divider>
+      <v-divider />
       <v-card flat tile class="body-2 py-3">
-        <div class="title">Details</div>
+        <div class="title">
+          Details
+        </div>
         <table class="ml-4">
           <tr>
             <td class="pr-4 text--secondary">
@@ -190,10 +204,10 @@
           </tr>
         </table>
       </v-card>
-      <v-divider></v-divider>
+      <v-divider />
       <div v-if="isBlocked">
         This user is already blocked, will be unblocked
-        <span class="main--text" v-text="moment(user.blocked).fromNow()"></span>
+        <span class="main--text" v-text="moment(user.blocked).fromNow()" />
       </div>
       <div class="mt-4">
         <v-menu
@@ -204,7 +218,7 @@
           :close-on-content-click="false"
           :nudge-right="40"
         >
-          <template v-slot:activator="{ on }">
+          <template #activator="{ on }">
             <v-text-field
               :value="blockDateFormatted"
               name="block-date"
@@ -213,13 +227,13 @@
               class="d-inline-block"
               readonly
               v-on="on"
-            ></v-text-field>
+            />
           </template>
           <v-date-picker
             v-model="blockDate"
             color="main ligthen-2"
             @input="blockDateMenu = false"
-          ></v-date-picker>
+          />
         </v-menu>
         <v-btn
           rounded
@@ -229,16 +243,18 @@
           "
           :loading="blocking"
           @click="block"
-          >block</v-btn
         >
+          block
+        </v-btn>
         <v-btn
           v-if="isBlocked"
           rounded
           color="success"
           :loading="blocking"
           @click="unblock"
-          >unblock</v-btn
         >
+          unblock
+        </v-btn>
       </div>
     </div>
   </div>
@@ -256,21 +272,20 @@ export default {
     loading: true
   }),
   computed: {
-    blockDateFormatted() {
-      if (this.blockDate) return this.moment(this.blockDate).format('LL')
+    blockDateFormatted () {
+      if (this.blockDate) { return this.moment(this.blockDate).format('LL') }
       return null
     },
-    isBlocked() {
-      if (new Date(this.user.blocked).getTime() >= new Date().getTime())
-        return true
+    isBlocked () {
+      if (new Date(this.user.blocked).getTime() >= new Date().getTime()) { return true }
       return false
     }
   },
-  mounted() {
+  mounted () {
     this.getUser(this.$route.params.id)
   },
   methods: {
-    getUser(id) {
+    getUser (id) {
       this.loading = this.$axios
         .get(`/users/user/${id}`)
         .then(({ data }) => {
@@ -281,7 +296,7 @@ export default {
         })
         .finally(() => (this.loading = false))
     },
-    block() {
+    block () {
       this.blocking = true
       this.$axios
         .put('/users/blocking', { id: this.user._id, date: this.blockDate })
@@ -295,7 +310,7 @@ export default {
         })
         .finally(() => (this.blocking = false))
     },
-    unblock() {
+    unblock () {
       this.blocking = true
       this.$axios
         .put('/users/blocking', {
@@ -312,7 +327,7 @@ export default {
         })
         .finally(() => (this.blocking = false))
     },
-    phoneNum(num) {
+    phoneNum (num) {
       num = num.replace('(', '+')
       num = num.replace(')', ' ')
       return num

@@ -34,11 +34,11 @@
             color="main"
             :group="item.group"
           >
-            <template v-slot:activator>
+            <template #activator>
               <v-list-item-action>
                 <v-icon size="20">{{ item.icon }}</v-icon>
               </v-list-item-action>
-              <v-list-item-title v-text="item.title"></v-list-item-title>
+              <v-list-item-title v-text="item.title" />
             </template>
             <v-list-item
               v-for="(child, n) in item.child"
@@ -71,12 +71,19 @@
       <v-btn icon @click.stop="drawer = !drawer">
         <v-icon>mdi-menu</v-icon>
       </v-btn>
-      <v-spacer></v-spacer>
+      <v-spacer />
       <v-btn rounded small text color="main" to="/user">
         <v-icon size="18" left>mdi-account</v-icon>
         user panel
       </v-btn>
-      <v-btn rounded small text color="main" class="mr-1" @click="logout">
+      <v-btn
+        rounded
+        small
+        text
+        color="main"
+        class="mr-1"
+        @click="logout"
+      >
         <v-icon size="18" left>mdi-logout</v-icon>
         logout
       </v-btn>
@@ -86,7 +93,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       drawer: true,
       items: [
@@ -155,14 +162,14 @@ export default {
     }
   },
   computed: {
-    role() {
+    role () {
       const role = this.$auth.user.role
-      if (!role) return ''
+      if (!role) { return '' }
       return role.slice(0, 6) + ' ' + role.slice(6)
     }
   },
   methods: {
-    logout() {
+    logout () {
       this.$auth.logout('local')
     }
   }

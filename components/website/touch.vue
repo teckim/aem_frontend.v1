@@ -1,5 +1,5 @@
 <template>
-  <div class="touch"></div>
+  <div class="touch" />
 </template>
 
 <script>

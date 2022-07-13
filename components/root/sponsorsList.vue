@@ -27,13 +27,15 @@
                 {{ sponsor.name }}
               </span>
             </div>
-            <div class="body-2 text--secondary">{{ sponsor.type }} sponsor</div>
+            <div class="body-2 text--secondary">
+              {{ sponsor.type }} sponsor
+            </div>
           </v-col>
           <div
             v-show="actionBtns === i"
             class="sponsor-action-buttons fill-height"
           >
-            <v-spacer></v-spacer>
+            <v-spacer />
             <v-btn
               tile
               depressed
@@ -170,7 +172,7 @@
             ref="skeleton"
             type="list-item-two-line"
             class="mx-auto"
-          ></v-skeleton-loader>
+          />
         </v-responsive>
       </v-card>
     </div>
@@ -194,7 +196,7 @@ export default {
     id: ''
   }),
   methods: {
-    onClickOutside(event) {
+    onClickOutside (event) {
       this.actionBtns = null
     }
   }

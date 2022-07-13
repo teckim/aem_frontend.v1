@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  middleware: 'admin-auth-redirect',
-  layout: 'dashboard'
+  layout: 'dashboard',
+  middleware: 'admin-auth-redirect'
 }
 </script>

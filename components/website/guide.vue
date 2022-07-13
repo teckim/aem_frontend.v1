@@ -2,13 +2,13 @@
   <div>
     <v-timeline>
       <v-timeline-item v-for="(item, i) in items" :key="i" color="minor" small>
-        <template v-slot:opposite>
-          <span class="title" v-text="i + 1 + '. ' + item.title"></span><br />
-          <span class="subtitle text-secondary" v-text="item.subtitle"></span>
+        <template #opposite>
+          <span class="title" v-text="i + 1 + '. ' + item.title" /><br>
+          <span class="subtitle text-secondary" v-text="item.subtitle" />
         </template>
         <div class="pa-4 d-flex justify-center">
           <v-card elevation="8" class="d-inline-flex">
-            <v-img :src="item.img"></v-img>
+            <v-img :src="item.img" />
           </v-card>
           <!-- <h2 :class="`title font-weight-light mb-4 ${item.img}--text`">
           Lorem ipsum

@@ -1,7 +1,9 @@
 <template>
   <div class="py-8 my-8">
     <div v-if="event && event.sponsors.length" class="mt-8">
-      <div class="text-center title text--secondary">Sponsored by</div>
+      <div class="text-center title text--secondary">
+        Sponsored by
+      </div>
       <sponsors :height="200" :items="event.sponsors" />
     </div>
     <v-container class="mt-8">
@@ -13,13 +15,12 @@
               :src="
                 event.image &&
                   $axios.defaults.baseURL +
-                    '/images/' +
-                    event.image.name +
-                    '?w=600'
+                  '/images/' +
+                  event.image.name +
+                  '?w=600'
               "
               :lazy-src="require('@/assets/images/placeholder.png')"
-            >
-            </v-img>
+            />
           </v-col>
           <v-col cols="12" md="5">
             <v-row
@@ -32,7 +33,9 @@
                   <div class="main--text">
                     {{ moment(event.startsOn).fromNow() }}
                   </div>
-                  <div class="display-1 mb-12">{{ event.subject }}</div>
+                  <div class="display-1 mb-12">
+                    {{ event.subject }}
+                  </div>
                 </v-card-title>
               </div>
               <v-card-text class="pt-0">
@@ -41,8 +44,8 @@
                     !event.price
                       ? 'Free'
                       : event.price
-                          .toString()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
                   }}
                   <span v-if="event.price" class="overline">
                     {{ event.office.currency }}
@@ -62,9 +65,11 @@
               color="grey lighten-5"
               @click="shareDialog = true"
             >
-              <v-icon color="primary">mdi-share-variant</v-icon>
+              <v-icon color="primary">
+                mdi-share-variant
+              </v-icon>
             </v-btn>
-            <v-spacer></v-spacer>
+            <v-spacer />
             <v-btn
               depressed
               tile
@@ -113,7 +118,7 @@
                   <td class="pl-4">
                     <div class="title">
                       About this
-                      <span v-text="event.project.title"></span>
+                      <span v-text="event.project.title" />
                     </div>
                     <span class="text--secondary body-1">
                       {{ event.about }}
@@ -165,7 +170,7 @@
                     </span>
                   </td>
                 </tr>
-                <div class="mb-8"></div>
+                <div class="mb-8" />
                 <tr>
                   <td class="pr-4">
                     <v-icon class="pt-1 text--disabled" size="28">
@@ -192,10 +197,10 @@
                           small
                           left
                           v-text="followingOffice ? 'mdi-check' : 'mdi-plus'"
-                        ></v-icon>
+                        />
                         <span
                           v-text="followingOffice ? 'follwing' : 'follow'"
-                        ></span>
+                        />
                       </v-btn>
                       <!-- <a>FOLLOW</a> -->
                     </div>
@@ -213,13 +218,14 @@
           border="left"
           type="warning"
           :value="ticketsPercentage > 75 && ticketsPercentage < 100"
-          >Hurry up! More than 75% of the Tickets allredy sold</v-alert
         >
+          Hurry up! More than 75% of the Tickets allredy sold
+        </v-alert>
       </v-card>
       <v-card v-else-if="loadingEvent" raised>
         <v-row no-gutters>
           <v-col cols="12" md="7">
-            <v-responsive :aspect-ratio="16 / 9" class="grey"> </v-responsive>
+            <v-responsive :aspect-ratio="16 / 9" class="grey" />
           </v-col>
           <v-col cols="12" md="5" class="pa-4">
             <v-responsive class="fill-height">
@@ -232,12 +238,12 @@
                   type="list-item-two-line"
                   max-height="50"
                   max-width="270"
-                ></v-skeleton-loader>
+                />
                 <v-skeleton-loader
                   type="list-item"
                   max-height="50"
                   max-width="80"
-                ></v-skeleton-loader>
+                />
               </v-row>
             </v-responsive>
           </v-col>
@@ -248,9 +254,11 @@
           <div class="mx-4 my-12">
             <h3 class="mb-4">
               Sorry it seems that there is no event with ID like
-              <span class="main--text" v-text="id"></span>
+              <span class="main--text" v-text="id" />
             </h3>
-            <v-btn rounded text color="primary" to="/events">see events</v-btn>
+            <v-btn rounded text color="primary" to="/events">
+              see events
+            </v-btn>
           </div>
         </v-row>
       </v-card>
@@ -275,7 +283,7 @@ export default {
     share,
     sponsors
   },
-  asyncData({ params, app, error }) {
+  asyncData ({ params, app, error }) {
     return app.$axios
       .get(`/events/${params.id}`)
       .then(({ data }) => {
@@ -292,87 +300,12 @@ export default {
     shareDialog: false,
     loadingFollow: false
   }),
-  computed: {
-    id() {
-      return this.$route.params.id
-    },
-    soldOut() {
-      if (!this.event) return null
-      return this.event.ticketsCount >= this.event.ticketsNumber
-    },
-    followingOffice() {
-      if (!this.$auth.user) return false
-      return (this.$auth.user.followOffice || []).includes(
-        this.event.office._id
-      )
-    },
-    ticketsPercentage() {
-      return Math.floor(
-        (this.event.ticketsCount * 100) / this.event.ticketsNumber
-      )
-    },
-    isBlocked() {
-      if (!this.$auth.user || !this.$auth.user.blocked) return false
-      if (new Date(this.$auth.user.blocked).getTime() > new Date().getTime())
-        return true
-      return false
-    },
-    isConfirmed() {
-      if (this.$auth.user && this.$auth.user.confirmed) return true
-      return false
-    }
-  },
-  mounted() {
-    localStorage.setItem('path', this.$route.fullPath)
-    // this.getEvent(this.id)
-  },
-  methods: {
-    // getEvent(id) {
-    //   this.$axios
-    //     .get(`/events/${id}`)
-    //     .then(({ data }) => {
-    //       this.event = data
-    //     })
-    //     .finally(() => (this.loadingEvent = false))
-    // },
-    getTicket(id) {
-      if (!this.$auth.loggedIn) return this.$router.push('/login')
-      this.loading = true
-      this.$axios
-        .post('/orders', { id })
-        .then(({ data }) => {
-          this.$router.push('/user/tickets')
-        })
-        .finally(() => (this.loading = false))
-    },
-    async toggleFollow() {
-      this.loadingFollow = true
-      if (this.followingOffice) {
-        await this.$axios.put(
-          `/users/offices/${this.event.office._id}/following?action=unfollow`
-        )
-      } else {
-        await this.$axios.put(
-          `/users/offices/${this.event.office._id}/following?action=follow`
-        )
-      }
-      await this.$auth.fetchUser()
-      this.loadingFollow = false
-    },
-    formatRange(date1, date2) {
-      if (!date1 || !date2) return ''
-      const t = moment(date1).twix(date2)
-      return {
-        date: t.format({ showDayOfWeek: true, hourFormat: 'H' }),
-        length: t.humanizeLength()
-      }
-    }
-  },
-  head() {
-    if (!this.event)
+  head () {
+    if (!this.event) {
       return {
         title: this.event ? this.event.subject : 'Event'
       }
+    }
     const desc = `on ${new Date(this.event.startsOn).toUTCString()} - 
     ${this.event.about || this.event.project.description}`
     const title = `${this.event.subject || 'Event'} - Algeria English Meeting`
@@ -440,6 +373,81 @@ export default {
           content: image
         }
       ]
+    }
+  },
+  computed: {
+    id () {
+      return this.$route.params.id
+    },
+    soldOut () {
+      if (!this.event) { return null }
+      return this.event.ticketsCount >= this.event.ticketsNumber
+    },
+    followingOffice () {
+      if (!this.$auth.user) { return false }
+      return (this.$auth.user.followOffice || []).includes(
+        this.event.office._id
+      )
+    },
+    ticketsPercentage () {
+      return Math.floor(
+        (this.event.ticketsCount * 100) / this.event.ticketsNumber
+      )
+    },
+    isBlocked () {
+      if (!this.$auth.user || !this.$auth.user.blocked) { return false }
+      if (new Date(this.$auth.user.blocked).getTime() > new Date().getTime()) { return true }
+      return false
+    },
+    isConfirmed () {
+      if (this.$auth.user && this.$auth.user.confirmed) { return true }
+      return false
+    }
+  },
+  mounted () {
+    localStorage.setItem('path', this.$route.fullPath)
+    // this.getEvent(this.id)
+  },
+  methods: {
+    // getEvent(id) {
+    //   this.$axios
+    //     .get(`/events/${id}`)
+    //     .then(({ data }) => {
+    //       this.event = data
+    //     })
+    //     .finally(() => (this.loadingEvent = false))
+    // },
+    getTicket (id) {
+      if (!this.$auth.loggedIn) { return this.$router.push('/login') }
+      this.loading = true
+      this.$axios
+        .post('/orders', { id })
+        .then(({ data }) => {
+          this.$router.push('/user/tickets')
+        })
+        .finally(() => (this.loading = false))
+    },
+    async toggleFollow () {
+      this.loadingFollow = true
+      if (this.followingOffice) {
+        await this.$axios.put(
+          `/users/offices/${this.event.office._id}/following?action=unfollow`
+        )
+      } else {
+        await this.$axios.put(
+          `/users/offices/${this.event.office._id}/following?action=follow`
+        )
+      }
+      await this.$auth.fetchUser()
+      this.loadingFollow = false
+    },
+    formatRange (date1, date2) {
+      if (!date1 || !date2) { return '' }
+      const t = moment(date1).twix(date2)
+      return {
+        date: t.format({ showDayOfWeek: true, hourFormat: 'H' }),
+        length: t.humanizeLength()
+      }
     }
   }
 }

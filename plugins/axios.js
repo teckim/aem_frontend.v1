@@ -1,4 +1,4 @@
-export default function({ $axios, store, redirect }) {
+export default function ({ $axios, store, redirect }) {
   $axios.onError((error) => {
     switch (error.response.status) {
       case 400:

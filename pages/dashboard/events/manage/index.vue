@@ -4,7 +4,9 @@
       <span class="headline py-2">Manage events</span>
       <v-btn rounded color="success" to="/dashboard/events/create">
         <span class="pr-4">create</span>
-        <v-icon right>mdi-plus</v-icon>
+        <v-icon right>
+          mdi-plus
+        </v-icon>
       </v-btn>
     </v-row>
     <v-row no-gutters>
@@ -72,28 +74,33 @@ export default {
       limit: 5
     }
   }),
+  head () {
+    return {
+      title: 'Manage events'
+    }
+  },
   computed: {
-    livePageNum() {
+    livePageNum () {
       return this.liveQuery.page
     },
-    pastPageNum() {
+    pastPageNum () {
       return this.pastQuery.page
     }
   },
   watch: {
-    livePageNum(v) {
+    livePageNum (v) {
       this.getLiveEvents()
     },
-    pastPageNum(v) {
+    pastPageNum (v) {
       this.getPastEvents()
     }
   },
-  mounted() {
+  mounted () {
     this.getLiveEvents()
     this.getPastEvents()
   },
   methods: {
-    getLiveEvents(re = false) {
+    getLiveEvents (re = false) {
       if (re) {
         this.liveEvents = []
         this.liveQuery.page = 1
@@ -108,7 +115,7 @@ export default {
         })
         .finally(() => (this.loadingLiveEvents = false))
     },
-    getPastEvents() {
+    getPastEvents () {
       this.loadingPastEvents = true
       this.$axios
         .get('/events/office', {
@@ -118,11 +125,6 @@ export default {
           this.pastEvents.push(...data.events)
         })
         .finally(() => (this.loadingPastEvents = false))
-    }
-  },
-  head() {
-    return {
-      title: 'Manage events'
     }
   }
 }

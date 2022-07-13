@@ -2,12 +2,14 @@
   <div>
     <v-row justify="space-between" align="center" no-gutters>
       <div class="py-2">
-        <div class="headline">Manage offices</div>
+        <div class="headline">
+          Manage offices
+        </div>
         <div
           v-if="offices && offices.length"
           class="subtitle text--secondary"
           v-text="offices.length + ' offices'"
-        ></div>
+        />
       </div>
       <!-- <v-btn rounded color="main white--text">
         <span class="pr-4">scan</span>
@@ -79,11 +81,11 @@ export default {
     edit: false,
     loadingOffices: true
   }),
-  mounted() {
+  mounted () {
     this.getOffices()
   },
   methods: {
-    getOffices() {
+    getOffices () {
       this.loadingOffices = true
       this.$axios
         .get('/offices?role=root')
@@ -92,7 +94,7 @@ export default {
         })
         .finally(() => (this.loadingOffices = false))
     },
-    deleteOffice(id) {
+    deleteOffice (id) {
       if (confirm('Are you sure you want to delete this office?')) {
         this.$axios.delete(`/offices/${id}`).then(() => {
           this.$store.dispatch('snackbar', {
@@ -104,8 +106,8 @@ export default {
         })
       }
     },
-    save() {
-      if (!this.$refs.officeForm.validate()) return
+    save () {
+      if (!this.$refs.officeForm.validate()) { return }
       this.saving = true
       const office = JSON.parse(JSON.stringify(this.$refs.officeForm.office))
       delete office.admins
@@ -125,7 +127,7 @@ export default {
           this.saving = false
         })
     },
-    editOffice(i) {
+    editOffice (i) {
       this.office = this.offices[i]
       this.edit = true
     }

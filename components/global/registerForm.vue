@@ -6,34 +6,35 @@
           :color="step > 1 ? 'success' : 'main'"
           :complete="step > 1"
           step="1"
-          ><span :class="step === 1 ? 'body-1' : 'body-2'">Account</span
-          ><small v-show="step === 1" class="main--text"
-            >required</small
-          ></v-stepper-step
         >
+          <span :class="step === 1 ? 'body-1' : 'body-2'">Account</span><small
+            v-show="step === 1"
+            class="main--text"
+          >required</small>
+        </v-stepper-step>
 
-        <v-divider></v-divider>
+        <v-divider />
 
         <v-stepper-step
           :color="step > 2 ? 'success' : 'main'"
           :complete="step > 2"
           step="2"
-          ><span :class="step === 2 ? 'body-1' : 'body-2'">Personal</span
-          ><small v-show="step === 2" class="main--text"
-            >required</small
-          ></v-stepper-step
         >
+          <span :class="step === 2 ? 'body-1' : 'body-2'">Personal</span><small
+            v-show="step === 2"
+            class="main--text"
+          >required</small>
+        </v-stepper-step>
 
-        <v-divider></v-divider>
+        <v-divider />
 
         <v-stepper-step
           :color="step > 3 ? 'success' : 'main'"
           :complete="step > 3"
           step="3"
-          ><span :class="step === 3 ? 'body-1' : 'body-2'"
-            >Additional</span
-          ></v-stepper-step
         >
+          <span :class="step === 3 ? 'body-1' : 'body-2'">Additional</span>
+        </v-stepper-step>
       </v-stepper-header>
       <div v-show="step < 4" class="px-6">
         <v-card flat class="mx-auto" width="350">
@@ -43,7 +44,9 @@
             </div>
           </v-card-title>
           <v-card-text class="px-0">
-            <div class="grey--text">Please complete the steps</div>
+            <div class="grey--text">
+              Please complete the steps
+            </div>
           </v-card-text>
         </v-card>
       </div>
@@ -60,7 +63,7 @@
                 label="Email"
                 :rules="vRegEmail"
                 :error-messages="emailErr"
-              ></v-text-field>
+              />
               <v-text-field
                 v-model="user.password"
                 validate-on-blur
@@ -70,10 +73,12 @@
                 :type="showPass ? 'text' : 'password'"
                 :rules="vRegPassword"
               >
-                <template v-slot:append>
-                  <v-icon small @click="showPass = !showPass">{{
-                    showPass ? 'mdi-eye' : 'mdi-eye-off'
-                  }}</v-icon>
+                <template #append>
+                  <v-icon small @click="showPass = !showPass">
+                    {{
+                      showPass ? 'mdi-eye' : 'mdi-eye-off'
+                    }}
+                  </v-icon>
                 </template>
               </v-text-field>
               <v-text-field
@@ -86,10 +91,12 @@
                 :rules="vRegConfPassword"
                 :error-messages="passConfErr"
               >
-                <template v-slot:append>
-                  <v-icon small @click="showPass = !showPass">{{
-                    showPass ? 'mdi-eye' : 'mdi-eye-off'
-                  }}</v-icon>
+                <template #append>
+                  <v-icon small @click="showPass = !showPass">
+                    {{
+                      showPass ? 'mdi-eye' : 'mdi-eye-off'
+                    }}
+                  </v-icon>
                 </template>
               </v-text-field>
               <v-btn
@@ -102,8 +109,11 @@
                 min-width="150"
                 :loading="loadingBtn"
                 @click="nextStep(2)"
-                >next <v-icon small right>mdi-arrow-right</v-icon></v-btn
               >
+                next <v-icon small right>
+                  mdi-arrow-right
+                </v-icon>
+              </v-btn>
             </v-card>
           </v-form>
         </v-stepper-content>
@@ -122,7 +132,7 @@
                     label="First name"
                     :rules="vRegFirstName"
                     @blur="user.first = user.first.replace(/\s{2,}/g, ' ')"
-                  ></v-text-field>
+                  />
                 </v-col>
                 <v-col cols="6">
                   <v-text-field
@@ -133,7 +143,7 @@
                     label="Last name"
                     :rules="vRegLastName"
                     @blur="user.last = user.last.replace(/\s{2,}/g, ' ')"
-                  ></v-text-field>
+                  />
                 </v-col>
               </v-row>
               <v-row no-gutters>
@@ -147,7 +157,7 @@
                     hint="country code"
                     persistent-hint
                     :rules="vRegPhonePrefix"
-                  ></v-text-field>
+                  />
                 </v-col>
                 <v-col>
                   <v-text-field
@@ -158,10 +168,12 @@
                     label="Phone number"
                     :prefix="'+' + prefix"
                     :rules="vRegPhone"
-                  ></v-text-field>
+                  />
                 </v-col>
               </v-row>
-              <div class="mt-4 caption">Gender</div>
+              <div class="mt-4 caption">
+                Gender
+              </div>
               <v-radio-group
                 v-model="user.gender"
                 validate-on-blur
@@ -175,12 +187,12 @@
                   color="main lighten-2"
                   label="Male"
                   value="M"
-                ></v-radio>
+                />
                 <v-radio
                   color="main lighten-2"
                   label="Female"
                   value="F"
-                ></v-radio>
+                />
               </v-radio-group>
               <div class="mt-8">
                 <v-btn
@@ -191,8 +203,11 @@
                   text
                   color="main"
                   @click="step = 1"
-                  ><v-icon small left>mdi-arrow-left</v-icon>back</v-btn
                 >
+                  <v-icon small left>
+                    mdi-arrow-left
+                  </v-icon>back
+                </v-btn>
                 <v-btn
                   depressed
                   large
@@ -202,8 +217,11 @@
                   class="float-right"
                   min-width="150"
                   @click="nextStep(3)"
-                  >next <v-icon small right>mdi-arrow-right</v-icon></v-btn
                 >
+                  next <v-icon small right>
+                    mdi-arrow-right
+                  </v-icon>
+                </v-btn>
               </div>
             </v-card>
           </v-form>
@@ -220,7 +238,7 @@
                 min-width="290px"
                 :close-on-content-click="false"
               >
-                <template v-slot:activator="{ on }">
+                <template #activator="{ on }">
                   <v-text-field
                     v-model="bDay"
                     readonly
@@ -229,7 +247,7 @@
                     name="b_day"
                     label="Birthday date"
                     v-on="on"
-                  ></v-text-field>
+                  />
                 </template>
                 <v-date-picker
                   ref="picker"
@@ -238,7 +256,7 @@
                   min="1950-01-01"
                   :max="new Date().toISOString().substr(0, 10)"
                   @change="save"
-                ></v-date-picker>
+                />
               </v-menu>
               <v-autocomplete
                 v-model="user.major"
@@ -249,7 +267,7 @@
                 item-color="main"
                 :rules="vRegMajor"
                 :items="disciplines"
-              ></v-autocomplete>
+              />
               <v-radio-group
                 v-model="user.student"
                 validate-on-blur
@@ -262,13 +280,13 @@
                   label="Student"
                   :value="true"
                   name="gender"
-                ></v-radio>
+                />
                 <v-radio
                   color="main lighten-2"
                   label="Professional"
                   :value="false"
                   name="gender"
-                ></v-radio>
+                />
               </v-radio-group>
               <v-btn
                 depressed
@@ -278,8 +296,11 @@
                 text
                 color="main"
                 @click="step = 2"
-                ><v-icon small left>mdi-arrow-left</v-icon>back</v-btn
               >
+                <v-icon small left>
+                  mdi-arrow-left
+                </v-icon>back
+              </v-btn>
               <v-btn
                 depressed
                 large
@@ -290,8 +311,11 @@
                 min-width="150"
                 :loading="loadingBtn"
                 @click="nextStep(4)"
-                >sing up <v-icon small right>mdi-check-all</v-icon></v-btn
               >
+                sing up <v-icon small right>
+                  mdi-check-all
+                </v-icon>
+              </v-btn>
             </v-card>
           </v-form>
         </v-stepper-content>
@@ -303,12 +327,12 @@
             min-height="350"
           >
             <check />
-            <h3 class="success--text pb-2">GREAT! Account created</h3>
-            <span class="body-2 grey--text"
-              >THANK YOU! we've sent you a verification email that is valid for
-              24H, <br />
-              please check your email inbox/spam to activate your account.</span
-            >
+            <h3 class="success--text pb-2">
+              GREAT! Account created
+            </h3>
+            <span class="body-2 grey--text">THANK YOU! we've sent you a verification email that is valid for
+              24H, <br>
+              please check your email inbox/spam to activate your account.</span>
           </v-card>
         </v-stepper-content>
       </v-stepper-items>
@@ -358,25 +382,25 @@ export default {
     ...validators
   }),
   computed: {
-    bDay() {
+    bDay () {
       return this.user.b_day
         ? moment(this.user.b_day).format('MMM D, YYYY')
         : ''
     },
-    to() {
+    to () {
       return this.$route.query.to || ''
     }
   },
   watch: {
-    menu(val) {
+    menu (val) {
       val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'))
     }
   },
   methods: {
-    save(date) {
+    save (date) {
       this.$refs.menu.save(date)
     },
-    async nextStep(s) {
+    async nextStep (s) {
       switch (s) {
         case 2:
           this.passConfErr = ''
@@ -392,12 +416,12 @@ export default {
               this.loadingBtn = false
               if (res.data.exists) {
                 this.emailErr = 'email alredy in use'
-              } else this.step++
+              } else { this.step++ }
             }
           }
           break
         case 3:
-          if (this.$refs.personalForm.validate()) setTimeout(() => this.step++)
+          if (this.$refs.personalForm.validate()) { setTimeout(() => this.step++) }
           break
         case 4:
           if (this.$refs.additionalForm.validate()) {
@@ -406,7 +430,7 @@ export default {
           break
       }
     },
-    register() {
+    register () {
       this.loadingBtn = true
       const user = JSON.parse(JSON.stringify(this.user))
       user.phone = '(' + this.prefix + ')' + user.phone

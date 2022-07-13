@@ -23,8 +23,8 @@ export default {
     items: []
   }),
   watch: {
-    snackbar({ timeout, color, text, showing }) {
-      this.items = this.items.filter((i) => i.showing)
+    snackbar ({ timeout, color, text, showing }) {
+      this.items = this.items.filter(i => i.showing)
       this.items.push({ timeout, color, text, showing })
     }
   },

@@ -12,7 +12,7 @@
             validate-on-blur
             :rules="[(v) => !!v || 'Sponsor name is required']"
             required
-          ></v-text-field>
+          />
         </v-col>
         <v-col cols="8">
           <v-text-field
@@ -22,7 +22,7 @@
             type="text"
             color="main"
             required
-          ></v-text-field>
+          />
         </v-col>
       </v-row>
       <v-row dense>
@@ -37,7 +37,7 @@
             validate-on-blur
             :rules="[(v) => !!v || 'Link is required']"
             required
-          ></v-text-field>
+          />
         </v-col>
       </v-row>
       <v-row>
@@ -48,12 +48,12 @@
             name="type"
             label="type"
             color="main"
-          ></v-select>
+          />
         </v-col>
       </v-row>
       <v-row>
         <v-col>
-          <v-switch v-model="sponsor.active" label="Active"></v-switch>
+          <v-switch v-model="sponsor.active" label="Active" />
         </v-col>
       </v-row>
       <v-row>
@@ -66,7 +66,7 @@
             max-width="500"
             class="mx-auto mt-4"
             :src="$axios.defaults.baseURL + '/images/' + sponsor.image"
-          ></v-img>
+          />
         </v-col>
         <v-col v-else>
           <v-responsive min-height="200" class="align-center text-center">
@@ -79,7 +79,9 @@
               class="my-4"
               @click="showMediaGallery"
             >
-              <v-icon left>mdi-image-multiple-outline</v-icon> gallery
+              <v-icon left>
+                mdi-image-multiple-outline
+              </v-icon> gallery
             </v-btn>
             <v-btn
               text
@@ -89,7 +91,9 @@
               class="my-4"
               @click="showMediaUpload"
             >
-              <v-icon left>mdi-cloud-upload-outline</v-icon> upload
+              <v-icon left>
+                mdi-cloud-upload-outline
+              </v-icon> upload
             </v-btn>
           </v-responsive>
         </v-col>
@@ -144,31 +148,31 @@ export default {
     uploadMode: false
   }),
   watch: {
-    data(v) {
+    data (v) {
       if (v) {
         Object.assign(this.sponsor, v)
       }
     }
   },
-  mounted() {
+  mounted () {
     if (this.data) {
       Object.assign(this.sponsor, this.data)
     }
   },
   methods: {
-    onSelected(image) {
+    onSelected (image) {
       this.sponsor.image = image
       this.mediaGallery = false
     },
-    showMediaUpload() {
+    showMediaUpload () {
       this.mediaGallery = true
       this.uploadMode = true
     },
-    showMediaGallery() {
+    showMediaGallery () {
       this.mediaGallery = true
       this.uploadMode = false
     },
-    validate() {
+    validate () {
       if (!this.sponsor.image) {
         this.$refs.form.validate()
         this.$store.dispatch('snackbar', {
@@ -180,7 +184,7 @@ export default {
       }
       return this.$refs.form.validate()
     },
-    reset() {
+    reset () {
       this.$refs.form.reset()
       this.sponsor.image = null
     }

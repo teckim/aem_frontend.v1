@@ -21,10 +21,10 @@ export default {
     navBar,
     snackbar
   },
-  data() {
+  data () {
     return {}
   },
-  head() {
+  head () {
     return {
       title: 'Root'
     }

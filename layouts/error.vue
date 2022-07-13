@@ -5,14 +5,14 @@
         <v-img
           max-width="500"
           :src="require('~/assets/images/404.png')"
-        ></v-img>
+        />
         <h1>Page Not found</h1>
       </div>
       <div v-else class="mt-6 mx-auto text-center">
         <v-img
           max-width="500"
           :src="require('~/assets/images/500.png')"
-        ></v-img>
+        />
         <h1>An error occurred, Please try agian</h1>
       </div>
     </v-row>
@@ -28,13 +28,13 @@ export default {
       default: null
     }
   },
-  data() {
+  data () {
     return {
       pageNotFound: '404 Not Found',
       otherError: 'An error occurred'
     }
   },
-  head() {
+  head () {
     const title =
       this.error.statusCode === 404 ? this.pageNotFound : this.otherError
     return {

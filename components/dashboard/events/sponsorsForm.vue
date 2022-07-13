@@ -10,8 +10,7 @@
           item-text="name"
           item-value="_id"
           return-object
-        >
-        </v-autocomplete>
+        />
       </v-col>
     </v-row>
     <div v-if="selectedSponsors">
@@ -23,8 +22,8 @@
       >
         <v-row no-gutters align="center">
           <div class="ma-2">
-            <div v-text="sponsor.name"></div>
-            <a :href="sponsor.link" v-text="sponsor.link"></a>
+            <div v-text="sponsor.name" />
+            <a :href="sponsor.link" v-text="sponsor.link" />
           </div>
           <div class="ma-2">
             <v-btn icon color="error" @click="selectedSponsors.splice(i, 1)">
@@ -51,27 +50,26 @@ export default {
     selectedSponsors: []
   }),
   watch: {
-    sponsor(v) {
+    sponsor (v) {
       if (v) {
-        if (this.selectedSponsors.some((el) => el._id === v._id)) return
+        if (this.selectedSponsors.some(el => el._id === v._id)) { return }
         this.selectedSponsors.push(v)
         this.sponsor = ''
       }
     },
-    selectedSponsors(v) {
+    selectedSponsors (v) {
       this.$emit(
         'selected',
-        v.map((i) => i._id)
+        v.map(i => i._id)
       )
     }
   },
-  mounted() {
+  mounted () {
     this.getSponsors()
-    if (this.data && this.data.sponsors)
-      this.selectedSponsors = this.data.sponsors
+    if (this.data && this.data.sponsors) { this.selectedSponsors = this.data.sponsors }
   },
   methods: {
-    getSponsors() {
+    getSponsors () {
       this.$axios.get('/sponsors').then(({ data }) => {
         this.sponsors = data.sponsors
       })

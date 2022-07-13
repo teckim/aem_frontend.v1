@@ -1,7 +1,7 @@
-export default function({ $auth, redirect, store, route }) {
+export default function ({ $auth, redirect, route }) {
   if (
     !$auth.loggedIn ||
-    !['root', 'officeAdmin', 'officeMember'].includes($auth.user.role)
+    !['ROOT', 'ADMIN', 'ORGANIZER'].some(role => $auth.user.flat_roles.includes(role))
   ) {
     redirect(`/login?to=${route.path}&s=denied`)
   }

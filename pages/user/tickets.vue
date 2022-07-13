@@ -12,7 +12,9 @@
       <span class="headline py-2">My tickets</span>
       <v-btn to="/events" rounded dark color="main">
         <span class="pr-4">events</span>
-        <v-icon right>mdi-arrow-right</v-icon>
+        <v-icon right>
+          mdi-arrow-right
+        </v-icon>
       </v-btn>
     </v-row>
     <div class="mt-12">
@@ -43,27 +45,27 @@ export default {
       limit: 10
     }
   }),
-  mounted() {
+  head () {
+    return {
+      title: 'Tikets'
+    }
+  },
+  mounted () {
     this.getTickets()
   },
   methods: {
-    getTickets() {
+    getTickets () {
       this.loading = true
       this.$axios
-        .get(`/orders/user`, {
+        .get('/orders/user', {
           params: { ...this.query }
         })
         .then(({ data }) => {
-          this.tickets = data.tickets.filter((ticket) =>
+          this.tickets = data.tickets.filter(ticket =>
             ['coming', 'live'].includes(ticket.event.state)
           )
         })
         .finally(() => (this.loading = false))
-    }
-  },
-  head() {
-    return {
-      title: 'Tikets'
     }
   }
 }

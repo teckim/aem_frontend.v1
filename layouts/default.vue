@@ -19,7 +19,7 @@
     >
       <div>
         You are blocked for
-        <span class="error--text font-weight-bold" v-text="blocked"></span>, You
+        <span class="error--text font-weight-bold" v-text="blocked" />, You
         cannot participate in any event.
       </div>
     </v-alert>
@@ -94,7 +94,7 @@ export default {
       }
     ]
   }),
-  mounted() {
+  mounted () {
     if (this.$auth.user) {
       if (this.$auth.user.blocked) {
         if (

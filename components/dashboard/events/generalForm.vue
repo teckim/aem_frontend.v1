@@ -15,7 +15,7 @@
             :items="projects"
             :rules="vProject"
             :disabled="updateMode"
-          ></v-autocomplete>
+          />
         </v-col>
         <v-col cols="12" md="3" sm="3">
           <v-text-field
@@ -25,7 +25,7 @@
             color="main ligthen-2"
             validate-on-blur
             :rules="vSubject"
-          ></v-text-field>
+          />
         </v-col>
         <v-col cols="12" md="6" sm="6" class="d-inline-flex align-center">
           <v-autocomplete
@@ -43,7 +43,7 @@
             :loading="gettingLocations"
             :rules="vLocation"
           >
-            <template v-slot:no-data>
+            <template #no-data>
               <v-list-item>
                 <v-list-item-title>
                   Search for a
@@ -51,15 +51,15 @@
                 </v-list-item-title>
               </v-list-item>
             </template>
-            <template v-slot:selection="{ attr, on, item }">
-              <span v-text="item.address"></span>
+            <template #selection="{ attr, on, item }">
+              <span v-text="item.address" />
             </template>
-            <template v-slot:item="{ item }">
+            <template #item="{ item }">
               <v-list-item-content>
-                <v-list-item-title v-text="item.name"></v-list-item-title>
+                <v-list-item-title v-text="item.name" />
                 <v-list-item-subtitle
                   v-text="item.address"
-                ></v-list-item-subtitle>
+                />
               </v-list-item-content>
             </template>
           </v-autocomplete>
@@ -77,7 +77,7 @@
             outlined
             validate-on-blur
             :rules="vAbout"
-          ></v-textarea>
+          />
         </v-col>
       </v-row>
     </v-form>
@@ -97,7 +97,9 @@
       @click="submit"
     >
       <span>next</span>
-      <v-icon right>mdi-arrow-right</v-icon>
+      <v-icon right>
+        mdi-arrow-right
+      </v-icon>
     </v-btn>
     <v-dialog
       v-model="addLocationDialog"
@@ -164,7 +166,7 @@ export default {
     ...general
   }),
   watch: {
-    data(v) {
+    data (v) {
       if (v) {
         this.event.subject = v.subject
         this.event.about = v.about
@@ -173,7 +175,7 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     if (this.data) {
       this.event.subject = this.data.subject
       this.event.about = this.data.about
@@ -182,21 +184,21 @@ export default {
     }
   },
   methods: {
-    saveLocation(v) {
+    saveLocation (v) {
       this.locations.push(v)
       this.event.location = v
     },
-    submit() {
+    submit () {
       if (this.validate()) {
         this.$emit('submit', this.event)
       }
     },
-    update() {
+    update () {
       if (this.validate()) {
         this.$emit('update', this.event)
       }
     },
-    validate() {
+    validate () {
       return this.$refs.generalForm.validate()
     }
   }

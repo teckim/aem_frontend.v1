@@ -49,7 +49,7 @@
               ref="skeleton"
               type="list-item-two-line"
               class="mx-auto"
-            ></v-skeleton-loader>
+            />
           </v-responsive>
         </v-card>
       </div>
@@ -63,17 +63,17 @@ export default {
     offices: [],
     loading: true
   }),
-  mounted() {
+  mounted () {
     this.getFollows()
   },
   methods: {
-    getFollows() {
+    getFollows () {
       this.$axios
         .get('/users/follows')
         .then(({ data }) => (this.offices = data.offices))
         .finally(() => (this.loading = false))
     },
-    unfollow(id) {
+    unfollow (id) {
       this.loading = true
       this.$axios
         .put(`/users/offices/${id}/following?action=unfollow`)
@@ -89,7 +89,7 @@ export default {
           this.$auth.fetchUser()
         })
     },
-    head() {
+    head () {
       return {
         title: 'Follows'
       }

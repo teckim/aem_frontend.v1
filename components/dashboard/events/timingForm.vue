@@ -21,7 +21,7 @@
             :close-on-content-click="false"
             :nudge-right="40"
           >
-            <template v-slot:activator="{ on }">
+            <template #activator="{ on }">
               <v-text-field
                 :value="startDateFormated"
                 name="start-date"
@@ -31,14 +31,14 @@
                 readonly
                 :rules="vStartDate"
                 v-on="on"
-              ></v-text-field>
+              />
             </template>
             <v-date-picker
               v-model="startDate"
               color="main ligthen-2"
               @input="startDateMenu = false"
               @change="endDate = startDate"
-            ></v-date-picker>
+            />
           </v-menu>
         </v-col>
         <v-col cols="12" md="2" sm="4">
@@ -52,7 +52,7 @@
             :nudge-right="40"
             :return-value.sync="startTime"
           >
-            <template v-slot:activator="{ on }">
+            <template #activator="{ on }">
               <v-text-field
                 :value="startTime"
                 name="start-time"
@@ -63,14 +63,14 @@
                 validate-on-blur
                 :rules="vStartTime"
                 v-on="on"
-              ></v-text-field>
+              />
             </template>
             <v-time-picker
               v-model="startTime"
               color="main ligthen-2"
               format="24hr"
               @click:minute="$refs.startTimeMenu.save(startTime)"
-            ></v-time-picker>
+            />
           </v-menu>
         </v-col>
         <v-col cols="12" md="4" sm="8">
@@ -82,7 +82,7 @@
             :close-on-content-click="false"
             :nudge-right="40"
           >
-            <template v-slot:activator="{ on }">
+            <template #activator="{ on }">
               <v-text-field
                 :value="endDateFormated"
                 name="end-date"
@@ -92,13 +92,13 @@
                 readonly
                 :rules="vEndDate"
                 v-on="on"
-              ></v-text-field>
+              />
             </template>
             <v-date-picker
               v-model="endDate"
               color="main ligthen-2"
               @input="endDateMenu = false"
-            ></v-date-picker>
+            />
           </v-menu>
         </v-col>
         <v-col cols="12" md="2" sm="4">
@@ -112,7 +112,7 @@
             :nudge-right="40"
             :return-value.sync="endTime"
           >
-            <template v-slot:activator="{ on }">
+            <template #activator="{ on }">
               <v-text-field
                 :value="endTime"
                 name="end-time"
@@ -123,14 +123,14 @@
                 validate-on-blur
                 :rules="vEndTime"
                 v-on="on"
-              ></v-text-field>
+              />
             </template>
             <v-time-picker
               v-model="endTime"
               color="main ligthen-2"
               format="24hr"
               @click:minute="$refs.endTimeMenu.save(endTime)"
-            ></v-time-picker>
+            />
           </v-menu>
         </v-col>
       </v-row>
@@ -151,7 +151,9 @@
       @click="submit"
     >
       <span>next</span>
-      <v-icon right>mdi-arrow-right</v-icon>
+      <v-icon right>
+        mdi-arrow-right
+      </v-icon>
     </v-btn>
   </v-card>
 </template>
@@ -187,15 +189,15 @@ export default {
     ...timing
   }),
   computed: {
-    startDateFormated() {
+    startDateFormated () {
       return this.formatDate(this.startDate)
     },
-    endDateFormated() {
+    endDateFormated () {
       return this.formatDate(this.endDate)
     }
   },
   watch: {
-    data(v) {
+    data (v) {
       if (v) {
         const startDate = moment(v.startsOn).format()
         const endDate = moment(v.endsOn).format()
@@ -206,7 +208,7 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     if (this.data) {
       const startDate = moment(this.data.startsOn).format()
       const endDate = moment(this.data.endsOn).format()
@@ -217,10 +219,10 @@ export default {
     }
   },
   methods: {
-    formatDate(date) {
+    formatDate (date) {
       return date ? moment(date).format('dddd, MMM D, YYYY') : ''
     },
-    submit() {
+    submit () {
       if (this.validate()) {
         const data = {
           startsOn: new Date(
@@ -235,7 +237,7 @@ export default {
         this.$emit('submit', data)
       }
     },
-    update() {
+    update () {
       if (this.validate()) {
         const data = {
           startsOn: new Date(
@@ -250,7 +252,7 @@ export default {
         this.$emit('update', data)
       }
     },
-    validate() {
+    validate () {
       let valid = false
       if (this.$refs.timingForm.validate()) {
         const data = {
@@ -273,7 +275,7 @@ export default {
       }
       return valid
     },
-    showError(msg) {
+    showError (msg) {
       this.$store.dispatch('snackbar', {
         text: msg,
         color: 'error',

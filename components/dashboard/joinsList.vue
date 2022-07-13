@@ -64,12 +64,12 @@
                 class="v-btn--plain"
                 :ripple="false"
                 @click="showDetails(i)"
-              ></v-btn>
+              />
             </div>
           </v-row>
           <v-slide-x-reverse-transition hide-on-leave>
             <div v-show="details === i">
-              <v-divider></v-divider>
+              <v-divider />
               <v-card flat tile class="body-2 px-4 py-3">
                 <table>
                   <tbody>
@@ -104,9 +104,13 @@
                           :href="`mailto:${join.user.email}`"
                         >
                           send
-                          <v-icon small right>mdi-send-circle-outline</v-icon>
+                          <v-icon small right>
+                            mdi-send-circle-outline
+                          </v-icon>
                         </v-btn>
-                        <v-icon v-else small>mdi-alert-circle-outline</v-icon>
+                        <v-icon v-else small>
+                          mdi-alert-circle-outline
+                        </v-icon>
                       </td>
                     </tr>
                     <tr>
@@ -123,7 +127,9 @@
                           :href="`tel:${phoneNum(join.user.phone)}`"
                         >
                           call
-                          <v-icon small right>mdi-phone-outline</v-icon>
+                          <v-icon small right>
+                            mdi-phone-outline
+                          </v-icon>
                         </v-btn>
                       </td>
                     </tr>
@@ -174,12 +180,16 @@
           </v-slide-x-reverse-transition>
         </div>
         <div v-else class="pl-4 py-4">
-          <div class="title">User deleted</div>
+          <div class="title">
+            User deleted
+          </div>
         </div>
       </v-card>
       <div v-show="!loading && !!items.length" class="text-center py-5">
         <v-btn rounded text color="primary" @click="$emit('loadMore')">
-          <v-icon left>mdi-chevron-down</v-icon>
+          <v-icon left>
+            mdi-chevron-down
+          </v-icon>
           load more
         </v-btn>
       </div>
@@ -197,7 +207,7 @@
             ref="skeleton"
             type="list-item-two-line"
             class="mx-auto"
-          ></v-skeleton-loader>
+          />
         </v-responsive>
       </v-card>
     </div>
@@ -230,16 +240,15 @@ export default {
     details: ''
   }),
   methods: {
-    phoneNum(num) {
+    phoneNum (num) {
       num = num.replace('(', '+')
       num = num.replace(')', ' ')
       return num
     },
-    showDetails(id) {
-      if (this.details === id) this.details = ''
-      else this.details = id
+    showDetails (id) {
+      if (this.details === id) { this.details = '' } else { this.details = id }
     },
-    onClickOutside(event) {
+    onClickOutside (event) {
       this.actionBtns = null
     }
   }

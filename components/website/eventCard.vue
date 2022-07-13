@@ -16,7 +16,9 @@
       <v-card-title class="pa-0">
         <div style="width: 100%">
           <div class="office">
-            <div class="body-2">{{ item.office.name + ' Team' }}</div>
+            <div class="body-2">
+              {{ item.office.name + ' Team' }}
+            </div>
             <div class="overline">
               {{ item.office.province + ' - ' + item.office.country }}
             </div>
@@ -30,8 +32,8 @@
     <div>
       <v-card-title>
         <div>
-          <div class="main--text body-1 font-weight-bold" v-text="date"></div>
-          <div v-text="item.subject"></div>
+          <div class="main--text body-1 font-weight-bold" v-text="date" />
+          <div v-text="item.subject" />
         </div>
       </v-card-title>
       <!-- <v-card-text>
@@ -54,8 +56,8 @@
       <span v-if="item.price">
         <span
           v-text="item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')"
-        ></span>
-        <span class="overline" v-text="item.office.currency"></span>
+        />
+        <span class="overline" v-text="item.office.currency" />
       </span>
       <span v-else>Free</span>
       <!-- <span class="font-weight-black">Free</span> -->
@@ -73,8 +75,8 @@ export default {
     }
   },
   computed: {
-    date() {
-      if (!this.item) return null
+    date () {
+      if (!this.item) { return null }
       return moment(this.item.startsOn).format('ddd, MMM D, HH:mm')
     }
   }

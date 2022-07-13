@@ -2,12 +2,14 @@
   <div>
     <v-row justify="space-between" align="center" no-gutters>
       <div class="py-2">
-        <div class="headline">Manage join requests</div>
+        <div class="headline">
+          Manage join requests
+        </div>
         <div
           v-if="joins && joins.length"
           class="subtitle text--secondary"
           v-text="joins.length + ' requests'"
-        ></div>
+        />
       </div>
       <!-- <v-btn rounded color="main white--text">
         <span class="pr-4">scan</span>
@@ -59,20 +61,20 @@ export default {
     }
   }),
   computed: {
-    pageNum() {
+    pageNum () {
       return this.query.page
     }
   },
   watch: {
-    pageNum(v) {
+    pageNum (v) {
       this.getJoins()
     }
   },
-  mounted() {
+  mounted () {
     this.getJoins()
   },
   methods: {
-    getJoins(re = false) {
+    getJoins (re = false) {
       if (re) {
         this.joins = []
         this.query.page = 1
@@ -87,11 +89,11 @@ export default {
         })
         .finally(() => (this.loadingJoins = false))
     },
-    accept(email) {
+    accept (email) {
       this.email = email
       this.addDialog = true
     },
-    remove(id) {
+    remove (id) {
       this.$axios.delete(`/joins/${id}`).then(() => {
         this.$store.dispatch('snackbar', {
           text: 'Join request deleted successfully',

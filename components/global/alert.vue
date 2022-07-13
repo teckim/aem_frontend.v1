@@ -6,8 +6,9 @@
       text
       dismissible
       class="alert-container"
-      >{{ alert.message || 'test' }}</v-alert
     >
+      {{ alert.message || 'test' }}
+    </v-alert>
   </div>
 </template>
 

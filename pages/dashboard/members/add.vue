@@ -2,7 +2,9 @@
   <div>
     <v-row justify="space-between" align="center" no-gutters>
       <div class="py-2">
-        <div class="headline">Add members</div>
+        <div class="headline">
+          Add members
+        </div>
       </div>
       <!-- <v-btn rounded color="main white--text">
         <span class="pr-4">scan</span>

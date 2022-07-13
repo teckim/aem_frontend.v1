@@ -16,7 +16,7 @@
               (v) => (v || '').length <= 30 || 'max characters 30'
             ]"
             required
-          ></v-text-field>
+          />
         </v-col>
       </v-row>
       <v-row dense>
@@ -37,10 +37,10 @@
             item-value="_id"
             required
           >
-            <template v-slot:item="{ item }">
+            <template #item="{ item }">
               <v-list-item-content>
-                <v-list-item-title v-text="item.email"></v-list-item-title>
-                <v-list-item-subtitle v-text="item.role"></v-list-item-subtitle>
+                <v-list-item-title v-text="item.email" />
+                <v-list-item-subtitle v-text="item.role" />
               </v-list-item-content>
             </template>
           </v-autocomplete>
@@ -60,7 +60,7 @@
             ]"
             required
             @change="getCurrency()"
-          ></v-text-field>
+          />
         </v-col>
         <v-col cols="10" sm="5">
           <v-text-field
@@ -76,8 +76,7 @@
               (v) => (v || '').length <= 20 || 'max characters 20'
             ]"
             required
-          >
-          </v-text-field>
+          />
         </v-col>
         <v-col cols="2" sm="2">
           <v-text-field
@@ -98,7 +97,7 @@
                 ? (office.currency = office.currency.toUpperCase())
                 : ''
             "
-          ></v-text-field>
+          />
         </v-col>
       </v-row>
     </div>
@@ -127,7 +126,7 @@ export default {
     loading: false
   }),
   watch: {
-    qr(val) {
+    qr (val) {
       if (val) {
         clearTimeout(this.timer)
         this.timer = setTimeout(() => {
@@ -135,44 +134,42 @@ export default {
         }, 1000)
       }
     },
-    data(v) {
+    data (v) {
       if (v) {
         Object.assign(this.office, v)
         this.users = v.admins
       }
     }
   },
-  mounted() {
+  mounted () {
     if (this.data) {
       Object.assign(this.office, this.data)
       this.users = this.data.admins
     }
   },
   methods: {
-    validate() {
+    validate () {
       return this.$refs.form.validate()
     },
-    reset() {
+    reset () {
       this.$refs.form.reset()
     },
-    getOfficeAdmin(email) {
+    getOfficeAdmin (email) {
       this.loading = true
       this.$axios
         .get(`/users/${email}`)
         .then(({ data }) => {
-          if (data.user) this.users = [data.user]
+          if (data.user) { this.users = [data.user] }
         })
         .finally(() => (this.loading = false))
     },
-    getCurrency() {
+    getCurrency () {
       if (this.office.country) {
         const url = `https://restcountries.eu/rest/v2/name/${this.office.country}`
         fetch(url)
-          .then((result) => result.json())
+          .then(result => result.json())
           .then((countries) => {
-            if (countries[0])
-              this.office.currency = countries[0].currencies[0].code
-            else this.office.currency = ''
+            if (countries[0]) { this.office.currency = countries[0].currencies[0].code } else { this.office.currency = '' }
           })
       }
     }

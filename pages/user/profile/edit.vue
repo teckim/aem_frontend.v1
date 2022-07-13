@@ -9,7 +9,9 @@
         @click="update"
       >
         <span class="pr-4">save</span>
-        <v-icon right>mdi-arrow-right</v-icon>
+        <v-icon right>
+          mdi-arrow-right
+        </v-icon>
       </v-btn>
     </v-row>
     <v-card elevation="3" class="mt-8">
@@ -50,7 +52,9 @@
                 class="d-inline"
                 @click="changeEmailDialog = true"
               >
-                <v-icon small>mdi-pencil-outline</v-icon>
+                <v-icon small>
+                  mdi-pencil-outline
+                </v-icon>
               </v-btn>
             </v-col>
           </v-row>
@@ -63,7 +67,9 @@
     <v-card elevation="3" class="mt-6" :loading="loading" :disabled="loading">
       <v-card-text>
         <v-responsive width="500">
-          <v-row no-gutters class="title black--text mt-4">Personal</v-row>
+          <v-row no-gutters class="title black--text mt-4">
+            Personal
+          </v-row>
           <v-form ref="editProfileForm" v-model="valid" lazy-validation>
             <div class="pl-3">
               <v-row no-gutters>
@@ -76,7 +82,7 @@
                     label="First name"
                     :rules="vRegFirstName"
                     @blur="user.first = user.first.replace(/\s{2,}/g, ' ')"
-                  ></v-text-field>
+                  />
                 </v-col>
                 <v-col cols="6">
                   <v-text-field
@@ -87,7 +93,7 @@
                     label="Last name"
                     :rules="vRegLastName"
                     @blur="user.last = user.last.replace(/\s{2,}/g, ' ')"
-                  ></v-text-field>
+                  />
                 </v-col>
               </v-row>
               <v-row no-gutters>
@@ -101,7 +107,7 @@
                     hint="country code"
                     persistent-hint
                     :rules="vRegPhonePrefix"
-                  ></v-text-field>
+                  />
                 </v-col>
                 <v-col>
                   <v-text-field
@@ -112,10 +118,12 @@
                     label="Phone number"
                     :prefix="'+' + user.prefix"
                     :rules="vRegPhone"
-                  ></v-text-field>
+                  />
                 </v-col>
               </v-row>
-              <div class="mt-4 caption">Gender</div>
+              <div class="mt-4 caption">
+                Gender
+              </div>
               <v-radio-group
                 v-model="user.gender"
                 validate-on-blur
@@ -129,15 +137,17 @@
                   color="main lighten-2"
                   label="Male"
                   value="M"
-                ></v-radio>
+                />
                 <v-radio
                   color="main lighten-2"
                   label="Female"
                   value="F"
-                ></v-radio>
+                />
               </v-radio-group>
             </div>
-            <v-row no-gutters class="title black--text mt-8">Details</v-row>
+            <v-row no-gutters class="title black--text mt-8">
+              Details
+            </v-row>
             <div class="pl-3">
               <v-menu
                 ref="menu"
@@ -147,7 +157,7 @@
                 min-width="290px"
                 :close-on-content-click="false"
               >
-                <template v-slot:activator="{ on }">
+                <template #activator="{ on }">
                   <v-text-field
                     v-model="bDay"
                     readonly
@@ -156,7 +166,7 @@
                     name="b_day"
                     label="Birthday date"
                     v-on="on"
-                  ></v-text-field>
+                  />
                 </template>
                 <v-date-picker
                   ref="picker"
@@ -165,7 +175,7 @@
                   min="1950-01-01"
                   :max="new Date().toISOString().substr(0, 10)"
                   @change="save"
-                ></v-date-picker>
+                />
               </v-menu>
               <v-autocomplete
                 v-model="user.major"
@@ -176,8 +186,10 @@
                 item-color="main"
                 :rules="vRegMajor"
                 :items="disciplines"
-              ></v-autocomplete>
-              <div class="mt-4 caption">State</div>
+              />
+              <div class="mt-4 caption">
+                State
+              </div>
               <v-radio-group
                 v-model="user.student"
                 validate-on-blur
@@ -191,13 +203,13 @@
                   label="Student"
                   :value="true"
                   name="state"
-                ></v-radio>
+                />
                 <v-radio
                   color="main lighten-2"
                   label="Professional"
                   :value="false"
                   name="state"
-                ></v-radio>
+                />
               </v-radio-group>
             </div>
             <v-row
@@ -219,7 +231,7 @@
                 color="main"
                 class="mt-0"
                 :label="user.subscribed ? 'Subscribed' : 'Unsubscribed'"
-              ></v-switch>
+              />
             </div>
           </v-form>
           <v-row
@@ -243,10 +255,12 @@
               :rules="vLogPassword"
               @keyup.enter.native="removeDialog = true"
             >
-              <template v-slot:append>
-                <v-icon small @click="showPass = !showPass">{{
-                  showPass ? 'mdi-eye' : 'mdi-eye-off'
-                }}</v-icon>
+              <template #append>
+                <v-icon small @click="showPass = !showPass">
+                  {{
+                    showPass ? 'mdi-eye' : 'mdi-eye-off'
+                  }}
+                </v-icon>
               </template>
             </v-text-field>
             <v-btn
@@ -255,7 +269,9 @@
               :loading="deleting"
               @click="removeDialog = true"
             >
-              <v-icon left>mdi-delete</v-icon> delete account
+              <v-icon left>
+                mdi-delete
+              </v-icon> delete account
             </v-btn>
           </div>
         </v-responsive>
@@ -295,11 +311,11 @@ import disciplines from '~/plugins/disciplines'
 import remove from '~/components/global/remove'
 
 export default {
-  layout: 'user',
   components: {
     changeEmail,
     remove
   },
+  layout: 'user',
   data: () => ({
     user: {
       first: '',
@@ -324,41 +340,44 @@ export default {
     ...disciplines,
     ...validators
   }),
+  head () {
+    return { title: 'Edit profile' }
+  },
   computed: {
-    role() {
+    role () {
       const role = this.$auth.user.role
-      if (!role) return ''
+      if (!role) { return '' }
       return role.slice(0, 6) + ' ' + role.slice(6)
     },
-    bDay() {
+    bDay () {
       return this.user.b_day
         ? moment(this.user.b_day).format('MMM D, YYYY')
         : ''
     },
-    changed() {
+    changed () {
       return !!diff(this.orgUser, this.user)
     },
-    hash() {
+    hash () {
       return this.$route.hash
     }
   },
   watch: {
-    menu(val) {
+    menu (val) {
       val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'))
     },
-    hash(val) {
-      if (val === '#email') this.changeEmailDialog = true
+    hash (val) {
+      if (val === '#email') { this.changeEmailDialog = true }
     }
   },
-  mounted() {
+  mounted () {
     this.init(this.$auth.user)
-    if (this.hash === '#email') this.changeEmailDialog = true
+    if (this.hash === '#email') { this.changeEmailDialog = true }
   },
   methods: {
-    save(date) {
+    save (date) {
       this.$refs.menu.save(date)
     },
-    init(user) {
+    init (user) {
       this.user = {
         first: user.first,
         last: user.last,
@@ -372,7 +391,7 @@ export default {
       }
       this.orgUser = { ...this.user }
     },
-    update() {
+    update () {
       this.loading = true
       const user = JSON.parse(JSON.stringify(this.user))
       user.phone = '(' + this.user.prefix + ')' + user.phone
@@ -388,11 +407,11 @@ export default {
         })
         .finally(() => (this.loading = false))
     },
-    updated() {
+    updated () {
       this.$router.push({ hash: null })
       this.changeEmailDialog = false
     },
-    deleteAccount() {
+    deleteAccount () {
       this.removeDialog = false
       this.deleting = true
       this.$axios
@@ -400,9 +419,6 @@ export default {
         .then(() => this.$auth.logout())
         .finally(() => (this.deleting = false))
     }
-  },
-  head() {
-    return { title: 'Edit profile' }
   }
 }
 </script>

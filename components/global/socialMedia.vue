@@ -10,7 +10,9 @@
       class="plain"
       :style="`opacity: ${opacity}`"
     >
-      <v-icon size="24" :color="color">{{ item.icon }}</v-icon>
+      <v-icon size="24" :color="color">
+        {{ item.icon }}
+      </v-icon>
     </v-btn>
   </div>
 </template>

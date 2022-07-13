@@ -7,19 +7,19 @@ const state = () => ({
 })
 
 const actions = {
-  alert({ commit }, payload) {
+  alert ({ commit }, payload) {
     commit('alert', payload)
   },
-  snackbar({ commit }, payload) {
+  snackbar ({ commit }, payload) {
     commit('snackbar', payload)
   }
 }
 
 const mutations = {
-  alert(state, payload) {
+  alert (state, payload) {
     state.alert = payload
   },
-  snackbar(state, payload) {
+  snackbar (state, payload) {
     payload.showing = true
     payload.timeout = payload.timeout || 6000
     state.snackbar = payload

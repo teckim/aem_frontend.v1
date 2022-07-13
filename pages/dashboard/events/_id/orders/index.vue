@@ -2,12 +2,14 @@
   <div>
     <v-row justify="space-between" align="center" no-gutters>
       <div class="py-2">
-        <div class="headline">Manage participants</div>
+        <div class="headline">
+          Manage participants
+        </div>
         <div
           class="d-inline-block text-truncate subtitle text--secondary"
           style="max-width: 200px;"
           v-text="event && `${event.subject}, ${moment(event.startsOn).from()}`"
-        ></div>
+        />
       </div>
       <div>
         <v-btn
@@ -18,7 +20,9 @@
           @click="createCSV(orders)"
         >
           CSV
-          <v-icon right>mdi-file-export-outline</v-icon>
+          <v-icon right>
+            mdi-file-export-outline
+          </v-icon>
         </v-btn>
         <v-btn
           rounded
@@ -27,7 +31,9 @@
           @click="scan"
         >
           <span class="pr-4">scan</span>
-          <v-icon right>mdi-qrcode-scan</v-icon>
+          <v-icon right>
+            mdi-qrcode-scan
+          </v-icon>
         </v-btn>
       </div>
     </v-row>
@@ -49,7 +55,7 @@
             <event-insight :data="{ event, orders }" />
           </div>
         </v-slide-x-transition>
-        <v-divider class="mb-4"></v-divider>
+        <v-divider class="mb-4" />
         <v-card flat outlined>
           <v-row class="px-4">
             <v-col cols="12" sm="5" md="4">
@@ -59,7 +65,7 @@
                 hide-details
                 class="my-0"
                 label="assign table on check in"
-              ></v-checkbox>
+              />
             </v-col>
             <v-col cols="5" sm="3" md="2">
               <v-text-field
@@ -73,7 +79,7 @@
                 label="Tables number"
                 :disabled="!assignTables"
                 :rules="[(v) => v >= 0 || 'Positive only']"
-              ></v-text-field>
+              />
             </v-col>
             <v-col cols="5" sm="3" md="2">
               <v-text-field
@@ -87,7 +93,7 @@
                 label="Participants per table"
                 :disabled="!assignTables"
                 :rules="[(v) => v >= 0 || 'Positive only']"
-              ></v-text-field>
+              />
             </v-col>
           </v-row>
         </v-card>
@@ -170,48 +176,53 @@ export default {
       limit: 100
     }
   }),
+  head () {
+    return {
+      title: 'Manage tickets'
+    }
+  },
   computed: {
-    role() {
+    role () {
       return this.$auth.user.role
     },
-    eventId() {
+    eventId () {
       return this.$route.params.id
     },
-    pageNum() {
+    pageNum () {
       return this.query.page
     },
-    birthDays() {
-      if (!this.orders) return null
+    birthDays () {
+      if (!this.orders) { return null }
       const bDays = []
       this.orders.forEach((order) => {
-        if (order.user && order.user.isBirthday) bDays.push(order.user)
+        if (order.user && order.user.isBirthday) { bDays.push(order.user) }
       })
       return bDays
     }
   },
   watch: {
-    pageNum(v) {
+    pageNum (v) {
       this.getOrders()
     },
-    checkInError(v) {
+    checkInError (v) {
       if (v) {
-        if (this.timeout) clearTimeout(this.timeout)
+        if (this.timeout) { clearTimeout(this.timeout) }
         this.timeout = setTimeout(() => {
           this.checkInError = ''
         }, 5000)
       }
     },
-    orders(v) {
+    orders (v) {
       this.tables = Math.ceil(v.length / 5)
       this.partPerTable = 5
     }
   },
-  mounted() {
+  mounted () {
     this.getEvent(this.eventId)
     this.getOrders()
   },
   methods: {
-    getOrders(re = false) {
+    getOrders (re = false) {
       if (re) {
         this.orders = []
         this.query.page = 1
@@ -226,17 +237,17 @@ export default {
         })
         .finally(() => (this.loadingOrders = false))
     },
-    getEvent(id) {
+    getEvent (id) {
       this.$axios.get(`/events/${id}`).then(({ data }) => {
         this.event = data
       })
     },
-    scan() {
+    scan () {
       this.order = null
       this.scanDialog = true
     },
-    findOrderIndexById(id) {
-      if (!this.orders) return -1
+    findOrderIndexById (id) {
+      if (!this.orders) { return -1 }
 
       let index = -1
       for (let i = 0; i < this.orders.length; i++) {
@@ -249,7 +260,7 @@ export default {
       }
       return index
     },
-    checkIn(id) {
+    checkIn (id) {
       let index
       if (typeof id === 'string') {
         this.checkInError = ''
@@ -282,11 +293,11 @@ export default {
         })
         .catch(() => (this.order.checkedIn = false))
     },
-    checkOut(id) {
+    checkOut (id) {
       let index
       if (typeof id === 'string') {
         index = this.findOrderIndexById(id)
-        if (index === -1) return null
+        if (index === -1) { return null }
       } else {
         index = id
       }
@@ -298,11 +309,11 @@ export default {
         )
         .catch(() => (this.orders[index].checkedIn = true))
     },
-    onEdit(i) {
+    onEdit (i) {
       this.order = this.orders[i]
       this.editDialog = true
     },
-    saveEdit(v) {
+    saveEdit (v) {
       this.$axios
         .put(`/orders/${this.order._id}?event=${this.eventId}`, {
           paid: v.payment,
@@ -314,10 +325,10 @@ export default {
           this.editDialog = false
         })
     },
-    createCSV(orders) {
+    createCSV (orders) {
       const csvData = orders
         .map((order) => {
-          if (!order.user) return
+          if (!order.user) { return }
           return [
             order.user.first,
             order.user.last,
@@ -333,21 +344,16 @@ export default {
       link.click()
       this.createExportLoading = false
     },
-    randomTable(orders) {
+    randomTable (orders) {
       let t = 0
       let l = 0
       let n = Number
       do {
         t++
         n = Math.floor(Math.random() * this.tables)
-        l = orders.filter((d) => d.table === n + 1).length
+        l = orders.filter(d => d.table === n + 1).length
       } while (l >= this.partPerTable || t >= this.tables * 10)
       return n + 1
-    }
-  },
-  head() {
-    return {
-      title: 'Manage tickets'
     }
   }
 }

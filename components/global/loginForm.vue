@@ -35,10 +35,14 @@
       </div>
     </v-card-text> -->
     <v-card-title class="py-0">
-      <div class="main--text font-weight-black login-title">LOG IN TO AEM</div>
+      <div class="main--text font-weight-black login-title">
+        LOG IN TO AEM
+      </div>
     </v-card-title>
     <v-card-text>
-      <div class="grey--text">Please login to continue</div>
+      <div class="grey--text">
+        Please login to continue
+      </div>
     </v-card-text>
     <v-card-text>
       <v-form ref="loginForm">
@@ -51,8 +55,7 @@
           :disabled="loading"
           :rules="vLogEmail"
           @keyup.enter.native="!!email && $refs.passField.focus()"
-        >
-        </v-text-field>
+        />
         <v-text-field
           ref="passField"
           v-model="pass"
@@ -65,10 +68,12 @@
           :rules="vLogPassword"
           @keyup.enter.native="login()"
         >
-          <template v-slot:append>
-            <v-icon small @click="showPass = !showPass">{{
-              showPass ? 'mdi-eye' : 'mdi-eye-off'
-            }}</v-icon>
+          <template #append>
+            <v-icon small @click="showPass = !showPass">
+              {{
+                showPass ? 'mdi-eye' : 'mdi-eye-off'
+              }}
+            </v-icon>
           </template>
         </v-text-field>
         <div class="d-flex justify-space-between align-center mt-5">
@@ -82,8 +87,11 @@
               min-width="150"
               :loading="loading"
               @click="login()"
-              ><v-icon left>mdi-chevron-right</v-icon>Log In</v-btn
             >
+              <v-icon left>
+                mdi-chevron-right
+              </v-icon>Log In
+            </v-btn>
           </div>
           <div>
             <a color="primary" @click="forgetPassDialog = true">
@@ -131,7 +139,7 @@ export default {
     vLogPassword: validators.vLogPassword
   }),
   methods: {
-    login() {
+    login () {
       if (this.$refs.loginForm.validate()) {
         const user = {
           email: this.email,

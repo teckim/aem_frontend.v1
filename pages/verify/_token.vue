@@ -2,9 +2,16 @@
   <v-row class="verify-container" justify="center" no-gutters>
     <v-col md="5" cols="12">
       <div class="verify-homeLink">
-        <v-btn tile text to="/" class="main--text"
-          ><v-icon left>mdi-chevron-left</v-icon> home</v-btn
+        <v-btn
+          tile
+          text
+          to="/"
+          class="main--text"
         >
+          <v-icon left>
+            mdi-chevron-left
+          </v-icon> home
+        </v-btn>
       </div>
       <v-card
         flat
@@ -21,11 +28,15 @@
             </v-stepper-content>
             <v-stepper-content step="2">
               <div class="text-center">
-                <v-icon size="100" class="my-5" color="grey lighten-1"
-                  >mdi-emoticon-sad-outline</v-icon
-                ><br />
+                <v-icon
+                  size="100"
+                  class="my-5"
+                  color="grey lighten-1"
+                >
+                  mdi-emoticon-sad-outline
+                </v-icon><br>
                 Seems like your token is
-                <span class="error--text">EXPIRED!,</span><br />
+                <span class="error--text">EXPIRED!,</span><br>
                 but don't worry we can resend you another one, or you can change
                 your email.
                 <div class="mt-5">
@@ -35,7 +46,9 @@
                     color="main"
                     to="/user/profile/edit#email"
                   >
-                    <v-icon left>mdi-pencil-outline</v-icon> change email
+                    <v-icon left>
+                      mdi-pencil-outline
+                    </v-icon> change email
                   </v-btn>
                   <v-btn
                     depressed
@@ -46,18 +59,26 @@
                     class="white--text"
                     @click="resendVerification()"
                   >
-                    <v-icon left color="white">mdi-repeat</v-icon> resned
-                    <span v-show="!!count" v-text="count"></span>
+                    <v-icon left color="white">
+                      mdi-repeat
+                    </v-icon> resned
+                    <span v-show="!!count" v-text="count" />
                   </v-btn>
                 </div>
               </div>
             </v-stepper-content>
             <v-stepper-content step="3" class="text-center">
               <check />
-              <div class="success--text">GREAT! Account verified</div>
-              <div class="body-2 grey--text pb-8">Happy English ^^</div>
+              <div class="success--text">
+                GREAT! Account verified
+              </div>
+              <div class="body-2 grey--text pb-8">
+                Happy English ^^
+              </div>
               <v-btn outlined rounded dark color="main" to="/events">
-                check events <v-icon right>mdi-chevron-right</v-icon>
+                check events <v-icon right>
+                  mdi-chevron-right
+                </v-icon>
               </v-btn>
             </v-stepper-content>
           </v-stepper-items>
@@ -78,10 +99,10 @@
                 <p class="body-2 grey--text text--lighten-4">
                   Thank you for coming this far, after you succeed verifying you
                   email,
-                  <br />
+                  <br>
                   we will be able to stay in touch with you, and letting you
                   updated.
-                  <br /><br />
+                  <br><br>
                   Do you want to check our events?
                 </p>
                 <div class="d-flex align-center">
@@ -92,21 +113,30 @@
                     :to="'/events'"
                     color="white"
                     class="main--text mr-2"
-                    >get started!
-                    <v-icon small right>mdi-arrow-right</v-icon></v-btn
                   >
+                    get started!
+                    <v-icon small right>
+                      mdi-arrow-right
+                    </v-icon>
+                  </v-btn>
                   <social-media :items="socialItems" />
                 </div>
               </div>
               <div class="logo">
-                <v-btn tile text to="/" class="white--text px-6" height="auto"
-                  ><v-img
+                <v-btn
+                  tile
+                  text
+                  to="/"
+                  class="white--text px-6"
+                  height="auto"
+                >
+                  <v-img
                     class="mx-auto"
                     width="7rem"
                     :src="require('@/static/logos/aem-logo-white.png')"
                     alt
-                  ></v-img
-                ></v-btn>
+                  />
+                </v-btn>
               </div>
             </v-col>
           </v-row>
@@ -138,12 +168,12 @@ import socialMedia from '~/components/global/socialMedia'
 import check from '~/components/global/check'
 
 export default {
-  middleware: 'auth-redirect',
-  layout: 'blank',
   components: {
     socialMedia,
     check
   },
+  layout: 'blank',
+  middleware: 'auth-redirect',
   data: () => ({
     loading: false,
     step: 1,
@@ -159,19 +189,22 @@ export default {
       }
     ]
   }),
-  mounted() {
-    if (!this.$route.params.token) this.$router.push('/')
-    else this.verifyAccount(this.$route.params.token)
+  head () {
+    return {
+      title: 'Verify account'
+    }
+  },
+  mounted () {
+    if (!this.$route.params.token) { this.$router.push('/') } else { this.verifyAccount(this.$route.params.token) }
   },
   methods: {
-    verifyAccount(token) {
+    verifyAccount (token) {
       this.loading = true
       this.$axios
         .put(`/users/verify?token=${token}`)
         .then((res) => {
           this.step = 3
-          if (res.status === 200) this.$auth.fetchUser()
-          else if (res.status === 208) {
+          if (res.status === 200) { this.$auth.fetchUser() } else if (res.status === 208) {
             this.$store.dispatch('snackbar', {
               text: 'Account already activated',
               color: 'warning',
@@ -180,11 +213,11 @@ export default {
           }
         })
         .catch((err) => {
-          if (err.response.status === 400) this.step = 2
+          if (err.response.status === 400) { this.step = 2 }
         })
         .finally(() => (this.loading = false))
     },
-    resendVerification() {
+    resendVerification () {
       this.resending = true
       this.$axios
         .get('/users/send-verification')
@@ -207,10 +240,10 @@ export default {
         })
         .finally(() => (this.resending = false))
     },
-    countDown() {
+    countDown () {
       this.count = 60
       const vm = this
-      const interval = setInterval(function() {
+      const interval = setInterval(function () {
         if (vm.count > 0) {
           vm.count--
         } else {
@@ -218,11 +251,6 @@ export default {
           vm.count = 0
         }
       }, 1000)
-    }
-  },
-  head() {
-    return {
-      title: 'Verify account'
     }
   }
 }

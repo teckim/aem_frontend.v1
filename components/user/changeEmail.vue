@@ -3,7 +3,9 @@
     <v-slide-x-transition hide-on-leave>
       <div v-if="!success" key="1">
         <v-card :loading="loading">
-          <v-card-title primary-title>Change email</v-card-title>
+          <v-card-title primary-title>
+            Change email
+          </v-card-title>
           <v-card-subtitle>{{ $auth.user.email }}</v-card-subtitle>
           <v-card-text>
             <v-form ref="updateEmailForm">
@@ -19,10 +21,12 @@
                   :rules="vRegPassword"
                   @click:append="showPass = !showPass"
                 >
-                  <template v-slot:append>
-                    <v-icon small @click="showPass = !showPass">{{
-                      showPass ? 'mdi-eye' : 'mdi-eye-off'
-                    }}</v-icon>
+                  <template #append>
+                    <v-icon small @click="showPass = !showPass">
+                      {{
+                        showPass ? 'mdi-eye' : 'mdi-eye-off'
+                      }}
+                    </v-icon>
                   </template>
                 </v-text-field>
               </v-col>
@@ -35,7 +39,7 @@
                   name="email"
                   label="New email"
                   :rules="vRegEmail"
-                ></v-text-field>
+                />
               </v-col>
             </v-form>
           </v-card-text>
@@ -53,13 +57,13 @@
         <v-card :loading="loading">
           <div class="text-center py-5 px-1">
             <check />
-            <h3 class="success--text pb-2">Email updated</h3>
-            <span class="body-2 grey--text"
-              >We've sent you a verification email that is valid for 24H,
-              <br />
+            <h3 class="success--text pb-2">
+              Email updated
+            </h3>
+            <span class="body-2 grey--text">We've sent you a verification email that is valid for 24H,
+              <br>
               please check your email inbox/spam to reactivate your
-              account.</span
-            ><br />
+              account.</span><br>
             <v-btn
               rounded
               small
@@ -94,7 +98,7 @@ export default {
     ...validators
   }),
   methods: {
-    saveEmail() {
+    saveEmail () {
       if (this.$refs.updateEmailForm.validate()) {
         this.loading = true
         this.$axios

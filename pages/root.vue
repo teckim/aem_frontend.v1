@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  middleware: 'root-auth-redirect',
-  layout: 'root'
+  layout: 'root',
+  middleware: 'root-auth-redirect'
 }
 </script>

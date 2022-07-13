@@ -9,7 +9,7 @@
           upload images to gallery
         </v-card-subtitle>
       </div>
-      <v-spacer></v-spacer>
+      <v-spacer />
       <v-btn
         depressed
         rounded
@@ -30,7 +30,7 @@
       <v-row no-gutters>
         <v-col cols="12" :sm="selectedFile ? '8' : '12'">
           <v-toolbar v-show="selectedFile" height="36" flat>
-            <v-spacer></v-spacer>
+            <v-spacer />
             <v-select
               v-show="!resultSrc"
               v-model="ratio"
@@ -41,7 +41,7 @@
               hide-details
               class="mr-2 float-left"
               style="max-width: 170px"
-            ></v-select>
+            />
             <v-btn
               v-show="!resultSrc"
               small
@@ -63,7 +63,9 @@
                 class="mr-2"
                 @click="resultSrc = null"
               >
-                <v-icon small left>mdi-pencil</v-icon>
+                <v-icon small left>
+                  mdi-pencil
+                </v-icon>
                 <span class="text-none">edit</span>
               </v-btn>
             </div>
@@ -113,7 +115,9 @@
                   :loading="isSelecting"
                   @click="selectFile"
                 >
-                  <v-icon left small>mdi-plus</v-icon>
+                  <v-icon left small>
+                    mdi-plus
+                  </v-icon>
                   <span class="text-none">Add picture</span>
                 </v-btn>
                 <v-btn
@@ -124,7 +128,9 @@
                   color="main"
                   @click="$emit('uploaded', imgName)"
                 >
-                  <v-icon left small>mdi-chevron-right</v-icon>
+                  <v-icon left small>
+                    mdi-chevron-right
+                  </v-icon>
                   <span class="text-none">Continue</span>
                 </v-btn>
               </div>
@@ -135,7 +141,7 @@
               contain
               :max-height="canvasHeight || 'auto'"
               :src="resultSrc || ''"
-            ></v-img>
+            />
           </v-responsive>
         </v-col>
         <v-col v-if="selectedFile" cols="12" sm="4">
@@ -144,19 +150,21 @@
               <tbody>
                 <tr>
                   <td>Name</td>
-                  <td v-text="selectedFile.name"></td>
+                  <td v-text="selectedFile.name" />
                 </tr>
                 <tr>
                   <td>Type</td>
-                  <td v-text="selectedFile.type.split('/')[1]"></td>
+                  <td v-text="selectedFile.type.split('/')[1]" />
                 </tr>
                 <tr>
                   <td>Size</td>
-                  <td v-text="formatBytes(selectedFile.size)"></td>
+                  <td v-text="formatBytes(selectedFile.size)" />
                 </tr>
                 <tr>
-                  <td class="pr-8">Dimention</td>
-                  <td v-text="width + 'x' + height"></td>
+                  <td class="pr-8">
+                    Dimention
+                  </td>
+                  <td v-text="width + 'x' + height" />
                 </tr>
               </tbody>
             </table>
@@ -165,7 +173,7 @@
       </v-row>
     </v-card-text>
     <v-card-actions>
-      <v-spacer></v-spacer>
+      <v-spacer />
       <v-btn text rounded @click="$emit('cancel')">
         cancel
       </v-btn>
@@ -179,7 +187,9 @@
         :disabled="!!progress || !selectedFile"
         @click="uploadFile"
       >
-        <v-icon left>mdi-cloud-upload-outline</v-icon> upload
+        <v-icon left>
+          mdi-cloud-upload-outline
+        </v-icon> upload
       </v-btn>
     </v-card-actions>
     <v-alert
@@ -190,7 +200,7 @@
       :value="!!progress"
     >
       <v-row no-gutters align="center">
-        <v-progress-circular :value="progress"></v-progress-circular>
+        <v-progress-circular :value="progress" />
         <div style="max-width:170px" class="pl-4 text-truncate body-2">
           uploading name.jpeg
         </div>
@@ -202,7 +212,7 @@
       type="file"
       accept="image/*"
       @input="onFileChanged"
-    />
+    >
   </v-card>
 </template>
 
@@ -232,19 +242,19 @@ export default {
     ]
   }),
   watch: {
-    selectedFile(v) {
+    selectedFile (v) {
       if (v) {
         const vm = this
         const reader = new FileReader()
         reader.readAsDataURL(v)
-        reader.onload = function(event) {
+        reader.onload = function (event) {
           const data = reader.result
           vm.src = data
 
           const _URL = window.URL || window.webkitURL
           const img = new Image()
           const objectUrl = _URL.createObjectURL(v)
-          img.onload = function() {
+          img.onload = function () {
             vm.width = this.width
             vm.height = this.height
             _URL.revokeObjectURL(objectUrl)
@@ -257,7 +267,7 @@ export default {
     }
   },
   methods: {
-    selectFile() {
+    selectFile () {
       this.selectedFile = null
       this.imgName = null
       this.isSelecting = true
@@ -271,19 +281,19 @@ export default {
 
       this.$refs.uploader.click()
     },
-    onFileChanged(e) {
+    onFileChanged (e) {
       this.selectedFile = e.target.files[0]
     },
-    preview() {
+    preview () {
       // eslint-disable-next-line no-console
       this.canvasHeight = this.$refs.clipper.$el.clientHeight
       this.canvas = this.$refs.clipper.clip()
       this.resultSrc = this.canvas.toDataURL(this.selectedFile.type)
     },
-    uploadFile() {
+    uploadFile () {
       this.isUploading = true
       // const canvas = this.$refs.clipper.clip()
-      if (!this.canvas) this.canvas = this.$refs.clipper.clip()
+      if (!this.canvas) { this.canvas = this.$refs.clipper.clip() }
       this.canvas.toBlob(
         (blob) => {
           const formData = new FormData()
@@ -308,7 +318,7 @@ export default {
         1
       )
     },
-    resetUpload() {
+    resetUpload () {
       this.src = null
       this.resultSrc = null
       try {
@@ -322,8 +332,8 @@ export default {
         console.error(e)
       }
     },
-    formatBytes(bytes, decimals = 2) {
-      if (bytes === 0) return '0 Bytes'
+    formatBytes (bytes, decimals = 2) {
+      if (bytes === 0) { return '0 Bytes' }
 
       const k = 1024
       const dm = decimals < 0 ? 0 : decimals

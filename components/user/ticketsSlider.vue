@@ -7,13 +7,29 @@
       justify="center"
       align="center"
     >
-      <v-btn depressed text tile x-large @click="$refs.slider.prev()"
-        ><v-icon color="grey">mdi-chevron-left</v-icon></v-btn
+      <v-btn
+        depressed
+        text
+        tile
+        x-large
+        @click="$refs.slider.prev()"
       >
-      <span class="px-4" v-text="index + 1"></span>
-      <v-btn depressed text tile x-large @click="$refs.slider.next()"
-        ><v-icon color="grey">mdi-chevron-right</v-icon></v-btn
+        <v-icon color="grey">
+          mdi-chevron-left
+        </v-icon>
+      </v-btn>
+      <span class="px-4" v-text="index + 1" />
+      <v-btn
+        depressed
+        text
+        tile
+        x-large
+        @click="$refs.slider.next()"
       >
+        <v-icon color="grey">
+          mdi-chevron-right
+        </v-icon>
+      </v-btn>
     </v-row>
     <v-carousel
       v-if="(items || []).length"
@@ -52,7 +68,7 @@
             height="150"
             tile
             type="image"
-          ></v-skeleton-loader>
+          />
         </div>
       </v-row>
       <div>
@@ -60,32 +76,36 @@
           type="list-item-two-line"
           max-height="50"
           max-width="270"
-        ></v-skeleton-loader>
+        />
         <v-skeleton-loader
           type="list-item-two-line"
           max-height="50"
           max-width="140"
-        ></v-skeleton-loader>
+        />
         <v-skeleton-loader
           type="list-item-two-line"
           max-height="50"
           max-width="270"
-        ></v-skeleton-loader>
+        />
         <v-skeleton-loader
           type="list-item-two-line"
           max-height="50"
           max-width="120"
-        ></v-skeleton-loader>
+        />
       </div>
     </v-card>
     <v-card v-else tile flat min-height="200" width="100%">
       <v-row class="fill-height text-center flex-column" justify="center">
         <div class="mb-4">
-          <v-icon size="80">mdi-emoticon-sad-outline</v-icon>
+          <v-icon size="80">
+            mdi-emoticon-sad-outline
+          </v-icon>
         </div>
         <div>
-          It seems that you dont have any ticket yet <br />
-          check <nuxt-link to="/events">events</nuxt-link> to get a ticket
+          It seems that you dont have any ticket yet <br>
+          check <nuxt-link to="/events">
+            events
+          </nuxt-link> to get a ticket
         </div>
       </v-row>
     </v-card>

@@ -27,11 +27,11 @@
           >
             <v-card-title>
               <div>
-                <div v-text="office.name"></div>
+                <div v-text="office.name" />
                 <div
                   class="overline"
                   v-text="office.province + '' + office.country"
-                ></div>
+                />
               </div>
             </v-card-title>
           </v-card>
@@ -49,7 +49,7 @@
                   ref="skeleton"
                   type="list-item-two-line"
                   class="mx-auto"
-                ></v-skeleton-loader>
+                />
               </v-responsive>
             </v-card>
           </div>
@@ -71,7 +71,7 @@
               clearable
               label="positions"
               :items="office.tasks"
-            ></v-select>
+            />
           </v-form>
         </v-card-text>
         <v-card-actions class="justify-end">
@@ -106,29 +106,29 @@ export default {
     joinDialog: false
   }),
   watch: {
-    office(v) {
+    office (v) {
       if (v) {
         this.joinDialog = true
       }
     },
-    joinDialog(v) {
-      if (!v) this.office = null
+    joinDialog (v) {
+      if (!v) { this.office = null }
     }
   },
-  mounted() {
+  mounted () {
     this.getOffices()
   },
   methods: {
-    getOffices() {
+    getOffices () {
       this.$axios
         .get('/offices?vacant=true')
         .then(({ data }) => (this.offices = data.offices))
         .finally(() => (this.loading = false))
     },
-    select(i) {
+    select (i) {
       this.office = this.offices[i]
     },
-    save() {
+    save () {
       this.saving = true
       this.$axios
         .post('/joins', { position: this.position, office: this.office._id })
@@ -142,7 +142,7 @@ export default {
         })
         .finally(() => (this.saving = false))
     },
-    head() {
+    head () {
       return {
         title: 'Join a team'
       }

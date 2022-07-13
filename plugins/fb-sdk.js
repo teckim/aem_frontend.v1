@@ -2,8 +2,8 @@
 import Vue from 'vue'
 
 const vueFB = {}
-vueFB.install = function install(Vue, options) {
-  ;(function(d, s, id) {
+vueFB.install = function install (Vue, options) {
+  ;(function (d, s, id) {
     let js = d.getElementsByTagName(s)[0]
     const fjs = js
     if (d.getElementById(id)) {
@@ -15,7 +15,7 @@ vueFB.install = function install(Vue, options) {
     fjs.parentNode.insertBefore(js, fjs)
   })(document, 'script', 'facebook-jssdk')
 
-  window.fbAsyncInit = function onSDKInit() {
+  window.fbAsyncInit = function onSDKInit () {
     FB.init(options)
     // FB.AppEvents.logPageView()
     Vue.FB = FB

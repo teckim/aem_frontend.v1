@@ -14,7 +14,7 @@
               :width="5"
               color="main"
               indeterminate
-            ></v-progress-circular>
+            />
           </div>
           <div class="text-center">
             One moment please...
@@ -22,9 +22,13 @@
         </v-stepper-content>
         <v-stepper-content step="2">
           <div class="text-center">
-            <v-icon size="100" class="my-5" color="grey lighten-1"
-              >mdi-emoticon-sad-outline</v-icon
-            ><br />
+            <v-icon
+              size="100"
+              class="my-5"
+              color="grey lighten-1"
+            >
+              mdi-emoticon-sad-outline
+            </v-icon><br>
             No subscribed email was found
           </div>
         </v-stepper-content>
@@ -33,7 +37,9 @@
           <div class="success--text">
             Succefully unsubscribed, {{ user && user.email }}
           </div>
-          <div class="body-2 grey--text pb-8">Unsubscribed by mistake</div>
+          <div class="body-2 grey--text pb-8">
+            Unsubscribed by mistake
+          </div>
           <v-btn outlined rounded dark color="main" @click="subscribe">
             subscribe again
           </v-btn>
@@ -67,14 +73,18 @@ export default {
     step: 1,
     resending: false
   }),
-  mounted() {
+  head () {
+    return {
+      title: 'Unsubscribe'
+    }
+  },
+  mounted () {
     this.eid = this.$route.query.eid
     this.id = this.$route.query.id
-    if (!this.eid || !this.id) this.step = 2
-    else this.unsubscribe()
+    if (!this.eid || !this.id) { this.step = 2 } else { this.unsubscribe() }
   },
   methods: {
-    unsubscribe() {
+    unsubscribe () {
       this.$axios
         .put('users/subscription', {
           eid: this.eid,
@@ -89,7 +99,7 @@ export default {
           this.step = 2
         })
     },
-    subscribe() {
+    subscribe () {
       this.$axios
         .put('users/subscription', {
           eid: this.eid,
@@ -100,11 +110,6 @@ export default {
           this.step = 4
           this.user = data
         })
-    }
-  },
-  head() {
-    return {
-      title: 'Unsubscribe'
     }
   }
 }

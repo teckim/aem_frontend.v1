@@ -2,9 +2,16 @@
   <v-row class="login-container" justify="center" no-gutters>
     <v-col md="5" cols="12" order-md="1" order="2">
       <div class="login-homeLink">
-        <v-btn tile text to="/" class="main--text"
-          ><v-icon left>mdi-chevron-left</v-icon> home</v-btn
+        <v-btn
+          tile
+          text
+          to="/"
+          class="main--text"
         >
+          <v-icon left>
+            mdi-chevron-left
+          </v-icon> home
+        </v-btn>
       </div>
       <v-card
         flat
@@ -39,9 +46,9 @@
                 <p class="body-2 grey--text text--lighten-4">
                   Welcome to the family where we live English, Enjoy your time
                   while
-                  <br />
+                  <br>
                   your English gets better and better every day.
-                  <br /><br />
+                  <br><br>
                   Don't you have an account yet?
                 </p>
                 <div class="d-flex align-center">
@@ -53,20 +60,29 @@
                     width="150"
                     color="white"
                     class="main--text mr-2"
-                    >sign up <v-icon small right>mdi-arrow-right</v-icon></v-btn
                   >
+                    sign up <v-icon small right>
+                      mdi-arrow-right
+                    </v-icon>
+                  </v-btn>
                   <social-media :items="socialItems" />
                 </div>
               </div>
               <div class="logo">
-                <v-btn tile text to="/" class="white--text px-6" height="auto"
-                  ><v-img
+                <v-btn
+                  tile
+                  text
+                  to="/"
+                  class="white--text px-6"
+                  height="auto"
+                >
+                  <v-img
                     class="mx-auto"
                     width="7rem"
                     :src="require('@/static/logos/aem-logo-white.png')"
                     alt
-                  ></v-img
-                ></v-btn>
+                  />
+                </v-btn>
               </div>
             </v-col>
           </v-row>
@@ -98,11 +114,11 @@ import loginForm from '@/components/global/loginForm'
 import socialMedia from '~/components/global/socialMedia'
 
 export default {
-  layout: 'blank',
   components: {
     loginForm,
     socialMedia
   },
+  layout: 'blank',
   data: () => ({
     loading: false,
     socialItems: [
@@ -116,13 +132,18 @@ export default {
     ],
     from: null
   }),
+  head () {
+    return {
+      title: 'Login'
+    }
+  },
   computed: {
-    to() {
+    to () {
       return this.$route.query.to || ''
     }
   },
-  mounted() {
-    if (this.$auth.loggedIn && !this.$route.query) this.$router.push('/')
+  mounted () {
+    if (this.$auth.loggedIn && !this.$route.query) { this.$router.push('/') }
     if (this.$route.query.s === 'denied') {
       this.$store.dispatch('snackbar', {
         text: 'Access denied, Only admins, Please log in to continue',
@@ -152,25 +173,16 @@ export default {
   //   })
   // },
   methods: {
-    async loginUser(user) {
+    async loginUser (user) {
       this.loading = true
       try {
-        await this.$auth.loginWith('local', {
-          data: { user }
+        await this.$auth.loginWith('laravelJWT', {
+          data: user
         })
-        if (this.to) this.$router.push(this.to)
-        else if (localStorage.getItem('path'))
-          this.$router.push(localStorage.getItem('path'))
-        else if (this.$auth.user.role === 'user') this.$router.push('/user')
-        else this.$router.push('/dashboard')
+        if (this.to) { this.$router.push(this.to) } else if (localStorage.getItem('path')) { this.$router.push(localStorage.getItem('path')) } else if (this.$auth.user.role === 'user') { this.$router.push('/user') } else { this.$router.push('/dashboard') }
       } finally {
         this.loading = false
       }
-    }
-  },
-  head() {
-    return {
-      title: 'Login'
     }
   }
 }

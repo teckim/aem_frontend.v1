@@ -16,7 +16,7 @@
               (v) => (v || '').length <= 30 || 'max characters 30'
             ]"
             required
-          ></v-text-field>
+          />
         </v-col>
       </v-row>
       <v-row dense>
@@ -34,7 +34,7 @@
               (v) => (v || '').length <= 500 || 'max characters 500'
             ]"
             required
-          ></v-textarea>
+          />
         </v-col>
       </v-row>
       <v-row>
@@ -47,7 +47,7 @@
             max-width="500"
             class="mx-auto mt-4"
             :src="$axios.defaults.baseURL + '/images/' + project.image.name"
-          ></v-img>
+          />
         </v-col>
         <v-col v-else>
           <v-responsive min-height="200" class="align-center text-center">
@@ -60,7 +60,9 @@
               class="my-4"
               @click="showMediaGallery"
             >
-              <v-icon left>mdi-image-multiple-outline</v-icon> gallery
+              <v-icon left>
+                mdi-image-multiple-outline
+              </v-icon> gallery
             </v-btn>
             <v-btn
               text
@@ -70,7 +72,9 @@
               class="my-4"
               @click="showMediaUpload"
             >
-              <v-icon left>mdi-cloud-upload-outline</v-icon> upload
+              <v-icon left>
+                mdi-cloud-upload-outline
+              </v-icon> upload
             </v-btn>
           </v-responsive>
         </v-col>
@@ -123,37 +127,37 @@ export default {
     uploadMode: false
   }),
   watch: {
-    data(v) {
+    data (v) {
       if (v) {
         Object.assign(this.project, v)
         // this.project.image.name = v.image.name
       }
     }
   },
-  mounted() {
+  mounted () {
     if (this.data) {
       Object.assign(this.project, this.data)
       // this.project.image.name = this.data.image.name
     }
   },
   methods: {
-    onSelected(image) {
+    onSelected (image) {
       this.project.image.name = image
       this.mediaGallery = false
     },
-    showMediaUpload() {
+    showMediaUpload () {
       this.mediaGallery = true
       this.uploadMode = true
     },
-    showMediaGallery() {
+    showMediaGallery () {
       this.mediaGallery = true
       this.uploadMode = false
     },
-    validate() {
-      if (!this.project.image.name) return false
+    validate () {
+      if (!this.project.image.name) { return false }
       return this.$refs.form.validate()
     },
-    reset() {
+    reset () {
       this.$refs.form.reset()
       this.project.image.name = null
     }

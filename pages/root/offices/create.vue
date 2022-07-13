@@ -4,7 +4,9 @@
       <span class="headline py-2">Create office</span>
       <v-btn rounded dark color="main" :loading="saving" @click="save">
         <span class="pr-4">save</span>
-        <v-icon right>mdi-arrow-right</v-icon>
+        <v-icon right>
+          mdi-arrow-right
+        </v-icon>
       </v-btn>
     </v-row>
     <v-card flat class="mt-12">
@@ -23,8 +25,8 @@ export default {
     saving: false
   }),
   methods: {
-    save() {
-      if (!this.$refs.officeForm.validate()) return
+    save () {
+      if (!this.$refs.officeForm.validate()) { return }
       this.saving = true
       const office = JSON.parse(JSON.stringify(this.$refs.officeForm.office))
       this.$axios

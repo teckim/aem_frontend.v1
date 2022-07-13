@@ -73,28 +73,33 @@ export default {
       limit: 5
     }
   }),
+  head () {
+    return {
+      title: 'Manage events'
+    }
+  },
   computed: {
-    role() {
+    role () {
       return this.$auth.user.role
     },
-    livePageNum() {
+    livePageNum () {
       return this.liveQuery.page
     },
-    pastPageNum() {
+    pastPageNum () {
       return this.pastQuery.page
     }
   },
   watch: {
-    livePageNum(v) {
+    livePageNum (v) {
       this.getLiveEvents()
       // eslint-disable-next-line no-console
       console.log('changed')
     },
-    pastPageNum(v) {
+    pastPageNum (v) {
       this.getPastEvents()
     }
   },
-  mounted() {
+  mounted () {
     this.getLiveEvents()
     this.getPastEvents()
     // this.event.endsOn = res.data.endsOn
@@ -102,7 +107,7 @@ export default {
     // console.log(this.formatRange(this.event.startsOn, this.event.endsOn))
   },
   methods: {
-    getLiveEvents() {
+    getLiveEvents () {
       this.loadingLiveEvents = true
       this.$axios
         .get('/events/office', {
@@ -113,7 +118,7 @@ export default {
         })
         .finally(() => (this.loadingLiveEvents = false))
     },
-    getPastEvents() {
+    getPastEvents () {
       this.loadingPastEvents = true
       this.$axios
         .get('/events/office', {
@@ -124,16 +129,11 @@ export default {
         })
         .finally(() => (this.loadingPastEvents = false))
     },
-    loadMoreLiveEvents() {
+    loadMoreLiveEvents () {
       return null
     },
-    percentage(v, per) {
+    percentage (v, per) {
       return Math.floor((v * 100) / per)
-    }
-  },
-  head() {
-    return {
-      title: 'Manage events'
     }
   }
 }

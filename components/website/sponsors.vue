@@ -14,7 +14,14 @@
       reverse-transition="fade-transition"
       transition="fade-transition"
     >
-      <v-card tile flat light class="transparent" width="100%" height="100%">
+      <v-card
+        tile
+        flat
+        light
+        class="transparent"
+        width="100%"
+        height="100%"
+      >
         <v-row justify="center" align="center" class="flex-colmn fill-height">
           <a
             target="_blank"
@@ -27,7 +34,7 @@
               :src="$axios.defaults.baseURL + '/images/' + item.image"
               :height="height - 50"
               alt=""
-            />
+            >
             <div v-show="name" class="title">{{ item.name }}</div>
             <div v-show="slogan">{{ item.slogan }}</div>
           </a>
