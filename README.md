@@ -1,8 +1,29 @@
-# aemeeting
+`Vue.js` | `Nuxt.js` | `Vuetify.js`<br>
 
-> fun and practical based way to learn English
+# AEM API Project
 
-## Build Setup
+> AEM is a non-profit organization, I built this frontend to make it easy for organizers to manage their events.
+
+## Built With
+
+- Vue.js
+- Nuxt.js
+- Vuetify.js
+
+## Live Demos
+_Not deployed yet_
+
+## Getting Started
+
+**Clone the repo into your local machine.**
+
+
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+`NPM` and `Node.js` should be installed
+
+### Build Setup
 
 ```bash
 # install dependencies
@@ -19,4 +40,16 @@ $ npm run start
 $ npm run generate
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+### Usage
+run `php artisan serve`.
+
+## Authors
+
+👤 **Hakim**
+
+- GitHub: [@teckim](https://github.com/teckim)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/baheddi-hakim/)
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
